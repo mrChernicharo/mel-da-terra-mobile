@@ -10,7 +10,9 @@ export default function BuyButton() {
 
 	const s = buyButtonStyles(theme);
 
-	function handleClick() {}
+	function handleClick() {
+		console.log('clicked');
+	}
 	return (
 		<View style={s.container}>
 			<Button

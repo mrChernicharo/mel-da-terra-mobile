@@ -1,6 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import Main from './src/Main';
+import Routes from './src/routes';
 import { ThemeContextProvider } from './src/store/ThemeContext';
 import { UserContextProvider } from './src/store/UserContext';
 
@@ -8,9 +8,7 @@ export default function App() {
 	return (
 		<ThemeContextProvider>
 			<UserContextProvider>
-				<NavigationContainer>
-					<Main />
-				</NavigationContainer>
+				<Routes />
 			</UserContextProvider>
 		</ThemeContextProvider>
 	);
