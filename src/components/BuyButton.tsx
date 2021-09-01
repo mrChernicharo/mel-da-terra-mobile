@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemeContext } from '../store/ThemeContext';
-import { buyButtonStyles } from '../styles/styles';
+import { buyButtonStyles } from '../styles/main';
 
 export default function BuyButton() {
 	const { theme } = useContext(ThemeContext);

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Text } from 'react-native';
 
-import { mainStyles } from './styles/styles';
+import { mainStyles } from './styles/main';
 import { ThemeContext } from './store/ThemeContext';
 
 import Header from './components/Header';

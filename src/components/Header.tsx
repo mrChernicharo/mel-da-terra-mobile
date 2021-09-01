@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Switch } from 'react-native-elements';
 import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { ThemeContext } from '../store/ThemeContext';
-import { headerStyles } from '../styles/styles';
+import { headerStyles } from '../styles/main';
 
 export default function Header() {
 	const { theme, toggleTheme } = useContext(ThemeContext);
