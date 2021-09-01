@@ -5,28 +5,28 @@ import React from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
 import splash from '../assets/splash2.jpg';
 import { Button } from 'react-native-elements';
-import { screenStyles } from '../styles/address';
+import { screenStyles } from '../styles/intro';
 
-type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
-interface IAddressProps {
+type IntroNavigationProp = StackNavigationProp<StackParams, 'Intro'>;
+interface IIntroProps {
 	theme: string;
 }
 
-export default function Address({ theme }: IAddressProps) {
-	const navigation = useNavigation<AddressNavigationProp>();
+export default function NewOrder({ theme }: IIntroProps) {
+	const navigation = useNavigation<IntroNavigationProp>();
 
 	const s = screenStyles(theme);
 
 	function handleBtnPressed() {
-		navigation.push('Login', { theme });
+		navigation.push('MyOrders', { theme });
 	}
 
 	return (
 		<SafeAreaView style={s.container}>
 			<ImageBackground source={splash} resizeMode="cover" style={s.image}>
 				<View>
-					<Text>Informe o endereço para entrega</Text>
-					<Button title="Confirmar" onPress={handleBtnPressed} />
+					<Text>Novo Pedido</Text>
+					<Button title="Vamos lá" onPress={handleBtnPressed} />
 				</View>
 			</ImageBackground>
 		</SafeAreaView>

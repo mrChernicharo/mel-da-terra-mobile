@@ -4,11 +4,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import Main from '..';
 import Intro from '../screens/Intro';
 import Address from '../screens/Address';
+import Login from '../screens/Login';
+import Settings from '../screens/Settings';
+import MyOrders from '../screens/MyOrders';
+import NewOrder from '../screens/NewOrder';
+
+export type IRouteProps = {
+	theme: string;
+};
 
 export type StackParams = {
-	Intro: { theme: string };
-	Address: { theme: string };
-	Main: { theme: string };
+	Intro: IRouteProps;
+	Address: IRouteProps;
+	Main: IRouteProps;
+	Login: IRouteProps;
+	Settings: IRouteProps;
+	NewOrder: IRouteProps;
+	MyOrders: IRouteProps;
 };
 
 export default function Routes() {
@@ -21,7 +33,11 @@ export default function Routes() {
 			>
 				<Stack.Screen name="Intro" component={Intro} options={{}} />
 				<Stack.Screen name="Address" component={Address} options={{}} />
+				<Stack.Screen name="Login" component={Login} options={{}} />
 				<Stack.Screen name="Main" component={Main} />
+				<Stack.Screen name="Settings" component={Settings} />
+				<Stack.Screen name="MyOrders" component={MyOrders} />
+				<Stack.Screen name="NewOrder" component={NewOrder} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
