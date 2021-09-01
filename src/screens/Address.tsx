@@ -1,34 +1,108 @@
+import React, { useContext, useState } from 'react';
+import {
+	SafeAreaView,
+	View,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	ImageBackground,
+	KeyboardAvoidingView,
+	Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParams } from '../routes/index';
-import React from 'react';
-import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import splash from '../assets/splash2.jpg';
-import { Button } from 'react-native-elements';
-import { screenStyles } from '../styles/address';
+import { AddressNavigationProp } from '../routes/index';
+import { Button, Input } from 'react-native-elements';
 
-type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
+import { styles } from '../styles/address';
+import { ThemeContext } from '../store/ThemeContext';
+import splash from '../assets/min-lower.png';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
 interface IAddressProps {
 	theme: string;
 }
 
-export default function Address({ theme }: IAddressProps) {
+const accent = '#de12ff';
+const greeeen = '#41a36b';
+
+export default function Address() {
 	const navigation = useNavigation<AddressNavigationProp>();
+	const { theme } = useContext(ThemeContext);
 
-	const s = screenStyles(theme);
+	const [isFocused, setIsFocused] = useState(false);
+	const [isFilled, setIsFilled] = useState(false);
+	const [address, setAddress] = useState<string>('');
 
-	function handleBtnPressed() {
-		navigation.push('Login', { theme });
+	const s = styles(theme);
+
+	function handleSubmit() {
+		console.log(address);
+		navigation.push('Login');
+	}
+
+	function handleInputBlur() {
+		console.log('blured');
+		setIsFocused(false);
+		setIsFilled(!!address);
+	}
+	function handleInputFocus() {
+		console.log('focused');
+		setIsFocused(true);
+	}
+	function handleInputChange(val: string) {
+		setIsFilled(!!val);
+		setAddress(val);
 	}
 
 	return (
 		<SafeAreaView style={s.container}>
-			<ImageBackground source={splash} resizeMode="cover" style={s.image}>
-				<View>
-					<Text>Informe o endereço para entrega</Text>
-					<Button title="Confirmar" onPress={handleBtnPressed} />
+			<KeyboardAvoidingView
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			>
+				<View style={s.section}>
+					<Text style={s.text}>Informe o endereço para entrega</Text>
+
+					<Input
+						inputStyle={[s.input]}
+						inputContainerStyle={[
+							s.inputContainer,
+							isFilled && {
+								borderBottomColor: greeeen,
+								borderBottomWidth: 3,
+							},
+						]}
+						placeholder={'Endereço aqui'}
+						rightIcon={
+							<MaterialIcons
+								name="location-city"
+								size={32}
+								style={[
+									s.inputIcon,
+
+									isFilled && {
+										color: greeeen,
+									},
+								]}
+							/>
+						}
+						onBlur={handleInputBlur}
+						onFocus={handleInputFocus}
+						onChangeText={handleInputChange}
+					/>
+					<Button
+						title="Confirmar"
+						buttonStyle={s.button}
+						titleStyle={s.buttonText}
+						onPress={handleSubmit}
+					/>
+					<View style={s.bottomLinkBox}>
+						<Text style={s.text}>{'Depois informo. '}</Text>
+						<TouchableOpacity>
+							<Text style={s.linkText}>Pular</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</ImageBackground>
+			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);
 }

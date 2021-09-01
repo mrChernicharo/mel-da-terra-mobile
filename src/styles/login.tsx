@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const screenStyles = (theme: string) =>
+const styles = (theme: string) =>
 	StyleSheet.create({
 		container: {
 			flex: 1,
@@ -14,4 +14,4 @@ const screenStyles = (theme: string) =>
 		},
 	});
 
-export { screenStyles };
+export { styles };

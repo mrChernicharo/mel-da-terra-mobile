@@ -5,7 +5,7 @@ import React from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
 import splash from '../assets/splash2.jpg';
 import { Button } from 'react-native-elements';
-import { screenStyles } from '../styles/myOrders';
+import { styles } from '../styles/myOrders';
 
 type MyOrdersNavigationProp = StackNavigationProp<StackParams, 'MyOrders'>;
 interface IMyOrdersProps {
@@ -15,10 +15,10 @@ interface IMyOrdersProps {
 export default function MyOrders({ theme }: IMyOrdersProps) {
 	const navigation = useNavigation<MyOrdersNavigationProp>();
 
-	const s = screenStyles(theme);
+	const s = styles(theme);
 
 	function handleBtnPressed() {
-		navigation.push('Intro', { theme });
+		navigation.push('Intro');
 	}
 
 	return (

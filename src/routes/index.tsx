@@ -1,6 +1,10 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import {
+	createStackNavigator,
+	StackNavigationProp,
+} from '@react-navigation/stack';
+
 import Main from '..';
 import Intro from '../screens/Intro';
 import Address from '../screens/Address';
@@ -8,32 +12,55 @@ import Login from '../screens/Login';
 import Settings from '../screens/Settings';
 import MyOrders from '../screens/MyOrders';
 import NewOrder from '../screens/NewOrder';
+import { useContext } from 'react';
+import { ThemeContext } from '../store/ThemeContext';
+import Header from '../components/Header';
+import { AppColors } from '../styles/colors';
 
 export type IRouteProps = {
 	theme: string;
 };
 
 export type StackParams = {
-	Intro: IRouteProps;
-	Address: IRouteProps;
-	Main: IRouteProps;
-	Login: IRouteProps;
-	Settings: IRouteProps;
-	NewOrder: IRouteProps;
-	MyOrders: IRouteProps;
+	Intro: undefined;
+	Address: undefined;
+	Main: undefined;
+	Login: undefined;
+	Settings: undefined;
+	NewOrder: undefined;
+	MyOrders: undefined;
 };
 
+export type SettingsNavigationProp = StackNavigationProp<
+	StackParams,
+	'Settings'
+>;
+
+export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
+
+export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
+
+export type MainNavigationProp = StackNavigationProp<StackParams, 'Main'>;
+
 export default function Routes() {
+	const { theme } = useContext(ThemeContext);
+	const colors = AppColors(theme);
 	const Stack = createStackNavigator<StackParams>();
 	return (
 		<NavigationContainer>
+			<Header />
+
 			<Stack.Navigator
-				screenOptions={{ headerShown: false }}
 				initialRouteName="Intro"
+				screenOptions={{
+					headerShown: false,
+					headerStyle: { backgroundColor: colors.bg },
+					headerTintColor: colors.primary,
+				}}
 			>
-				<Stack.Screen name="Intro" component={Intro} options={{}} />
-				<Stack.Screen name="Address" component={Address} options={{}} />
-				<Stack.Screen name="Login" component={Login} options={{}} />
+				<Stack.Screen name="Intro" component={Intro} />
+				<Stack.Screen name="Address" component={Address} />
+				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="Main" component={Main} />
 				<Stack.Screen name="Settings" component={Settings} />
 				<Stack.Screen name="MyOrders" component={MyOrders} />

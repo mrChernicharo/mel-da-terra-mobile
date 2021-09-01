@@ -1,24 +1,25 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParams } from '../routes/index';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import splash from '../assets/splash2.jpg';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-elements';
-import { screenStyles } from '../styles/login';
 
-type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
+import { ThemeContext } from '../store/ThemeContext';
+import { LoginNavigationProp, StackParams } from '../routes/index';
+import { styles } from '../styles/login';
+import splash from '../assets/splash2.jpg';
+
 interface ILoginProps {
 	theme: string;
 }
 
-export default function Login({ theme }: ILoginProps) {
+export default function Login() {
 	const navigation = useNavigation<LoginNavigationProp>();
+	const { theme } = useContext(ThemeContext);
 
-	const s = screenStyles(theme);
+	const s = styles(theme);
 
 	function handleBtnPressed() {
-		navigation.push('NewOrder', { theme });
+		navigation.push('NewOrder');
 	}
 
 	return (

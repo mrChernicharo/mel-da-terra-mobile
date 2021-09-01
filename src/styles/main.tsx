@@ -14,7 +14,7 @@ const mainStyles = (theme: string) =>
 			borderColor: 'orange',
 		},
 		heading: {
-			fontSize: 32,
+			fontSize: 30,
 			color: theme === 'dark' ? '#fff' : '#000',
 		},
 		highText: {
