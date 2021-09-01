@@ -7,13 +7,17 @@ import { ThemeContext } from './store/ThemeContext';
 
 import Header from './components/Header';
 import BuyButton from './components/BuyButton';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParams } from './routes';
 
-export default function Main() {
-	const { theme, toggleTheme } = useContext(ThemeContext);
+type MainNavigationProp = StackNavigationProp<StackParams, 'Main'>;
+interface IMainProps {
+	theme: string;
+}
 
-	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
-
+export default function Main({ theme }: IMainProps) {
 	const s = mainStyles(theme);
+	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
 
 	return (
 		<View style={s.container}>

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-const mainStyles = (colorScheme: string) =>
+const mainStyles = (theme: string) =>
 	StyleSheet.create({
 		container: {
 			flex: 1,
-			backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
-			color: colorScheme === 'dark' ? '#fff' : '#000',
+			backgroundColor: theme === 'dark' ? '#000' : '#fff',
+			color: theme === 'dark' ? '#fff' : '#000',
 			alignItems: 'center',
 		},
 		main: {
@@ -15,7 +15,7 @@ const mainStyles = (colorScheme: string) =>
 		},
 		heading: {
 			fontSize: 32,
-			color: colorScheme === 'dark' ? '#fff' : '#000',
+			color: theme === 'dark' ? '#fff' : '#000',
 		},
 		highText: {
 			fontWeight: '900',
@@ -23,21 +23,21 @@ const mainStyles = (colorScheme: string) =>
 		},
 	});
 
-const headerStyles = (colorScheme: string) =>
+const headerStyles = (theme: string) =>
 	StyleSheet.create({
 		container: {
 			width: '100%',
 			height: 120,
 			borderBottomWidth: 4,
-			borderColor: colorScheme === 'dark' ? 'orange' : 'lightblue',
-			backgroundColor: colorScheme === 'dark' ? '#000' : '#eecd3e',
+			borderColor: theme === 'dark' ? 'orange' : 'lightblue',
+			backgroundColor: theme === 'dark' ? '#000' : '#eecd3e',
 			paddingTop: 40,
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
 		},
 		text: {
-			color: colorScheme === 'dark' ? '#fff' : '#000',
+			color: theme === 'dark' ? '#fff' : '#000',
 			fontSize: 16,
 			fontWeight: '900',
 		},
@@ -49,7 +49,7 @@ const headerStyles = (colorScheme: string) =>
 		},
 	});
 
-const buyButtonStyles = (colorScheme: string) =>
+const buyButtonStyles = (theme: string) =>
 	StyleSheet.create({
 		container: {
 			width: '100%',
@@ -58,10 +58,10 @@ const buyButtonStyles = (colorScheme: string) =>
 			paddingHorizontal: 40,
 			paddingBottom: 60,
 			paddingTop: 20,
-			backgroundColor: colorScheme === 'dark' ? '#000' : '#eecd3e',
+			backgroundColor: theme === 'dark' ? '#000' : '#eecd3e',
 		},
 		button: {
-			backgroundColor: colorScheme === 'dark' ? '#eecd3e' : 'lightblue',
+			backgroundColor: theme === 'dark' ? '#eecd3e' : 'lightblue',
 		},
 		buttonTitle: {
 			fontSize: 32,
