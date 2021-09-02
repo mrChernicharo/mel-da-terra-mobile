@@ -1,21 +1,23 @@
-import kit from '../assets/kit.png';
-import pote150 from '../assets/mel-150.png';
-import pote350 from '../assets/mel-350.png';
-import pote480 from '../assets/mel-480.png';
-import pote780 from '../assets/mel-780.png';
+import kit from '../assets/kit2.png';
+import type150 from '../assets/mel-150.png';
+import type350 from '../assets/mel-350.png';
+import type480 from '../assets/mel-480.png';
+import type780 from '../assets/mel-780.png';
 import propolis from '../assets/propolis.png';
 
-export type IPote = 'kit' | '150' | '350' | '480' | '780' | 'propolis';
+export type IProductType = 'kit' | '150' | '350' | '480' | '780' | 'propolis';
 
 export interface IProduct {
-	name: string;
-	pote: IPote;
+	title: string;
+	description: string;
+	type: IProductType;
 	price: number;
 	img: string;
+	hasOptions: boolean;
 }
 export interface IMel {
 	name: string;
-	available: boolean;
+	isAvailable: boolean;
 	description: string;
 	hue: string;
 }
@@ -31,78 +33,92 @@ export const hues = {
 
 export const products: IProduct[] = [
 	{
-		name: 'kit degustação',
-		pote: 'kit',
+		title: 'kit degustação',
+		description:
+			'Nosso carro chefe! 5 potinhos com meles da estação. Ideal para presentear.',
+		type: 'kit',
 		price: 4000,
 		img: kit,
+		hasOptions: false,
 	},
 	{
-		name: 'pote de 150g',
-		pote: '150',
+		title: 'pote de 150g',
+		description: 'O caçula. Bom pra comer direto do pote!',
+		type: '150',
 		price: 1800,
-		img: pote150,
+		img: type150,
+		hasOptions: true,
 	},
 	{
-		name: 'pote de 350g',
-		pote: '350',
+		title: 'pote de 350g',
+		description: 'Nosso peso médio. Sabor na medida certa',
+		type: '350',
 		price: 2800,
-		img: pote350,
+		img: type350,
+		hasOptions: true,
 	},
 	{
-		name: 'pote de 480g',
-		pote: '480',
+		title: 'pote de 480g',
+		description:
+			'Pote grande. Pode comer todo dia que ele em meno dois meses ele não acaba!',
+		type: '480',
 		price: 3500,
-		img: pote480,
+		img: type480,
+		hasOptions: true,
 	},
 	{
-		name: 'pote de 780g',
-		pote: '780',
+		title: 'pote de 780g',
+		description: 'Tamanho urso! Praticamente um balde de mel!',
+		type: '780',
 		price: 4800,
-		img: pote780,
+		img: type780,
+		hasOptions: true,
 	},
 	{
-		name: 'propolis',
-		pote: 'propolis',
-		price: 4800,
+		title: 'propolis',
+		description: 'Própolis medicinal da serra do mar.',
+		type: 'propolis',
+		price: 2500,
 		img: propolis,
+		hasOptions: false,
 	},
 ];
 
 export const meles = [
 	{
 		name: 'laranjeira',
-		available: true,
+		isAvailable: true,
 		description: 'claro e perfumado',
 		hue: hues.laranjeira,
 	},
 	{
 		name: 'silvestre',
-		available: true,
+		isAvailable: true,
 		description: 'claro e floral',
-		hue: hues.laranjeira,
+		hue: hues.silvestre,
 	},
 	{
 		name: 'juriti',
-		available: false,
+		isAvailable: false,
 		description: 'sabor delicado',
-		hue: hues.laranjeira,
+		hue: hues.juriti,
 	},
 	{
 		name: 'uruçã',
-		available: true,
+		isAvailable: true,
 		description: 'escuro e encorpado',
-		hue: hues.laranjeira,
+		hue: hues.uruca,
 	},
 	{
 		name: 'eucalípto',
-		available: true,
+		isAvailable: true,
 		description: 'fino e translúcido',
-		hue: hues.laranjeira,
+		hue: hues.eucalipto,
 	},
 	{
 		name: 'jataí',
-		available: true,
+		isAvailable: true,
 		description: 'encorpado e de sabor marcante',
-		hue: hues.laranjeira,
+		hue: hues.jataí,
 	},
 ];

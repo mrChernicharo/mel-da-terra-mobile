@@ -5,40 +5,42 @@ import React from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
 import splash from '../assets/splash2.jpg';
 import { Button } from 'react-native-elements';
-import styles from '../styles/newOrder';
+import styles from '../styles/orderDetails';
 import { useContext } from 'react';
 import { ThemeContext } from '../store/ThemeContext';
 import { FlatList } from 'react-native-gesture-handler';
-import { IProduct, products } from '../utils/constants';
-import ProductCard from '../components/ProductCard';
+import { IMel, IProduct, meles, products } from '../utils/constants';
+import MelCard from '../components/MelCard';
 
-type NewOrderNavigationProp = StackNavigationProp<StackParams, 'NewOrder'>;
+type OrderDetailsNavigationProp = StackNavigationProp<
+	StackParams,
+	'OrderDetails'
+>;
 
-export default function NewOrder() {
-	const navigation = useNavigation<NewOrderNavigationProp>();
+export default function OrderDetails() {
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
-	const appProducts = products;
 
-	function handleProductSelected(product: IProduct) {
-		console.log(product);
-		// atualizar context
+	const navigation = useNavigation<OrderDetailsNavigationProp>();
+	const { routes } = navigation.getState();
 
-		navigation.push('OrderDetails', { product });
-	}
+	const lastRoute = routes[routes.length - 1];
+	console.log('router fetched: ', lastRoute?.params?.product);
+
+	function handleMelSelected() {}
 
 	return (
 		<SafeAreaView style={s.container}>
 			<View>
-				<Text style={s.headingText}>Escolha um produto</Text>
+				<Text style={s.headingText}>Escolha o Mel</Text>
 
 				<FlatList
-					data={appProducts}
-					keyExtractor={(item: IProduct) => item.title}
+					data={meles}
+					keyExtractor={(item: IMel) => item.name}
 					renderItem={({ item }) => (
-						<ProductCard
+						<MelCard
 							data={item}
-							onCardSelected={handleProductSelected}
+							onCardSelected={handleMelSelected}
 						/>
 					)}
 				/>

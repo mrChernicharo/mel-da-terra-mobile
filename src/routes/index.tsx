@@ -16,6 +16,8 @@ import { useContext } from 'react';
 import { ThemeContext } from '../store/ThemeContext';
 import Header from '../components/Header';
 import { AppColors } from '../styles/colors';
+import { IProduct } from '../utils/constants';
+import OrderDetails from '../screens/OrderDetails';
 
 export type IRouteProps = {
 	theme: string;
@@ -28,6 +30,7 @@ export type StackParams = {
 	Login: undefined;
 	Settings: undefined;
 	NewOrder: undefined;
+	OrderDetails: { product: IProduct };
 	MyOrders: undefined;
 };
 
@@ -41,6 +44,14 @@ export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
 export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
 
 export type MainNavigationProp = StackNavigationProp<StackParams, 'Main'>;
+export type NewOrderNavigationProp = StackNavigationProp<
+	StackParams,
+	'NewOrder'
+>;
+export type OrderDetailsNavigationProp = StackNavigationProp<
+	StackParams,
+	'OrderDetails'
+>;
 
 export default function Routes() {
 	const { theme } = useContext(ThemeContext);
@@ -65,6 +76,7 @@ export default function Routes() {
 				<Stack.Screen name="Settings" component={Settings} />
 				<Stack.Screen name="MyOrders" component={MyOrders} />
 				<Stack.Screen name="NewOrder" component={NewOrder} />
+				<Stack.Screen name="OrderDetails" component={OrderDetails} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
