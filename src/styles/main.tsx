@@ -23,32 +23,6 @@ const mainStyles = (theme: string) =>
 		},
 	});
 
-const headerStyles = (theme: string) =>
-	StyleSheet.create({
-		container: {
-			width: '100%',
-			height: 120,
-			borderBottomWidth: 4,
-			borderColor: theme === 'dark' ? 'orange' : 'lightblue',
-			backgroundColor: theme === 'dark' ? '#000' : '#eecd3e',
-			paddingTop: 40,
-			flexDirection: 'row',
-			alignItems: 'center',
-			justifyContent: 'space-between',
-		},
-		text: {
-			color: theme === 'dark' ? '#fff' : '#000',
-			fontSize: 16,
-			fontWeight: '900',
-		},
-		themeSwitch: {
-			flexDirection: 'row',
-			width: 90,
-			alignItems: 'center',
-			justifyContent: 'space-between',
-		},
-	});
-
 const buyButtonStyles = (theme: string) =>
 	StyleSheet.create({
 		container: {
@@ -70,4 +44,4 @@ const buyButtonStyles = (theme: string) =>
 		},
 	});
 
-export { headerStyles, mainStyles, buyButtonStyles };
+export { mainStyles, buyButtonStyles };

@@ -8,6 +8,8 @@ const styles = (theme: IAppTheme) => {
 	return StyleSheet.create({
 		container: {
 			flex: 1,
+			height: 'auto',
+			backgroundColor: colors.bg,
 		},
 		bgImage: {
 			width: '100%',

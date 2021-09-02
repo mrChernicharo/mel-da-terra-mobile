@@ -39,41 +39,40 @@ export default function Login() {
 	const [isEmailFilled, setIsEmailFilled] = useState(false);
 	const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 	const [isPasswordFilled, setIsPasswordFilled] = useState(false);
-	const [login, setLogin] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	const s = styles(theme);
 
-	function goToNewOrderScreen() {
-		navigation.push('NewOrder');
-	}
 	function handleEmailInputBlur() {
-		console.log('blured');
 		setIsEmailFocused(false);
-		setIsEmailFilled(!!Login);
+		setIsEmailFilled(!!email);
 	}
 	function handleEmailInputFocus() {
-		console.log('focused');
 		setIsEmailFocused(true);
 	}
 	function handleEmailInputChange(val: string) {
 		setIsEmailFilled(!!val);
-		setLogin(val);
+		setEmail(val);
 	}
+
 	function handlePasswordInputBlur() {
-		console.log('blured');
 		setIsPasswordFocused(false);
-		setIsPasswordFilled(!!Login);
+		setIsPasswordFilled(!!password);
 	}
 	function handlePasswordInputFocus() {
-		console.log('focused');
 		setIsPasswordFocused(true);
 	}
 	function handlePasswordInputChange(val: string) {
 		setIsPasswordFilled(!!val);
-		setLogin(val);
+		setPassword(val);
+	}
+
+	function goToNewOrderScreen() {
+		navigation.push('NewOrder');
 	}
 	function handleSubmit() {
-		console.log('submited Login: ' + Login);
+		console.log('submited email: ' + email + ' password: ' + password);
 		goToNewOrderScreen();
 	}
 

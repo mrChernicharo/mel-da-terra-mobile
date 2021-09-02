@@ -4,12 +4,12 @@ import { StatusBar } from 'expo-status-bar';
 import { Switch } from 'react-native-elements';
 import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { ThemeContext } from '../store/ThemeContext';
-import { headerStyles } from '../styles/main';
+import styles from '../styles/header';
 
 export default function Header() {
 	const { theme, toggleTheme } = useContext(ThemeContext);
 
-	const s = headerStyles(theme);
+	const s = styles(theme);
 
 	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
 
