@@ -84,11 +84,11 @@ export const products: IProduct[] = [
 	},
 ];
 
-export const meles = [
+export const meles: IMel[] = [
 	{
 		name: 'laranjeira',
 		isAvailable: true,
-		description: 'claro e perfumado',
+		description: 'claro, translúcido e prefumado',
 		hue: hues.laranjeira,
 	},
 	{
@@ -98,27 +98,27 @@ export const meles = [
 		hue: hues.silvestre,
 	},
 	{
-		name: 'juriti',
-		isAvailable: false,
-		description: 'sabor delicado',
-		hue: hues.juriti,
-	},
-	{
 		name: 'uruçã',
 		isAvailable: true,
 		description: 'escuro e encorpado',
 		hue: hues.uruca,
 	},
 	{
+		name: 'jataí',
+		isAvailable: true,
+		description: 'encorpado com sabor marcante',
+		hue: hues.jataí,
+	},
+	{
+		name: 'juriti',
+		isAvailable: false,
+		description: 'sabor delicado',
+		hue: hues.juriti,
+	},
+	{
 		name: 'eucalípto',
 		isAvailable: true,
 		description: 'fino e translúcido',
 		hue: hues.eucalipto,
-	},
-	{
-		name: 'jataí',
-		isAvailable: true,
-		description: 'encorpado e de sabor marcante',
-		hue: hues.jataí,
 	},
 ];

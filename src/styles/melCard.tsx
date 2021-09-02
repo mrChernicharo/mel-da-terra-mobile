@@ -9,36 +9,38 @@ const styles = (theme: IAppTheme) => {
 		container: {
 			backgroundColor: colors.bg2,
 			borderRadius: 10,
+
+			paddingVertical: 10,
+			paddingHorizontal: 10,
+
+			marginHorizontal: 8,
+			marginVertical: 0,
 		},
 		wrapper: {
+			// flexDirection: 'row',
+		},
+		headingBox: {
+			// borderWidth: 2,
 			flexDirection: 'row',
+		},
+		descriptionBox: {
+			// borderWidth: 2,
+			maxWidth: 90,
 		},
 		text: {
 			color: colors.text,
 		},
 		headingText: {
 			color: colors.text,
-			fontSize: 24,
+			fontSize: 18,
 			fontWeight: '600',
 			textAlign: 'left',
 		},
-		priceText: {
-			color: colors.text,
-			fontSize: 28,
-			fontWeight: '600',
-			textAlign: 'right',
-		},
-		imgContainer: {
-			minHeight: 140,
-			width: 100,
-			justifyContent: 'center',
-		},
-		infoContainer: {
-			// borderWidth: 3,
-			width: 240,
-			justifyContent: 'space-between',
-			paddingVertical: 8,
-			paddingHorizontal: 16,
+		hueCircle: {
+			width: 20,
+			height: 20,
+			borderRadius: 10,
+			marginLeft: 8,
 		},
 	});
 };

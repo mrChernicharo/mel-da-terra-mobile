@@ -8,9 +8,12 @@ import { Button } from 'react-native-elements';
 import styles from '../styles/orderDetails';
 import { useContext } from 'react';
 import { ThemeContext } from '../store/ThemeContext';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { IMel, IProduct, meles, products } from '../utils/constants';
 import MelCard from '../components/MelCard';
+import ProductCard from '../components/ProductCard';
+import OrderedProductCard from '../components/OrderedProductCard';
+import { useState } from 'react';
 
 type OrderDetailsNavigationProp = StackNavigationProp<
 	StackParams,
@@ -18,32 +21,50 @@ type OrderDetailsNavigationProp = StackNavigationProp<
 >;
 
 export default function OrderDetails() {
+	const [mel, setMel] = useState<IMel | null>(null);
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
 
 	const navigation = useNavigation<OrderDetailsNavigationProp>();
 	const { routes } = navigation.getState();
+	const product = routes[routes.length - 1]?.params?.product as IProduct;
 
-	const lastRoute = routes[routes.length - 1];
-	console.log('router fetched: ', lastRoute?.params?.product);
-
-	function handleMelSelected() {}
+	function handleMelSelected(mel: IMel) {
+		setMel(mel);
+	}
 
 	return (
 		<SafeAreaView style={s.container}>
 			<View>
-				<Text style={s.headingText}>Escolha o Mel</Text>
+				<OrderedProductCard product={product} mel={mel} />
+
+				<View>
+					<Text style={s.headingText}>Escolha o Mel</Text>
+				</View>
 
 				<FlatList
+					contentContainerStyle={s.listContainer}
 					data={meles}
 					keyExtractor={(item: IMel) => item.name}
 					renderItem={({ item }) => (
 						<MelCard
-							data={item}
+							mel={item}
 							onCardSelected={handleMelSelected}
 						/>
 					)}
+					horizontal={true}
+					showsHorizontalScrollIndicator={false}
 				/>
+
+				{/* <ScrollView>
+					{meles.map(item => (
+						<MelCard
+							key={item.name}
+							mel={item}
+							onCardSelected={handleMelSelected}
+						/>
+					))}
+				</ScrollView> */}
 			</View>
 		</SafeAreaView>
 	);

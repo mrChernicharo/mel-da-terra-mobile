@@ -7,18 +7,18 @@ import { IMel } from '../utils/constants';
 import styles from '../styles/melCard';
 
 export interface IMelCardProps {
-	data: IMel;
-	onCardSelected: (data: IMel) => void;
+	mel: IMel;
+	onCardSelected: (mel: IMel) => void;
 }
 
-export default function MelCard({ data, onCardSelected }: IMelCardProps) {
-	const { hue, name, description, isAvailable } = data;
+export default function MelCard({ mel, onCardSelected }: IMelCardProps) {
+	const { hue, name, description, isAvailable } = mel;
 
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
 
 	function handleCardPress() {
-		onCardSelected(data);
+		onCardSelected(mel);
 	}
 
 	return (
@@ -27,13 +27,12 @@ export default function MelCard({ data, onCardSelected }: IMelCardProps) {
 			// onLayout={/* someAnimation */}
 		>
 			<Card containerStyle={s.container} wrapperStyle={s.wrapper}>
-				<View style={s.imgContainer}>
-					{/* <Image source={imgPath} width={80} height={80} /> */}
-				</View>
-				<View style={s.infoContainer}>
+				<View style={s.headingBox}>
 					<Text style={s.headingText}>{name}</Text>
-					{/* <Text style={s.text}>{description}</Text>
-					<Text style={s.priceText}>{brPrice}</Text> */}
+					<View style={[s.hueCircle, { backgroundColor: hue }]} />
+				</View>
+				<View style={s.descriptionBox}>
+					<Text style={s.text}>{description}</Text>
 				</View>
 			</Card>
 		</TouchableNativeFeedback>

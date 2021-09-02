@@ -7,16 +7,24 @@ const styles = (theme: IAppTheme) => {
 
 	return StyleSheet.create({
 		container: {
+			flex: 1,
 			backgroundColor: colors.bg,
 		},
-		text: {
-			color: colors.text,
+		listContainer: {
+			paddingHorizontal: 10,
+			paddingVertical: 10,
 		},
+
 		headingText: {
 			color: colors.text,
 			fontSize: 24,
 			fontWeight: '600',
 			textAlign: 'center',
+			marginBottom: 10,
+			marginTop: 20,
+		},
+		text: {
+			color: colors.text,
 		},
 	});
 };
