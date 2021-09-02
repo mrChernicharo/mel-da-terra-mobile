@@ -14,32 +14,28 @@ const styles = (theme: IAppTheme) => {
 		},
 
 		section: {
+			// borderWidth: 2,
 			alignItems: 'center',
 			justifyContent: 'space-between',
 			height: 220,
 			marginBottom: 200,
 		},
-
+		sectionTop: { width: '100%' },
+		sectionBottom: { width: '100%', alignItems: 'center' },
 		text: { fontSize: 18, color: colors.text },
 		bgText: { fontSize: 18, color: colors.bgText },
 		input: {
-			// width: '100%',
-			// borderBottomWidth: 2,
 			borderBottomColor: colors.green,
 			color: colors.text,
 			fontSize: 16,
 			marginBottom: -20,
-			// padding: 2,
 		},
-		inputContainer: {},
 		inputIcon: {
-			// width: 32,
-			// height: 32,
 			marginBottom: -16,
 		},
 		bottomLinkBox: {
 			flexDirection: 'row',
-			paddingTop: 6,
+			marginTop: 22,
 		},
 		linkText: { fontSize: 18, fontWeight: '600', color: colors.accent },
 		button: {
@@ -51,17 +47,6 @@ const styles = (theme: IAppTheme) => {
 			fontSize: 24,
 			fontWeight: '600',
 		},
-		// headingText: { fontSize: 30, color: colors.text },
-		// logo: {
-		// 	width: 200,
-		// 	height: 200,
-		// },
-		// bgImage: {
-		// 	width: '100%',
-		// 	flex: 1,
-		// 	alignItems: 'center',
-		// 	justifyContent: 'center',
-		// },
 	});
 };
 export { styles };

@@ -1,6 +1,6 @@
 export const AppColors = (colorScheme: string) => ({
 	primary: '#eecd3e',
-	accent: '#de12ff',
+	accent: '#8521ff',
 	bg: colorScheme === 'dark' ? '#000' : '#fff',
 	bg2: colorScheme === 'dark' ? '#232323' : '#eee',
 	text: colorScheme === 'dark' ? '#fff' : '#000',

@@ -25,7 +25,11 @@ export default function NewOrder() {
 
 	return (
 		<SafeAreaView style={s.container}>
-			<ImageBackground source={splash} resizeMode="cover" style={s.image}>
+			<ImageBackground
+				source={splash}
+				resizeMode="cover"
+				style={s.bgImage}
+			>
 				<View>
 					<Text>Novo Pedido</Text>
 					<Button title="Vamos lá" onPress={handleBtnPressed} />

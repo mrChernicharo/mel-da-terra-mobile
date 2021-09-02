@@ -17,17 +17,16 @@ import { styles } from '../styles/address';
 import { ThemeContext } from '../store/ThemeContext';
 import splash from '../assets/min-lower.png';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { AppColors } from '../styles/colors';
 
 interface IAddressProps {
 	theme: string;
 }
 
-const accent = '#de12ff';
-const greeeen = '#41a36b';
-
 export default function Address() {
 	const navigation = useNavigation<AddressNavigationProp>();
 	const { theme } = useContext(ThemeContext);
+	const { accent } = AppColors(theme);
 
 	const [isFocused, setIsFocused] = useState(false);
 	const [isFilled, setIsFilled] = useState(false);
@@ -35,11 +34,9 @@ export default function Address() {
 
 	const s = styles(theme);
 
-	function handleSubmit() {
-		console.log(address);
-		navigation.push('Login');
+	function goToNewOrderScreen() {
+		navigation.push('NewOrder');
 	}
-
 	function handleInputBlur() {
 		console.log('blured');
 		setIsFocused(false);
@@ -53,6 +50,10 @@ export default function Address() {
 		setIsFilled(!!val);
 		setAddress(val);
 	}
+	function handleSubmit() {
+		console.log('submited address: ' + address);
+		goToNewOrderScreen();
+	}
 
 	return (
 		<SafeAreaView style={s.container}>
@@ -60,46 +61,53 @@ export default function Address() {
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			>
 				<View style={s.section}>
-					<Text style={s.text}>Informe o endereço para entrega</Text>
+					<View style={s.sectionTop}>
+						<Text style={s.text}>
+							Informe o endereço para entrega
+						</Text>
 
-					<Input
-						inputStyle={[s.input]}
-						inputContainerStyle={[
-							s.inputContainer,
-							isFilled && {
-								borderBottomColor: greeeen,
-								borderBottomWidth: 3,
-							},
-						]}
-						placeholder={'Endereço aqui'}
-						rightIcon={
-							<MaterialIcons
-								name="location-city"
-								size={32}
-								style={[
-									s.inputIcon,
+						<Input
+							inputStyle={s.input}
+							inputContainerStyle={
+								isFilled && {
+									borderBottomColor: accent,
+									borderBottomWidth: 3,
+								}
+							}
+							placeholder={'Endereço aqui'}
+							rightIcon={
+								<MaterialIcons
+									name="location-city"
+									size={32}
+									style={[
+										s.inputIcon,
 
-									isFilled && {
-										color: greeeen,
-									},
-								]}
-							/>
-						}
-						onBlur={handleInputBlur}
-						onFocus={handleInputFocus}
-						onChangeText={handleInputChange}
-					/>
-					<Button
-						title="Confirmar"
-						buttonStyle={s.button}
-						titleStyle={s.buttonText}
-						onPress={handleSubmit}
-					/>
-					<View style={s.bottomLinkBox}>
-						<Text style={s.text}>{'Depois informo. '}</Text>
-						<TouchableOpacity>
-							<Text style={s.linkText}>Pular</Text>
-						</TouchableOpacity>
+										isFilled && {
+											color: accent,
+										},
+									]}
+								/>
+							}
+							onBlur={handleInputBlur}
+							onFocus={handleInputFocus}
+							onChangeText={handleInputChange}
+						/>
+					</View>
+
+					<View style={s.sectionBottom}>
+						<Button
+							title="Confirmar"
+							buttonStyle={s.button}
+							titleStyle={s.buttonText}
+							onPress={handleSubmit}
+							disabled={!isFilled}
+						/>
+						<View style={s.bottomLinkBox}>
+							<Text style={s.text}>{'Depois informo. '}</Text>
+							<TouchableOpacity onPress={goToNewOrderScreen}>
+								<Text style={s.linkText}>Pular</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</View>
 			</KeyboardAvoidingView>

@@ -27,12 +27,13 @@ interface IIntroProps {
 export default function Intro() {
 	const navigation = useNavigation<IntroNavigationProp>();
 	const { theme } = useContext(ThemeContext);
-
 	const s = styles(theme);
-	// console.log(theme);
 
 	function handleBtnPressed() {
 		navigation.push('Address');
+	}
+	function handleLinkPressed() {
+		navigation.push('Login');
 	}
 
 	return (
@@ -54,7 +55,7 @@ export default function Intro() {
 					/>
 					<View style={s.bottomLinkBox}>
 						<Text style={s.text}>{'Já tenho uma conta '}</Text>
-						<TouchableOpacity>
+						<TouchableOpacity onPress={handleLinkPressed}>
 							<Text style={s.linkText}>fazer Login</Text>
 						</TouchableOpacity>
 					</View>
