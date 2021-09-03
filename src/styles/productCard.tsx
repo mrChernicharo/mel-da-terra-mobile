@@ -9,8 +9,11 @@ const styles = (theme: IAppTheme) => {
 		container: {
 			backgroundColor: colors.bg2,
 			borderRadius: 10,
+			paddingVertical: 6,
 		},
 		wrapper: {
+			// borderWidth: 3,
+			maxHeight: 100,
 			flexDirection: 'row',
 		},
 		text: {
@@ -21,24 +24,33 @@ const styles = (theme: IAppTheme) => {
 			fontSize: 24,
 			fontWeight: '600',
 			textAlign: 'left',
+			marginBottom: 4,
 		},
 		priceText: {
 			color: colors.text,
-			fontSize: 28,
+			fontSize: 20,
 			fontWeight: '600',
-			textAlign: 'right',
+			position: 'absolute',
+			bottom: 5,
+			right: 14,
 		},
+		img: {
+			maxWidth: 60,
+			maxHeight: 80,
+			overflow: 'visible',
+		},
+
 		imgContainer: {
-			minHeight: 140,
-			width: 100,
+			// minHeight: 100,
+			// width: 60,
 			justifyContent: 'center',
 		},
 		infoContainer: {
-			// borderWidth: 3,
-			width: 240,
-			justifyContent: 'space-between',
-			paddingVertical: 8,
-			paddingHorizontal: 16,
+			width: 280,
+			height: 100,
+			// justifyContent: 'space-between',
+			// paddingVertical: 8,
+			paddingHorizontal: 14,
 		},
 	});
 };

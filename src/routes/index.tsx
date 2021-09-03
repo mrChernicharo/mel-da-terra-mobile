@@ -60,7 +60,6 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Header />
-
 			<Stack.Navigator
 				initialRouteName="Intro"
 				screenOptions={{

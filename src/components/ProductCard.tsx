@@ -22,13 +22,14 @@ export default function ProductCard({
 	data,
 	onCardSelected,
 }: IProductCardProps) {
-	const { img, title, description, type, price } = data;
-	const imgPath = String(img) as ImageSourcePropType;
+	const { img, title, description, price } = data;
+	const imgPath = String(img) as string;
 	const parsedPrice = getBRPrice(price);
 
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
 
+	// console.log({ img, imgPath });
 	function handleCardPress() {
 		onCardSelected(data);
 	}
@@ -40,7 +41,10 @@ export default function ProductCard({
 		>
 			<Card containerStyle={s.container} wrapperStyle={s.wrapper}>
 				<View style={s.imgContainer}>
-					<Image source={imgPath} width={80} height={80} />
+					<Image
+						style={s.img}
+						source={imgPath as ImageSourcePropType}
+					/>
 				</View>
 				<View style={s.infoContainer}>
 					<Text style={s.headingText}>{title}</Text>

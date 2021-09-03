@@ -69,7 +69,7 @@ export const products: IProduct[] = [
 	},
 	{
 		title: 'pote de 780g',
-		description: 'Tamanho urso! Praticamente um balde de mel!',
+		description: 'Urso size! Leve para casa um balde de mel!',
 		type: '780',
 		price: 4800,
 		img: type780,
