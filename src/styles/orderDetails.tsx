@@ -15,12 +15,14 @@ const styles = (theme: IAppTheme) => {
 			paddingVertical: 20,
 		},
 		amountContainer: {
-			// borderWidth: 3,
 			flex: 1,
+			// borderWidth: 2,
+			justifyContent: 'center',
+			paddingBottom: 64,
 		},
 		buttonContainer: {
 			alignItems: 'center',
-			paddingBottom: 100,
+			paddingBottom: 80,
 		},
 		listContainer: {
 			paddingHorizontal: 10,

@@ -8,6 +8,7 @@ import propolis from '../assets/propolis.png';
 export type IProductType = 'kit' | '150' | '350' | '480' | '780' | 'propolis';
 
 export interface IProduct {
+	id?: string;
 	title: string;
 	description: string;
 	type: IProductType;

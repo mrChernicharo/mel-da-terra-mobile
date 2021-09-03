@@ -18,6 +18,7 @@ import { AppColors } from '../styles/colors';
 import { Button } from 'react-native-elements';
 import { getBRPrice } from '../utils/helpers';
 import { FontAwesome } from '@expo/vector-icons';
+import { OrdersContext } from '../store/OrdersContext';
 
 type OrderDetailsNavigationProp = StackNavigationProp<
 	StackParams,
@@ -36,6 +37,8 @@ export default function OrderDetails() {
 	const { routes } = navigation.getState();
 	const product = routes[routes.length - 1]?.params?.product as IProduct;
 
+	const context = useContext(OrdersContext);
+
 	function handleMelSelected(selectedMel: IMel) {
 		if (selectedMel.name === mel?.name) return setMel(null);
 		setMel(selectedMel);
@@ -43,39 +46,47 @@ export default function OrderDetails() {
 	function handleAmountChange(value: number) {
 		setAmount(value);
 	}
+	function handleButtonPress() {
+		context.addOrderProduct(product, amount);
+	}
 
 	return (
 		<SafeAreaView style={s.container}>
 			<View style={s.productContainer}>
-				<OrderedProductCard product={product} mel={mel} />
-			</View>
-			<View style={s.melesContainer}>
-				<Text style={s.headingText}>
-					Escolha o Mel
-					{mel && (
-						<FontAwesome
-							name="check"
-							color={colors.green}
-							size={28}
-						/>
-					)}
-				</Text>
-
-				<FlatList
-					contentContainerStyle={s.listContainer}
-					data={meles}
-					keyExtractor={(item: IMel) => item.name}
-					renderItem={({ item }) => (
-						<MelCard
-							mel={item}
-							onCardSelected={handleMelSelected}
-						/>
-					)}
-					horizontal={true}
-					showsHorizontalScrollIndicator={false}
+				<OrderedProductCard
+					product={product}
+					mel={mel}
+					amount={amount}
 				/>
 			</View>
+			{product.hasOptions && (
+				<View style={s.melesContainer}>
+					<Text style={s.headingText}>
+						Escolha o Mel
+						{mel && (
+							<FontAwesome
+								name="check"
+								color={colors.green}
+								size={28}
+							/>
+						)}
+					</Text>
 
+					<FlatList
+						contentContainerStyle={s.listContainer}
+						data={meles}
+						keyExtractor={(item: IMel) => item.name}
+						renderItem={({ item }) => (
+							<MelCard
+								mel={item}
+								onCardSelected={handleMelSelected}
+							/>
+						)}
+						horizontal={true}
+						showsHorizontalScrollIndicator={false}
+					/>
+				</View>
+			)}
 			<View style={s.amountContainer}>
 				<Text style={s.headingText}>
 					Quantas unidades?
@@ -115,11 +126,12 @@ export default function OrderDetails() {
 				<Button
 					buttonStyle={s.button}
 					titleStyle={s.buttonText}
-					disabled={!amount || !mel}
 					title={`Adicionar produto${
 						amount === 1 ? '' : 's'
 					} ${getBRPrice(amount * product.price)}
 					`}
+					disabled={product.hasOptions ? !amount || !mel : !amount}
+					onPress={handleButtonPress}
 				/>
 			</View>
 		</SafeAreaView>

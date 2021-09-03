@@ -10,8 +10,10 @@ const styles = (theme: IAppTheme) => {
 			backgroundColor: colors.bg2,
 			borderRadius: 8,
 
-			paddingVertical: 10,
+			paddingVertical: 12,
 			paddingHorizontal: 6,
+
+			marginTop: 32,
 		},
 		wrapper: {
 			flexDirection: 'row',
@@ -19,17 +21,23 @@ const styles = (theme: IAppTheme) => {
 		text: {
 			color: colors.text,
 		},
+		headingContainer: {
+			flexDirection: 'row',
+			// borderWidth: 3,
+		},
 		headingText: {
 			color: colors.text,
 			fontSize: 20,
 			fontWeight: '600',
 			textAlign: 'left',
+			width: 220,
+			// borderWidth: 1,
 		},
-		priceText: {
+		amountText: {
 			color: colors.text,
-			fontSize: 16,
-			fontWeight: '600',
-			textAlign: 'right',
+			fontSize: 20,
+			marginTop: 1,
+			marginLeft: 10,
 		},
 		imgContainer: {
 			// borderWidth: 3,
@@ -44,7 +52,6 @@ const styles = (theme: IAppTheme) => {
 			overflow: 'visible',
 		},
 		outerInfoContainer: {
-			// borderWidth: 3,
 			width: 280,
 			justifyContent: 'space-between',
 			paddingLeft: 6,
@@ -53,6 +60,12 @@ const styles = (theme: IAppTheme) => {
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
+		},
+		priceText: {
+			color: colors.text,
+			fontSize: 16,
+			fontWeight: '600',
+			textAlign: 'right',
 		},
 		melInfo: {
 			// borderWidth: 3,

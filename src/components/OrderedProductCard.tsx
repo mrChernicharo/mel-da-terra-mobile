@@ -9,12 +9,15 @@ import { getBRPrice } from '../utils/helpers';
 interface IOrderedProductCardProps {
 	product: IProduct;
 	mel: IMel | null;
+	amount: number;
 }
 export default function OrderedProductCard({
 	product,
 	mel,
+	amount,
 }: IOrderedProductCardProps) {
-	const { img, title, description, type, price } = product;
+	const { img, title, price } = product;
+
 	const imgPath = String(img) as ImageSourcePropType;
 	const parsedPrice = getBRPrice(price);
 
@@ -27,7 +30,10 @@ export default function OrderedProductCard({
 				<Image source={imgPath} style={s.image} />
 			</View>
 			<View style={s.outerInfoContainer}>
-				<Text style={s.headingText}>{title}</Text>
+				<View style={s.headingContainer}>
+					<Text style={s.headingText}>{title}</Text>
+					{!!amount && <Text style={s.amountText}>{amount} X</Text>}
+				</View>
 
 				<View style={s.innerInfoContainer}>
 					<View style={s.melInfo}>
@@ -39,7 +45,7 @@ export default function OrderedProductCard({
 								]}
 							/>
 						)}
-						{mel && <Text>{mel.name}</Text>}
+						{mel && <Text style={s.amountText}>{mel.name}</Text>}
 					</View>
 					<Text style={s.priceText}>{parsedPrice}</Text>
 				</View>
