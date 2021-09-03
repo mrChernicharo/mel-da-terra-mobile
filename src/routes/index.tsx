@@ -15,12 +15,14 @@ import { useContext } from 'react';
 import { ThemeContext } from '../store/ThemeContext';
 import Header from '../components/Header';
 import { AppColors } from '../styles/colors';
-import { IProduct } from '../utils/constants';
+import { IProduct } from '../utils/interfaces';
 import OrderDetails from '../screens/OrderDetails';
+import Checkout from '../screens/Checkout';
+import ThemeSwitch from '../components/ThemeSwitch';
 
-export type IRouteProps = {
-	theme: string;
-};
+// export type IRouteProps = {
+// 	theme: string;
+// };
 
 export type StackParams = {
 	Intro: undefined;
@@ -31,6 +33,7 @@ export type StackParams = {
 	NewOrder: undefined;
 	OrderDetails: { product: IProduct };
 	MyOrders: undefined;
+	Checkout: undefined;
 };
 
 export type SettingsNavigationProp = StackNavigationProp<
@@ -51,6 +54,11 @@ export type OrderDetailsNavigationProp = StackNavigationProp<
 	'OrderDetails'
 >;
 
+export type CheckoutNavigationProp = StackNavigationProp<
+	StackParams,
+	'Checkout'
+>;
+
 export default function Routes() {
 	const { theme } = useContext(ThemeContext);
 	const colors = AppColors(theme);
@@ -58,18 +66,27 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Header />
+
 			<Stack.Navigator
 				initialRouteName="Intro"
 				screenOptions={{
-					headerShown: false,
-					headerStyle: { backgroundColor: colors.bg },
-					headerTintColor: colors.primary,
+					headerShown: true,
+					headerStyle: {
+						backgroundColor:
+							theme === 'dark' ? colors.bg : colors.primary,
+					},
+					headerTintColor:
+						theme === 'dark' ? colors.primary : colors.bg,
+					headerBackTitleVisible: false,
+					headerTitle: '',
+					headerRight: () => <ThemeSwitch />,
 				}}
 			>
 				<Stack.Screen name="Intro" component={Intro} />
 				<Stack.Screen name="Address" component={Address} />
 				<Stack.Screen name="Login" component={Login} />
 				<Stack.Screen name="Settings" component={Settings} />
+				<Stack.Screen name="Checkout" component={Checkout} />
 				<Stack.Screen name="MyOrders" component={MyOrders} />
 				<Stack.Screen name="NewOrder" component={NewOrder} />
 				<Stack.Screen name="OrderDetails" component={OrderDetails} />

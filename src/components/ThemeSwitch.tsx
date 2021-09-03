@@ -1,18 +1,14 @@
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { Switch } from 'react-native-elements';
+
 import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { ThemeContext } from '../store/ThemeContext';
 import styles from '../styles/header';
-import ThemeSwitch from './ThemeSwitch';
 
-export default function Header() {
+export default function ThemeSwitch() {
 	const { theme, toggleTheme } = useContext(ThemeContext);
-
 	const s = styles(theme);
-
-	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
 
 	function handleChange() {
 		toggleTheme();
@@ -24,10 +20,15 @@ export default function Header() {
 		) : (
 			<Fontisto name="day-sunny" size={32} color="orange" />
 		);
-
 	return (
-		<View style={s.container}>
-			<StatusBar style={statusBarTheme} />
+		<View style={s.themeSwitch}>
+			{theme === 'dark' && themeIcon}
+			<Switch
+				color="orange"
+				value={theme === 'dark'}
+				onChange={handleChange}
+			/>
+			{theme === 'light' && themeIcon}
 		</View>
 	);
 }

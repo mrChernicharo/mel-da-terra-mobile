@@ -16,10 +16,11 @@ import { StackParams } from '../routes/index';
 
 import { ThemeContext } from '../store/ThemeContext';
 import { OrdersContext } from '../store/OrdersContext';
-import { IProduct, products } from '../utils/constants';
+import { products } from '../utils/constants';
 import ProductCard from '../components/ProductCard';
 import styles from '../styles/newOrder';
 import CartItems from '../components/CartItems';
+import { IOrderProduct, IProduct } from '../utils/interfaces';
 
 type NewOrderNavigationProp = StackNavigationProp<StackParams, 'NewOrder'>;
 
@@ -30,6 +31,7 @@ export default function NewOrder() {
 	const s = styles(theme);
 
 	const { currentOrder } = useContext(OrdersContext);
+	const orderProducts = currentOrder?.products as IOrderProduct[];
 
 	const { height, width } = useWindowDimensions();
 
@@ -37,14 +39,17 @@ export default function NewOrder() {
 		console.log(product);
 		navigation.push('OrderDetails', { product });
 	}
+	function handleButtonPressed() {
+		navigation.push('Checkout');
+	}
 
 	return (
 		<SafeAreaView style={s.container}>
-			{!!currentOrder.length && <CartItems />}
+			{!!orderProducts?.length && <CartItems />}
 
 			<View style={[s.productsContainer]}>
 				<Text style={s.headingText}>
-					{currentOrder.length
+					{orderProducts?.length
 						? 'Adicione mais produtos'
 						: 'Escolha o seu produto'}
 				</Text>
@@ -53,7 +58,9 @@ export default function NewOrder() {
 					data={products}
 					ListFooterComponent={
 						<View
-							style={{ height: currentOrder.length ? 320 : 120 }}
+							style={{
+								height: orderProducts?.length ? 290 : 120,
+							}}
 						></View>
 					}
 					keyExtractor={(item: IProduct) => item.title}
@@ -65,11 +72,13 @@ export default function NewOrder() {
 					)}
 				/>
 			</View>
-			<View style={[s.buttonContainer, { top: height - 260 }]}>
+			<View style={[s.buttonContainer, { top: height - 240 }]}>
 				<Button
 					title="Finalizar Pedido"
 					buttonStyle={[s.button, { width: width - 30 }]}
 					titleStyle={s.buttonText}
+					disabled={!orderProducts.length}
+					onPress={handleButtonPressed}
 				/>
 			</View>
 		</SafeAreaView>

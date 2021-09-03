@@ -8,7 +8,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { StackParams } from '../routes/index';
 import { ThemeContext } from '../store/ThemeContext';
-import { IMel, IProduct, meles, products } from '../utils/constants';
+import { IMel, IProduct } from '../utils/interfaces';
+import { meles, products } from '../utils/constants';
 
 import OrderedProductCard from '../components/OrderedProductCard';
 import MelCard from '../components/MelCard';

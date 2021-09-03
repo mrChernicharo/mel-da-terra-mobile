@@ -8,21 +8,8 @@ const styles = (theme: IAppTheme) => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: colors.bg,
-			height: 100,
-			borderWidth: 2,
-		},
-
-		productsContainer: {
-			marginBottom: 100,
-		},
-		text: {
-			color: colors.text,
-		},
-		headingText: {
-			color: colors.text,
-			fontSize: 24,
-			fontWeight: '600',
-			textAlign: 'center',
+			height: 84,
+			// borderWidth: 2,
 		},
 	});
 };

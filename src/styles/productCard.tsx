@@ -10,6 +10,7 @@ const styles = (theme: IAppTheme) => {
 			backgroundColor: colors.bg2,
 			borderRadius: 10,
 			paddingVertical: 6,
+			marginHorizontal: 24,
 		},
 		wrapper: {
 			// borderWidth: 3,
@@ -21,7 +22,7 @@ const styles = (theme: IAppTheme) => {
 		},
 		headingText: {
 			color: colors.text,
-			fontSize: 24,
+			fontSize: 20,
 			fontWeight: '600',
 			textAlign: 'left',
 			marginBottom: 4,
@@ -46,7 +47,7 @@ const styles = (theme: IAppTheme) => {
 			justifyContent: 'center',
 		},
 		infoContainer: {
-			width: 280,
+			width: 260,
 			height: 100,
 			// justifyContent: 'space-between',
 			// paddingVertical: 8,

@@ -11,8 +11,6 @@ const styles = (theme: IAppTheme) => {
 			backgroundColor: colors.bg,
 		},
 		productsContainer: {
-			// height: '100%',
-			// maxHeight: 560,
 			marginBottom: 100,
 		},
 		text: {

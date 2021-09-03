@@ -16,7 +16,6 @@ const styles = (theme: IAppTheme) => {
 		},
 		amountContainer: {
 			flex: 1,
-			// borderWidth: 2,
 			justifyContent: 'center',
 			paddingBottom: 64,
 		},
@@ -30,14 +29,16 @@ const styles = (theme: IAppTheme) => {
 		},
 		numericInputContainer: {
 			alignItems: 'center',
+			paddingVertical: 10,
+			// borderWidth: 2,
 		},
 		headingText: {
 			color: colors.text,
 			fontSize: 24,
 			fontWeight: '600',
 			textAlign: 'center',
-			marginBottom: 10,
-			marginTop: 20,
+			paddingVertical: 16,
+			// borderWidth: 2,
 		},
 		text: {
 			color: colors.text,

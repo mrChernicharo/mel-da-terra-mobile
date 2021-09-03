@@ -9,7 +9,7 @@ import {
 import { Card, ImageProps } from 'react-native-elements';
 
 import { ThemeContext } from '../store/ThemeContext';
-import { IProduct } from '../utils/constants';
+import { IProduct } from '../utils/interfaces';
 import { getBRPrice } from '../utils/helpers';
 import styles from '../styles/productCard';
 

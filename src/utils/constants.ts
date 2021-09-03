@@ -4,24 +4,7 @@ import type350 from '../assets/mel-350.png';
 import type480 from '../assets/mel-480.png';
 import type780 from '../assets/mel-780.png';
 import propolis from '../assets/propolis.png';
-
-export type IProductType = 'kit' | '150' | '350' | '480' | '780' | 'propolis';
-
-export interface IProduct {
-	id?: string;
-	title: string;
-	description: string;
-	type: IProductType;
-	price: number;
-	img: string;
-	hasOptions: boolean;
-}
-export interface IMel {
-	name: string;
-	isAvailable: boolean;
-	description: string;
-	hue: string;
-}
+import { IMel, IProduct } from './interfaces';
 
 export const hues = {
 	laranjeira: '#dbc884',
