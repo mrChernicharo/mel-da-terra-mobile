@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, Image, ImageSourcePropType } from 'react-native';
 import { Card } from 'react-native-elements';
-import { IMel, IProduct } from '../utils/constants';
+import { IMel, IProduct } from '../utils/interfaces';
 import styles from '../styles/orderedProductCard';
 import { ThemeContext } from '../store/ThemeContext';
 import { getBRPrice } from '../utils/helpers';
@@ -19,7 +19,7 @@ export default function OrderedProductCard({
 	const { img, title, price } = product;
 
 	const imgPath = String(img) as ImageSourcePropType;
-	const parsedPrice = getBRPrice(price);
+	const parsedPrice = getBRPrice(price * amount);
 
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
@@ -32,7 +32,11 @@ export default function OrderedProductCard({
 			<View style={s.outerInfoContainer}>
 				<View style={s.headingContainer}>
 					<Text style={s.headingText}>{title}</Text>
-					{!!amount && <Text style={s.amountText}>{amount} X</Text>}
+					{!!amount && (
+						<Text style={s.amountText}>
+							{amount} unidade{amount > 1 && 's'}
+						</Text>
+					)}
 				</View>
 
 				<View style={s.innerInfoContainer}>

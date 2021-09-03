@@ -9,38 +9,32 @@ const styles = (theme: IAppTheme) => {
 		container: {
 			backgroundColor: colors.bg2,
 			borderRadius: 8,
-
-			paddingVertical: 12,
-			paddingHorizontal: 6,
-
-			marginTop: 32,
+			paddingVertical: 8,
+			paddingLeft: 10,
 		},
 		wrapper: {
 			flexDirection: 'row',
+			justifyContent: 'space-between',
 		},
 		text: {
 			color: colors.text,
 		},
 		headingContainer: {
 			flexDirection: 'row',
-			// borderWidth: 3,
+			justifyContent: 'space-between',
 		},
 		headingText: {
 			color: colors.text,
 			fontSize: 20,
 			fontWeight: '600',
-			textAlign: 'left',
-			width: 220,
-			// borderWidth: 1,
 		},
 		amountText: {
+			textAlign: 'right',
 			color: colors.text,
 			fontSize: 20,
 			marginTop: 1,
-			marginLeft: 10,
 		},
 		imgContainer: {
-			// borderWidth: 3,
 			maxHeight: 60,
 			width: 60,
 			justifyContent: 'center',
@@ -52,7 +46,7 @@ const styles = (theme: IAppTheme) => {
 			overflow: 'visible',
 		},
 		outerInfoContainer: {
-			width: 280,
+			width: 270,
 			justifyContent: 'space-between',
 			paddingLeft: 6,
 		},
@@ -60,17 +54,19 @@ const styles = (theme: IAppTheme) => {
 			flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
+			// borderWidth: 1,
 		},
 		priceText: {
 			color: colors.text,
-			fontSize: 16,
+			marginTop: 5,
+			fontSize: 20,
 			fontWeight: '600',
 			textAlign: 'right',
 		},
 		melInfo: {
-			// borderWidth: 3,
 			flexDirection: 'row',
 			alignItems: 'center',
+			// borderWidth: 1,
 		},
 		melCircle: {
 			width: 20,

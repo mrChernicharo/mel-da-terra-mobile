@@ -133,9 +133,7 @@ export default function OrderDetails() {
 						<Button
 							buttonStyle={s.button}
 							titleStyle={s.buttonText}
-							title={`Adicionar produto${
-								amount === 1 ? '' : 's'
-							} ${getBRPrice(amount * product.price)}
+							title={`Adicionar produto${amount === 1 ? '' : 's'} 
 					`}
 							disabled={
 								product.hasOptions ? !amount || !mel : !amount

@@ -10,7 +10,12 @@ const styles = (theme: IAppTheme) => {
 			flex: 1,
 			backgroundColor: colors.bg,
 		},
-		productContainer: {},
+		productContainer: {
+			// borderWidth: 1,
+			paddingTop: 20,
+			// justifyContent: 'center',
+			// alignItems: 'center',
+		},
 		melesContainer: {
 			paddingVertical: 20,
 		},
@@ -50,8 +55,9 @@ const styles = (theme: IAppTheme) => {
 			paddingBottom: 10,
 		},
 		buttonText: {
-			fontSize: 20,
-			height: 30,
+			fontSize: 24,
+			height: 36,
+			fontWeight: '600',
 		},
 	});
 };
