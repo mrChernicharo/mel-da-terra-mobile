@@ -9,6 +9,18 @@ const styles = (theme: IAppTheme) => {
 		container: {
 			backgroundColor: colors.bg,
 		},
+		cartContainer: {
+			height: 100,
+			borderWidth: 2,
+		},
+		productsContainer: {
+			maxHeight: 500,
+			borderWidth: 2,
+		},
+		buttonContainer: {
+			height: '100%',
+			borderWidth: 2,
+		},
 		text: {
 			color: colors.text,
 		},

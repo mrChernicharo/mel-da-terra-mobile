@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { useEffect } from 'react';
-import { IProduct } from '../utils/constants';
+import { IMel, IProduct } from '../utils/constants';
 import { generateUUID } from '../utils/helpers';
 
 //an Order is an Array of products
@@ -8,6 +8,7 @@ import { generateUUID } from '../utils/helpers';
 export type IOrder = {
 	id: string;
 	product: IProduct;
+	mel: IMel | null;
 	amount: number;
 }[];
 
@@ -17,7 +18,11 @@ export interface IOrdersContextProps {
 export interface IOrdersContext {
 	currentOrder: IOrder;
 	previousOrders: IOrder[];
-	addOrderProduct: (product: IProduct, amount: number) => void;
+	addOrderProduct: (
+		product: IProduct,
+		amount: number,
+		mel: IMel | null
+	) => void;
 	removeOrderProduct: (id: string) => void;
 	// updateOrderProduct: () => void;
 }
@@ -25,7 +30,11 @@ export interface IOrdersContext {
 export const OrdersContext = createContext<IOrdersContext>({
 	currentOrder: [],
 	previousOrders: [],
-	addOrderProduct: (product: IProduct, amount: number) => {},
+	addOrderProduct: (
+		product: IProduct,
+		amount: number,
+		mel: IMel | null
+	) => {},
 	removeOrderProduct: (id: string) => {},
 	// updateOrderProduct: () => {},
 });
@@ -34,11 +43,16 @@ export function OrdersContextProvider({ children }: IOrdersContextProps) {
 	const [currentOrder, setCurrentOrder] = useState<IOrder>([]);
 	const [previousOrders, setPreviousOrders] = useState<IOrder[]>([]);
 
-	function handleAddOrderProduct(product: IProduct, amount: number) {
+	function handleAddOrderProduct(
+		product: IProduct,
+		amount: number,
+		mel: IMel | null
+	) {
 		const order = {
 			id: generateUUID(20),
 			product,
 			amount,
+			mel,
 		};
 		setCurrentOrder([...currentOrder, order]);
 	}
@@ -53,7 +67,7 @@ export function OrdersContextProvider({ children }: IOrdersContextProps) {
 		removeOrderProduct: handleRemoveOrderProduct,
 	};
 
-	useEffect(() => console.log(context), [context]);
+	// useEffect(() => console.log(context), [context]);
 
 	return (
 		<OrdersContext.Provider value={context}>
