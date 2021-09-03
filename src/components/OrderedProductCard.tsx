@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import { IMel, IProduct } from '../utils/constants';
 import styles from '../styles/orderedProductCard';
 import { ThemeContext } from '../store/ThemeContext';
+import { getBRPrice } from '../utils/helpers';
 
 interface IOrderedProductCardProps {
 	product: IProduct;
@@ -15,10 +16,7 @@ export default function OrderedProductCard({
 }: IOrderedProductCardProps) {
 	const { img, title, description, type, price } = product;
 	const imgPath = String(img) as ImageSourcePropType;
-	const brPrice = (price / 100).toLocaleString('pt-BR', {
-		style: 'currency',
-		currency: 'BRL',
-	});
+	const parsedPrice = getBRPrice(price);
 
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
@@ -43,7 +41,7 @@ export default function OrderedProductCard({
 						)}
 						{mel && <Text>{mel.name}</Text>}
 					</View>
-					<Text style={s.priceText}>{brPrice}</Text>
+					<Text style={s.priceText}>{parsedPrice}</Text>
 				</View>
 			</View>
 		</Card>

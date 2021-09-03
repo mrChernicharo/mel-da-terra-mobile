@@ -1,5 +1,4 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import {
 	View,
 	Text,
@@ -8,8 +7,10 @@ import {
 	ImageSourcePropType,
 } from 'react-native';
 import { Card, ImageProps } from 'react-native-elements';
+
 import { ThemeContext } from '../store/ThemeContext';
 import { IProduct } from '../utils/constants';
+import { getBRPrice } from '../utils/helpers';
 import styles from '../styles/productCard';
 
 export interface IProductCardProps {
@@ -23,10 +24,7 @@ export default function ProductCard({
 }: IProductCardProps) {
 	const { img, title, description, type, price } = data;
 	const imgPath = String(img) as ImageSourcePropType;
-	const brPrice = (price / 100).toLocaleString('pt-BR', {
-		style: 'currency',
-		currency: 'BRL',
-	});
+	const parsedPrice = getBRPrice(price);
 
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
@@ -47,7 +45,7 @@ export default function ProductCard({
 				<View style={s.infoContainer}>
 					<Text style={s.headingText}>{title}</Text>
 					<Text style={s.text}>{description}</Text>
-					<Text style={s.priceText}>{brPrice}</Text>
+					<Text style={s.priceText}>{parsedPrice}</Text>
 				</View>
 			</Card>
 		</TouchableNativeFeedback>

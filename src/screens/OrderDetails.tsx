@@ -1,19 +1,23 @@
+import React, { useState, useContext } from 'react';
+import { SafeAreaView, View, Text, ViewStyle } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import NumericInput from 'react-native-numeric-input';
+
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 import { StackParams } from '../routes/index';
-import React from 'react';
-import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import splash from '../assets/splash2.jpg';
-import { Button } from 'react-native-elements';
-import styles from '../styles/orderDetails';
-import { useContext } from 'react';
 import { ThemeContext } from '../store/ThemeContext';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { IMel, IProduct, meles, products } from '../utils/constants';
-import MelCard from '../components/MelCard';
-import ProductCard from '../components/ProductCard';
+
 import OrderedProductCard from '../components/OrderedProductCard';
-import { useState } from 'react';
+import MelCard from '../components/MelCard';
+
+import styles from '../styles/orderDetails';
+import { AppColors } from '../styles/colors';
+import { Button } from 'react-native-elements';
+import { getBRPrice } from '../utils/helpers';
+import { FontAwesome } from '@expo/vector-icons';
 
 type OrderDetailsNavigationProp = StackNavigationProp<
 	StackParams,
@@ -22,25 +26,40 @@ type OrderDetailsNavigationProp = StackNavigationProp<
 
 export default function OrderDetails() {
 	const [mel, setMel] = useState<IMel | null>(null);
+	const [amount, setAmount] = useState(0);
+
 	const { theme } = useContext(ThemeContext);
+	const colors = AppColors(theme);
 	const s = styles(theme);
 
 	const navigation = useNavigation<OrderDetailsNavigationProp>();
 	const { routes } = navigation.getState();
 	const product = routes[routes.length - 1]?.params?.product as IProduct;
 
-	function handleMelSelected(mel: IMel) {
-		setMel(mel);
+	function handleMelSelected(selectedMel: IMel) {
+		if (selectedMel.name === mel?.name) return setMel(null);
+		setMel(selectedMel);
+	}
+	function handleAmountChange(value: number) {
+		setAmount(value);
 	}
 
 	return (
 		<SafeAreaView style={s.container}>
-			<View>
+			<View style={s.productContainer}>
 				<OrderedProductCard product={product} mel={mel} />
-
-				<View>
-					<Text style={s.headingText}>Escolha o Mel</Text>
-				</View>
+			</View>
+			<View style={s.melesContainer}>
+				<Text style={s.headingText}>
+					Escolha o Mel
+					{mel && (
+						<FontAwesome
+							name="check"
+							color={colors.green}
+							size={28}
+						/>
+					)}
+				</Text>
 
 				<FlatList
 					contentContainerStyle={s.listContainer}
@@ -55,16 +74,53 @@ export default function OrderDetails() {
 					horizontal={true}
 					showsHorizontalScrollIndicator={false}
 				/>
+			</View>
 
-				{/* <ScrollView>
-					{meles.map(item => (
-						<MelCard
-							key={item.name}
-							mel={item}
-							onCardSelected={handleMelSelected}
+			<View style={s.amountContainer}>
+				<Text style={s.headingText}>
+					Quantas unidades?
+					{!!amount && (
+						<FontAwesome
+							name="check"
+							color={colors.green}
+							size={28}
 						/>
-					))}
-				</ScrollView> */}
+					)}
+				</Text>
+
+				<View style={s.numericInputContainer}>
+					<NumericInput
+						value={amount}
+						onChange={handleAmountChange}
+						totalWidth={260}
+						totalHeight={42}
+						iconSize={25}
+						valueType="real"
+						minValue={0}
+						rounded
+						textColor={colors.text}
+						iconStyle={
+							{
+								color: colors.text,
+								fontSize: 24,
+							} as ViewStyle
+						}
+						rightButtonBackgroundColor={colors.primary}
+						leftButtonBackgroundColor={colors.primary}
+					/>
+				</View>
+			</View>
+
+			<View style={s.buttonContainer}>
+				<Button
+					buttonStyle={s.button}
+					titleStyle={s.buttonText}
+					disabled={!amount || !mel}
+					title={`Adicionar produto${
+						amount === 1 ? '' : 's'
+					} ${getBRPrice(amount * product.price)}
+					`}
+				/>
 			</View>
 		</SafeAreaView>
 	);

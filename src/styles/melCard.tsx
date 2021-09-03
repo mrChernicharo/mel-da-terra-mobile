@@ -8,20 +8,19 @@ const styles = (theme: IAppTheme) => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: colors.bg2,
-			borderRadius: 10,
+			borderRadius: 6,
 
-			paddingVertical: 10,
+			paddingVertical: 7,
 			paddingHorizontal: 10,
 
 			marginHorizontal: 8,
 			marginVertical: 0,
-		},
-		wrapper: {
-			// flexDirection: 'row',
+			width: 128,
 		},
 		headingBox: {
-			// borderWidth: 2,
 			flexDirection: 'row',
+			alignItems: 'center',
+			marginBottom: 3,
 		},
 		descriptionBox: {
 			// borderWidth: 2,
@@ -29,6 +28,7 @@ const styles = (theme: IAppTheme) => {
 		},
 		text: {
 			color: colors.text,
+			// textAlign: 'center',
 		},
 		headingText: {
 			color: colors.text,
@@ -37,10 +37,10 @@ const styles = (theme: IAppTheme) => {
 			textAlign: 'left',
 		},
 		hueCircle: {
-			width: 20,
-			height: 20,
+			width: 16,
+			height: 16,
 			borderRadius: 10,
-			marginLeft: 8,
+			marginRight: 8,
 		},
 	});
 };

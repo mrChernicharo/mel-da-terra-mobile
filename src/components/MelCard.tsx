@@ -26,10 +26,10 @@ export default function MelCard({ mel, onCardSelected }: IMelCardProps) {
 			onPress={handleCardPress}
 			// onLayout={/* someAnimation */}
 		>
-			<Card containerStyle={s.container} wrapperStyle={s.wrapper}>
+			<Card containerStyle={s.container}>
 				<View style={s.headingBox}>
-					<Text style={s.headingText}>{name}</Text>
 					<View style={[s.hueCircle, { backgroundColor: hue }]} />
+					<Text style={s.headingText}>{name}</Text>
 				</View>
 				<View style={s.descriptionBox}>
 					<Text style={s.text}>{description}</Text>

@@ -8,7 +8,7 @@ const styles = (theme: IAppTheme) => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: colors.bg2,
-			borderRadius: 10,
+			borderRadius: 8,
 
 			paddingVertical: 10,
 			paddingHorizontal: 6,
