@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { ScreenContainer } from 'react-native-screens';
 import { IAppTheme } from '../store/ThemeContext';
 import { AppColors } from './colors';
 
@@ -9,10 +8,11 @@ const styles = (theme: IAppTheme) => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: colors.bg,
+			height: 100,
+			borderWidth: 2,
 		},
+
 		productsContainer: {
-			// height: '100%',
-			// maxHeight: 560,
 			marginBottom: 100,
 		},
 		text: {
@@ -23,27 +23,6 @@ const styles = (theme: IAppTheme) => {
 			fontSize: 24,
 			fontWeight: '600',
 			textAlign: 'center',
-			padding: 10,
-		},
-		buttonContainer: {
-			backgroundColor: colors.bg,
-			// borderWidth: 2,
-			// borderColor: 'red',
-			width: '100%',
-			position: 'absolute',
-			bottom: 0,
-			left: 0,
-		},
-		button: {
-			height: 64,
-			backgroundColor: colors.accent,
-			margin: 14,
-			left: 0,
-			zIndex: 4,
-		},
-		buttonText: {
-			fontSize: 24,
-			fontWeight: '600',
 		},
 	});
 };

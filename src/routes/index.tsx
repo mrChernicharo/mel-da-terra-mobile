@@ -5,7 +5,6 @@ import {
 	StackNavigationProp,
 } from '@react-navigation/stack';
 
-import Main from '..';
 import Intro from '../screens/Intro';
 import Address from '../screens/Address';
 import Login from '../screens/Login';
@@ -43,7 +42,6 @@ export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
 
 export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
 
-export type MainNavigationProp = StackNavigationProp<StackParams, 'Main'>;
 export type NewOrderNavigationProp = StackNavigationProp<
 	StackParams,
 	'NewOrder'
@@ -71,7 +69,6 @@ export default function Routes() {
 				<Stack.Screen name="Intro" component={Intro} />
 				<Stack.Screen name="Address" component={Address} />
 				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="Main" component={Main} />
 				<Stack.Screen name="Settings" component={Settings} />
 				<Stack.Screen name="MyOrders" component={MyOrders} />
 				<Stack.Screen name="NewOrder" component={NewOrder} />
