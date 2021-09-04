@@ -1,22 +1,35 @@
 import React, { useContext } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, useWindowDimensions } from 'react-native';
+import BigBottomButton from '../components/BigBottomButton';
 import OrderedProductCard from '../components/OrderedProductCard';
 
 import { OrdersContext } from '../store/OrdersContext';
 import { ThemeContext } from '../store/ThemeContext';
 import styles from '../styles/checkout';
-import { generateUUID } from '../utils/helpers';
+import { generateUUID, getBRPrice } from '../utils/helpers';
 import { IOrderProduct } from '../utils/interfaces';
 
 export default function Checkout() {
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
+	const { width, height } = useWindowDimensions();
 
 	const { currentOrder } = useContext(OrdersContext);
 	const products = currentOrder?.products as IOrderProduct[];
+
+	const reducedPrice = getBRPrice(
+		products.reduce(
+			(sum, order, i) => sum + order.product.price * order.amount,
+			0
+		)
+	);
+
+	function handleButtonPressed() {
+		console.log(currentOrder?.products.map(order => order.product.title));
+	}
 	return (
 		<View style={s.container}>
-			<Text style={s.headingText}>Seu Pedido</Text>
+			<Text style={s.headingText}>Seus Produtos</Text>
 
 			<ScrollView>
 				{products.map(order => (
@@ -28,6 +41,17 @@ export default function Checkout() {
 					/>
 				))}
 			</ScrollView>
+
+			<View style={[s.buttonContainer, { top: height - 280 }]}>
+				<Text style={[s.headingText, { marginBottom: 20 }]}>
+					Valor total: {reducedPrice}
+				</Text>
+
+				<BigBottomButton
+					title="Finalizar Pedido"
+					buttonPressed={handleButtonPressed}
+				/>
+			</View>
 		</View>
 	);
 }

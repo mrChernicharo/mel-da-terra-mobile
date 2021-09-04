@@ -21,6 +21,7 @@ import ProductCard from '../components/ProductCard';
 import styles from '../styles/newOrder';
 import CartItems from '../components/CartItems';
 import { IOrderProduct, IProduct } from '../utils/interfaces';
+import BigBottomButton from '../components/BigBottomButton';
 
 type NewOrderNavigationProp = StackNavigationProp<StackParams, 'NewOrder'>;
 
@@ -56,13 +57,6 @@ export default function NewOrder() {
 
 				<FlatList
 					data={products}
-					ListFooterComponent={
-						<View
-							style={{
-								height: orderProducts?.length ? 290 : 120,
-							}}
-						></View>
-					}
 					keyExtractor={(item: IProduct) => item.title}
 					renderItem={({ item }) => (
 						<ProductCard
@@ -70,17 +64,24 @@ export default function NewOrder() {
 							onCardSelected={handleProductSelected}
 						/>
 					)}
+					showsVerticalScrollIndicator={false}
+					ListFooterComponent={
+						<View
+							style={{
+								height: orderProducts?.length ? 290 : 120,
+							}}
+						></View>
+					}
 				/>
 			</View>
-			<View style={[s.buttonContainer, { top: height - 240 }]}>
-				<Button
-					title="Finalizar Pedido"
-					buttonStyle={[s.button, { width: width - 30 }]}
-					titleStyle={s.buttonText}
-					disabled={!orderProducts.length}
-					onPress={handleButtonPressed}
-				/>
-			</View>
+			{!!orderProducts?.length && (
+				<View style={[s.buttonContainer, { top: height - 240 }]}>
+					<BigBottomButton
+						title="Fechar Pedido"
+						buttonPressed={handleButtonPressed}
+					/>
+				</View>
+			)}
 		</SafeAreaView>
 	);
 }

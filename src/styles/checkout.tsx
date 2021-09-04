@@ -20,10 +20,10 @@ const styles = (theme: IAppTheme) => {
 		},
 		headingText: {
 			color: colors.text,
-			fontSize: 20,
+			fontSize: 24,
 			fontWeight: '600',
-			textAlign: 'left',
-			marginBottom: 4,
+			textAlign: 'center',
+			marginTop: 20,
 		},
 		priceText: {
 			color: colors.text,
@@ -47,9 +47,15 @@ const styles = (theme: IAppTheme) => {
 		infoContainer: {
 			width: 260,
 			height: 100,
-			// justifyContent: 'space-between',
-			// paddingVertical: 8,
 			paddingHorizontal: 14,
+		},
+		buttonContainer: {
+			backgroundColor: colors.bg,
+			width: '100%',
+			position: 'absolute',
+			bottom: 0,
+			left: 0,
+			alignItems: 'center',
 		},
 	});
 };

@@ -31,17 +31,8 @@ const styles = (theme: IAppTheme) => {
 			position: 'absolute',
 			bottom: 0,
 			left: 0,
-		},
-		button: {
-			height: 64,
-			backgroundColor: colors.accent,
-			margin: 14,
-			left: 0,
-			zIndex: 4,
-		},
-		buttonText: {
-			fontSize: 24,
-			fontWeight: '600',
+			paddingTop: 20,
+			alignItems: 'center',
 		},
 	});
 };

@@ -42,22 +42,13 @@ export type SettingsNavigationProp = StackNavigationProp<
 >;
 
 export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
-
 export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
-
-export type NewOrderNavigationProp = StackNavigationProp<
-	StackParams,
-	'NewOrder'
->;
-export type OrderDetailsNavigationProp = StackNavigationProp<
-	StackParams,
-	'OrderDetails'
->;
-
-export type CheckoutNavigationProp = StackNavigationProp<
-	StackParams,
-	'Checkout'
->;
+// prettier-ignore
+export type NewOrderNavigationProp = StackNavigationProp<StackParams,'NewOrder'>;
+// prettier-ignore
+export type OrderDetailsNavigationProp = StackNavigationProp<StackParams,'OrderDetails'>
+// prettier-ignore
+export type CheckoutNavigationProp = StackNavigationProp<StackParams,'Checkout'>;
 
 export default function Routes() {
 	const { theme } = useContext(ThemeContext);

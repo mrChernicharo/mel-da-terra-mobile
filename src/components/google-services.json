@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461825274725",
+    "project_id": "mel-da-terra",
+    "storage_bucket": "mel-da-terra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461825274725:android:fdfacd0f89fe1520dc678c",
+        "android_client_info": {
+          "package_name": "com.meloDev.melDaTerra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461825274725-bmk5m4bribsp5rmgc52inbdd6mvrqn7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXuRz0F3DNcT3WkB3Jp1jVw7FtEU6pcpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461825274725-bmk5m4bribsp5rmgc52inbdd6mvrqn7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

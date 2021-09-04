@@ -24,10 +24,7 @@ const styles = (theme: IAppTheme) => {
 			justifyContent: 'center',
 			paddingBottom: 64,
 		},
-		buttonContainer: {
-			alignItems: 'center',
-			paddingBottom: 80,
-		},
+
 		listContainer: {
 			paddingHorizontal: 10,
 			paddingVertical: 10,
@@ -47,6 +44,10 @@ const styles = (theme: IAppTheme) => {
 		},
 		text: {
 			color: colors.text,
+		},
+		buttonContainer: {
+			alignItems: 'center',
+			paddingBottom: 80,
 		},
 		button: {
 			width: 300,
