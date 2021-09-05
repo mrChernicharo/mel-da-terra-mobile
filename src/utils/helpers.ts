@@ -1,10 +1,16 @@
 import { IProduct, IProductType } from './interfaces';
+import { Platform } from 'react-native';
 
-export const getBRPrice = (price: number) =>
-	(price / 100).toLocaleString('pt-BR', {
+export const getBRPrice = (price: number) => {
+	const parsedPrice = (price / 100).toLocaleString('pt-BR', {
 		style: 'currency',
 		currency: 'BRL',
 	});
+
+	return Platform.OS === 'android'
+		? `R$${(price / 100).toFixed(2)}`
+		: parsedPrice;
+};
 
 export function generateUUID(digits: number) {
 	let str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXZ';
@@ -17,10 +23,9 @@ export function generateUUID(digits: number) {
 
 export function productPluralTitle(product: IProduct) {
 	const plural = (title: string) => {
-		let b = title.split('');
-		let start = b.slice(0, 4);
-		let end = b.splice(4);
-		return `${start.join('')}s${end.join('')}`;
+		const str = title.split('');
+		str.splice(4, 0, 's');
+		return str;
 	};
 
 	switch (product.type) {

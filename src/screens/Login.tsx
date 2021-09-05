@@ -1,11 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import {
 	SafeAreaView,
 	View,
 	Text,
-	TextInput,
-	TouchableOpacity,
-	ImageBackground,
 	KeyboardAvoidingView,
 	Platform,
 } from 'react-native';
@@ -13,22 +10,20 @@ import { useNavigation } from '@react-navigation/native';
 import { LoginNavigationProp } from '../routes/index';
 import { Button, Input } from 'react-native-elements';
 
+import {
+	getAuth,
+	signInWithEmailAndPassword,
+} from 'firebase/auth/react-native';
+
 import { styles } from '../styles/login';
 import { ThemeContext } from '../store/ThemeContext';
 import {
 	Feather,
+	FontAwesome,
 	Fontisto,
-	Ionicons,
-	MaterialCommunityIcons,
-	MaterialIcons,
 	SimpleLineIcons,
 } from '@expo/vector-icons';
 import { AppColors } from '../styles/colors';
-import splash from '../assets/min-lower.png';
-
-interface ILoginProps {
-	theme: string;
-}
 
 export default function Login() {
 	const navigation = useNavigation<LoginNavigationProp>();
@@ -39,6 +34,11 @@ export default function Login() {
 	const [isEmailFilled, setIsEmailFilled] = useState(false);
 	const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 	const [isPasswordFilled, setIsPasswordFilled] = useState(false);
+
+	const [showPassword, setShowPassword] = useState(false);
+
+	const passwordInputRef = useRef<any>();
+
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
@@ -71,9 +71,26 @@ export default function Login() {
 	function goToNewOrderScreen() {
 		navigation.push('NewOrder');
 	}
-	function handleSubmit() {
+	async function handleSubmit() {
 		console.log('submited email: ' + email + ' password: ' + password);
-		goToNewOrderScreen();
+
+		const match = email.match(
+			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/gm
+		);
+
+		if (!match?.length) return;
+
+		console.log(match[0]);
+
+		const auth = getAuth();
+		const userCredential = await signInWithEmailAndPassword(
+			auth,
+			email,
+			password
+		);
+		console.log(userCredential);
+
+		// goToNewOrderScreen();
 	}
 
 	return (
@@ -94,15 +111,17 @@ export default function Login() {
 								}
 							}
 							placeholder={'seu@email.com'}
-							rightIcon={
+							leftIcon={
 								<Fontisto
 									name="email"
 									size={32}
 									style={[
 										s.inputIcon,
 										s.mailInput,
-										isEmailFilled && {
-											color: accent,
+										{
+											color: isEmailFilled
+												? accent
+												: '#ababab',
 										},
 									]}
 								/>
@@ -110,9 +129,13 @@ export default function Login() {
 							onBlur={handleEmailInputBlur}
 							onFocus={handleEmailInputFocus}
 							onChangeText={handleEmailInputChange}
+							onSubmitEditing={() =>
+								passwordInputRef.current.focus()
+							}
 						/>
 
 						<Input
+							ref={passwordInputRef}
 							inputStyle={s.input}
 							inputContainerStyle={
 								isPasswordFilled && {
@@ -121,7 +144,7 @@ export default function Login() {
 								}
 							}
 							placeholder={'sua senha'}
-							rightIcon={
+							leftIcon={
 								<SimpleLineIcons
 									name="lock"
 									size={32}
@@ -133,9 +156,27 @@ export default function Login() {
 									]}
 								/>
 							}
+							rightIcon={
+								<Feather
+									name="eye"
+									size={32}
+									onPress={() =>
+										setShowPassword(!showPassword)
+									}
+									style={[
+										s.inputIcon,
+										{
+											color: accent,
+											marginBottom: -16,
+										},
+									]}
+								/>
+							}
+							secureTextEntry={!!showPassword}
 							onBlur={handlePasswordInputBlur}
 							onFocus={handlePasswordInputFocus}
 							onChangeText={handlePasswordInputChange}
+							onSubmitEditing={handleSubmit}
 						/>
 
 						<Button

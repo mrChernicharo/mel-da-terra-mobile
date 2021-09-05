@@ -25,7 +25,12 @@ export default function Checkout() {
 	);
 
 	function handleButtonPressed() {
-		console.log(currentOrder?.products.map(order => order.product.title));
+		console.log(
+			currentOrder?.products.map(order => [
+				order.product.title,
+				order.amount,
+			])
+		);
 	}
 	return (
 		<View style={s.container}>
