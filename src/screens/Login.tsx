@@ -5,17 +5,13 @@ import {
 	Text,
 	KeyboardAvoidingView,
 	Platform,
+	TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LoginNavigationProp } from '../routes/index';
-import { Button, Input } from 'react-native-elements';
+import { Button, Input, Divider } from 'react-native-elements';
 
-import {
-	getAuth,
-	signInWithEmailAndPassword,
-} from 'firebase/auth/react-native';
-
-import { styles } from '../styles/login';
+import styles from '../styles/login';
 import { ThemeContext } from '../store/ThemeContext';
 import {
 	Feather,
@@ -24,11 +20,14 @@ import {
 	SimpleLineIcons,
 } from '@expo/vector-icons';
 import { AppColors } from '../styles/colors';
+import { UserContext } from '../store/UserContext';
 
 export default function Login() {
 	const navigation = useNavigation<LoginNavigationProp>();
 	const { theme } = useContext(ThemeContext);
 	const { accent } = AppColors(theme);
+
+	const { signIn } = useContext(UserContext);
 
 	const [isEmailFocused, setIsEmailFocused] = useState(false);
 	const [isEmailFilled, setIsEmailFilled] = useState(false);
@@ -43,6 +42,8 @@ export default function Login() {
 	const [password, setPassword] = useState<string>('');
 
 	const s = styles(theme);
+
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	function handleEmailInputBlur() {
 		setIsEmailFocused(false);
@@ -71,27 +72,19 @@ export default function Login() {
 	function goToNewOrderScreen() {
 		navigation.push('NewOrder');
 	}
-	async function handleSubmit() {
-		console.log('submited email: ' + email + ' password: ' + password);
 
-		const match = email.match(
+	async function handleSubmit() {
+		const emailMatch = email.match(
 			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/gm
 		);
 
-		if (!match?.length) return;
+		if (!emailMatch?.length) throw new Error('endereço de email inválido.');
+		if (password.length < 6) throw new Error('senha menor q 6 caracteres.');
 
-		console.log(match[0]);
-
-		const auth = getAuth();
-		const userCredential = await signInWithEmailAndPassword(
-			auth,
-			email,
-			password
-		);
-		console.log(userCredential);
-
-		// goToNewOrderScreen();
+		signIn(email, password);
 	}
+
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	return (
 		<SafeAreaView style={s.container}>
@@ -100,7 +93,7 @@ export default function Login() {
 					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				>
 					<View style={s.sectionTop}>
-						<Text style={s.text}>{'Use seu email'}</Text>
+						<Text style={s.text}>Entre com o seu email</Text>
 
 						<Input
 							inputStyle={s.input}
@@ -118,10 +111,8 @@ export default function Login() {
 									style={[
 										s.inputIcon,
 										s.mailInput,
-										{
-											color: isEmailFilled
-												? accent
-												: '#ababab',
+										isEmailFilled && {
+											color: accent,
 										},
 									]}
 								/>
@@ -186,13 +177,16 @@ export default function Login() {
 							onPress={handleSubmit}
 							disabled={!isEmailFilled || !isPasswordFilled}
 						/>
-						<Text style={s.separatorText}>{'Ou entre com'}</Text>
 					</View>
 
-					<View style={s.sectionBottom}>
+					<Divider width={0.5} style={{ padding: 10 }} />
+
+					<Text style={s.separatorText}>Ou entre com</Text>
+
+					<View style={s.socialSection}>
 						<Button
 							title="Google"
-							buttonStyle={s.socialButton}
+							buttonStyle={[s.socialButton, { marginBottom: 20 }]}
 							titleStyle={s.socialButtonText}
 							onPress={handleSubmit}
 							icon={
@@ -213,6 +207,15 @@ export default function Login() {
 							}
 						/>
 					</View>
+
+					<Divider width={0.5} style={{ padding: 10 }} />
+
+					<Text style={[s.text, { marginTop: 20 }]}>
+						Primeira vez por aqui?
+					</Text>
+					<TouchableOpacity onPress={() => navigation.push('SignUp')}>
+						<Text style={s.linkText}>Criar conta</Text>
+					</TouchableOpacity>
 				</KeyboardAvoidingView>
 			</View>
 		</SafeAreaView>

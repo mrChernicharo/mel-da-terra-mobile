@@ -20,8 +20,8 @@ const styles = (theme: IAppTheme) => {
 		sectionTop: {
 			justifyContent: 'space-between',
 		},
-		sectionBottom: {
-			flexDirection: 'row',
+		socialSection: {
+			// flexDirection: 'row',
 			alignItems: 'center',
 			justifyContent: 'space-between',
 		},
@@ -42,7 +42,7 @@ const styles = (theme: IAppTheme) => {
 			backgroundColor: colors.accent,
 		},
 		socialButton: {
-			width: 140,
+			width: 300,
 			backgroundColor: colors.accent,
 		},
 		text: { fontSize: 18, color: colors.text, textAlign: 'center' },
@@ -53,7 +53,12 @@ const styles = (theme: IAppTheme) => {
 			textAlign: 'center',
 		},
 		bgText: { fontSize: 18, color: colors.bgText },
-		linkText: { fontSize: 18, fontWeight: '600', color: colors.accent },
+		linkText: {
+			fontSize: 18,
+			fontWeight: '600',
+			color: colors.accent,
+			textAlign: 'center',
+		},
 		buttonText: {
 			paddingVertical: 4,
 			fontSize: 24,
@@ -71,4 +76,4 @@ const styles = (theme: IAppTheme) => {
 		},
 	});
 };
-export { styles };
+export default styles;

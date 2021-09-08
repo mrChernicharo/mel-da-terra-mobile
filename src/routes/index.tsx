@@ -19,36 +19,20 @@ import { IProduct } from '../utils/interfaces';
 import OrderDetails from '../screens/OrderDetails';
 import Checkout from '../screens/Checkout';
 import ThemeSwitch from '../components/ThemeSwitch';
-
-// export type IRouteProps = {
-// 	theme: string;
-// };
+import SignUp from '../screens/SignUp';
 
 export type StackParams = {
 	Intro: undefined;
 	Address: undefined;
 	Main: undefined;
 	Login: undefined;
+	SignUp: undefined;
 	Settings: undefined;
 	NewOrder: undefined;
 	OrderDetails: { product: IProduct };
 	MyOrders: undefined;
 	Checkout: undefined;
 };
-
-export type SettingsNavigationProp = StackNavigationProp<
-	StackParams,
-	'Settings'
->;
-
-export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
-export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
-// prettier-ignore
-export type NewOrderNavigationProp = StackNavigationProp<StackParams,'NewOrder'>;
-// prettier-ignore
-export type OrderDetailsNavigationProp = StackNavigationProp<StackParams,'OrderDetails'>
-// prettier-ignore
-export type CheckoutNavigationProp = StackNavigationProp<StackParams,'Checkout'>;
 
 export default function Routes() {
 	const { theme } = useContext(ThemeContext);
@@ -76,6 +60,7 @@ export default function Routes() {
 				<Stack.Screen name="Intro" component={Intro} />
 				<Stack.Screen name="Address" component={Address} />
 				<Stack.Screen name="Login" component={Login} />
+				<Stack.Screen name="SignUp" component={SignUp} />
 				<Stack.Screen name="Settings" component={Settings} />
 				<Stack.Screen name="Checkout" component={Checkout} />
 				<Stack.Screen name="MyOrders" component={MyOrders} />
@@ -85,3 +70,18 @@ export default function Routes() {
 		</NavigationContainer>
 	);
 }
+
+export type SettingsNavigationProp = StackNavigationProp<
+	StackParams,
+	'Settings'
+>;
+export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
+export type SignUpNavigationProp = StackNavigationProp<StackParams, 'SignUp'>;
+// prettier-ignore
+export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
+// prettier-ignore
+export type NewOrderNavigationProp = StackNavigationProp<StackParams,'NewOrder'>;
+// prettier-ignore
+export type OrderDetailsNavigationProp = StackNavigationProp<StackParams,'OrderDetails'>
+// prettier-ignore
+export type CheckoutNavigationProp = StackNavigationProp<StackParams,'Checkout'>;
