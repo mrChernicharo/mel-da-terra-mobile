@@ -1,10 +1,35 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useContext } from 'react';
+import {
+	View,
+	Text,
+	KeyboardAvoidingView,
+	Platform,
+	SafeAreaView,
+} from 'react-native';
+import { ThemeContext } from '../store/ThemeContext';
+import { AppColors } from '../styles/colors';
+import IdentificationForm from '../components/IdentificationForm';
+import styles from '../styles/signUp';
+import { Input } from 'react-native-elements/dist/input/Input';
 
 export default function SignUp() {
+	const { theme } = useContext(ThemeContext);
+	const s = styles(theme);
+
+	function handleSubmit(email: string, password: string) {
+		console.log(email, password);
+	}
+
 	return (
-		<View>
-			<Text>Sign Up</Text>
-		</View>
+		<SafeAreaView style={s.container}>
+			<View style={s.section}>
+				<Text style={s.loginHeaderText}>Criar conta</Text>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				>
+					<IdentificationForm onSubmit={handleSubmit} showNameInput />
+				</KeyboardAvoidingView>
+			</View>
+		</SafeAreaView>
 	);
 }

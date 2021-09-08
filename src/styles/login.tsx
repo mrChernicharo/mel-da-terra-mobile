@@ -12,8 +12,8 @@ const styles = (theme: IAppTheme) => {
 			justifyContent: 'flex-start',
 			backgroundColor: colors.bg,
 		},
+		loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32 },
 		section: {
-			paddingTop: 40,
 			alignItems: 'center',
 			justifyContent: 'space-between',
 		},
@@ -25,21 +25,13 @@ const styles = (theme: IAppTheme) => {
 			alignItems: 'center',
 			justifyContent: 'space-between',
 		},
-		input: {
-			borderBottomColor: colors.green,
-			color: colors.text,
-			fontSize: 16,
-			marginBottom: -20,
-		},
-		mailInput: {
-			marginBottom: -16,
-		},
-		inputIcon: {
-			marginBottom: -6,
-		},
 		button: {
 			width: 300,
 			backgroundColor: colors.accent,
+		},
+		divider: {
+			padding: 10,
+			marginTop: 10,
 		},
 		socialButton: {
 			width: 300,

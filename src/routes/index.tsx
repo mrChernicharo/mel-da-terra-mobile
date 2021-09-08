@@ -71,10 +71,8 @@ export default function Routes() {
 	);
 }
 
-export type SettingsNavigationProp = StackNavigationProp<
-	StackParams,
-	'Settings'
->;
+// prettier-ignore
+export type SettingsNavigationProp = StackNavigationProp<StackParams,'Settings'>;
 export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
 export type SignUpNavigationProp = StackNavigationProp<StackParams, 'SignUp'>;
 // prettier-ignore
