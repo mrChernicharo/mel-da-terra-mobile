@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
 import { View } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from 'react-native-elements';
-import styles from '../styles/logoutButton';
-import { AppColors } from '../styles/colors';
 
 import { ThemeContext } from '../store/ThemeContext';
+import { AppColors } from '../styles/colors';
+import styles from '../styles/logoutButton';
 
 interface ILogoutBtnProps {
 	onPress: () => void;
@@ -15,10 +15,18 @@ export default function LogoutButton({ onPress }: ILogoutBtnProps) {
 	const colors = AppColors(theme);
 	const s = styles(theme);
 	return (
-		<View>
+		<View style={s.container}>
 			<Button
 				style={s.button}
-				icon={<MaterialIcons name="logout" size={32} />}
+				titleStyle={s.button}
+				type="clear"
+				icon={
+					<MaterialIcons
+						name="logout"
+						size={31}
+						color={theme === 'light' ? colors.bg : colors.primary}
+					/>
+				}
 				onPress={onPress}
 			/>
 		</View>

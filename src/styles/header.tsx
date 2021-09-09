@@ -1,18 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { AppColors } from './colors';
 
 const styles = (theme: string) => {
 	const colors = AppColors(theme);
+	const { width } = Dimensions.get('window');
 	return StyleSheet.create({
-		container: {
-			// width: 100,
-			width: '100%',
+		container: {},
+		widgetsContainer: {
+			// borderWidth: 2,
+			width: width * 0.4,
 			height: 40,
 			backgroundColor: theme === 'dark' ? colors.bg : colors.primary,
-			paddingTop: 40,
 			flexDirection: 'row',
 			alignItems: 'center',
-			justifyContent: 'space-between',
+			justifyContent: 'flex-end',
 		},
 		text: {
 			color: colors.text,

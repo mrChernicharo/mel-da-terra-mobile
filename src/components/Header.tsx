@@ -31,8 +31,10 @@ export default function Header() {
 	return (
 		<View style={s.container}>
 			<StatusBar style={statusBarTheme} />
-			<ThemeSwitch />
-			<LogoutButton onPress={handleLogOut} />
+			<View style={s.widgetsContainer}>
+				<ThemeSwitch />
+				<LogoutButton onPress={handleLogOut} />
+			</View>
 		</View>
 	);
 }

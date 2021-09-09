@@ -6,8 +6,13 @@ const styles = (theme: IAppTheme) => {
 	const colors = AppColors(theme);
 
 	return StyleSheet.create({
+		container: {
+			position: 'absolute',
+			left: 0,
+		},
 		button: {
-			borderWidth: 2,
+			height: 48,
+			width: 48,
 		},
 	});
 };
