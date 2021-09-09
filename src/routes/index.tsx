@@ -16,19 +16,19 @@ import Header from '../components/Header';
 import OrderDetails from '../screens/OrderDetails';
 import Checkout from '../screens/Checkout';
 import SignUp from '../screens/SignUp';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 export type StackParams = {
-  Intro: undefined;
-  Address: undefined;
-  Main: undefined;
-  Login: undefined;
-  SignUp: undefined;
-  Settings: undefined;
-  NewOrder: undefined;
-  OrderDetails: { product: IProduct };
-  MyOrders: undefined;
-  Checkout: undefined;
+    Intro: undefined;
+    Address: undefined;
+    Main: undefined;
+    Login: undefined;
+    SignUp: undefined;
+    Settings: undefined;
+    NewOrder: undefined;
+    OrderDetails: { product: IProduct };
+    MyOrders: undefined;
+    Checkout: undefined;
 };
 
 export type SettingsNavigationProp = StackNavigationProp<StackParams, 'Settings'>;
@@ -42,41 +42,42 @@ export type MyOrdersNavigationProp = StackNavigationProp<StackParams, 'MyOrders'
 export type CheckoutNavigationProp = StackNavigationProp<StackParams, 'Checkout'>;
 
 export default function Routes(props: any) {
-  const { theme } = useContext(ThemeContext);
-  const colors = AppColors(theme);
-  const Stack = createStackNavigator<StackParams>();
+    const { theme } = useContext(ThemeContext);
+    const colors = AppColors(theme);
+    const Stack = createStackNavigator<StackParams>();
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Intro"
-        screenOptions={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: theme === 'dark' ? colors.bg : colors.primary,
-          },
-          headerTintColor: theme === 'dark' ? colors.primary : colors.bg,
-          headerBackTitleVisible: false,
-          headerTitle: '',
-          headerRight: () => <Header />,
-        }}
-      >
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Address" component={Address} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="Checkout" component={Checkout} />
-        <Stack.Screen name="MyOrders" component={MyOrders} />
-        <Stack.Screen
-          name="NewOrder"
-          component={NewOrder}
-          options={({ navigation, route }) => ({
-            headerLeft: () => null,
-          })}
-        />
-        <Stack.Screen name="OrderDetails" component={OrderDetails} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <Stack.Navigator
+                initialRouteName="Intro"
+                screenOptions={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: theme === 'dark' ? colors.bg : colors.primary,
+                        height: Platform.OS === 'android' ? 64 : 90,
+                    },
+                    headerTintColor: theme === 'dark' ? colors.primary : colors.bg,
+                    headerBackTitleVisible: false,
+                    headerTitle: '',
+                    headerRight: () => <Header />,
+                }}
+            >
+                <Stack.Screen name="Intro" component={Intro} />
+                <Stack.Screen name="Address" component={Address} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="Checkout" component={Checkout} />
+                <Stack.Screen name="MyOrders" component={MyOrders} />
+                <Stack.Screen
+                    name="NewOrder"
+                    component={NewOrder}
+                    options={({ navigation, route }) => ({
+                        headerLeft: () => null,
+                    })}
+                />
+                <Stack.Screen name="OrderDetails" component={OrderDetails} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
