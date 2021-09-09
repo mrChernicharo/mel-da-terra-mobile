@@ -1,179 +1,168 @@
 import React, { createContext, useState, useEffect } from 'react';
 import {
-	getAuth,
-	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
-	signOut,
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import {
-	getFirestore,
-	Firestore,
-	collection,
-	getDocs,
-	getDoc,
-	addDoc,
-	updateDoc,
-	documentId,
+  getFirestore,
+  Firestore,
+  collection,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  documentId,
+  where,
+  query,
 } from 'firebase/firestore/lite';
 import { FirebaseApp } from '@firebase/app';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 export interface IAppUser {
-	id: string | null;
-	name: string | null;
-	email: string | null;
-	phone?: string | null;
-	avatarUrl?: string | null;
+  id: string | null;
+  name: string | null;
+  email: string | null;
+  phone?: string | null;
+  avatarUrl?: string | null;
 }
 
 export interface IUserContextProviderProps {
-	app: FirebaseApp;
-	children: JSX.Element[] | JSX.Element;
+  app: FirebaseApp;
+  children: JSX.Element[] | JSX.Element;
 }
 
+// prettier-ignore
 export interface IUserContext {
 	user: IAppUser | null;
-	signIn: (email: string, password: string) => void;
-	signUp: (
-		username: string,
-		email: string,
-		password: string
-	) => Promise<boolean>;
+	signIn: (email: string, password: string) => Promise<boolean>;
+	signUp: (username: string, email: string, password: string) => Promise<boolean>;
 	logOut: () => void;
 }
 
 export const UserContext = createContext<IUserContext>({
-	user: null,
-	signIn: (email: string, password: string) => {},
-	signUp: (username: string, email: string, password: string) =>
-		new Promise(Boolean),
-	logOut: () => {},
+  user: null,
+  signIn: (email: string, password: string) => new Promise(Boolean),
+  signUp: (username: string, email: string, password: string) => new Promise(Boolean),
+  logOut: () => {},
 });
 
-export function UserContextProvider({
-	app,
-	children,
-}: IUserContextProviderProps) {
-	const [user, setUser] = useState<IAppUser | null>(null);
+export function UserContextProvider({ app, children }: IUserContextProviderProps) {
+  const [user, setUser] = useState<IAppUser | null>(null);
+  const db = getFirestore();
+  const storage = useAsyncStorage('user');
 
-	function getUser(): IAppUser | null {
-		const currentUser = getAuth(app).currentUser;
+  async function handleSignIn(email: string, password: string) {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(getAuth(), email, password);
 
-		let user: IAppUser | null = null;
+      if (userCredentials) {
+        const user = await getFirestoreUser(db, email);
+        setUser(u => user);
+        storeUser();
+      }
+      return true;
+    } catch (err) {
+      throw new Error(
+        `Não foi possível logar. Verifique a combinação email/senha e tente novamente. ERRO: ${err}`
+      );
+    }
+  }
 
-		if (currentUser) {
-			const { uid, displayName, email, photoURL, phoneNumber } =
-				currentUser;
+  async function handleSignUp(username: string, email: string, password: string) {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(getAuth(), email, password);
 
-			user = {
-				id: uid,
-				name: displayName,
-				email,
-				avatarUrl: photoURL,
-				phone: phoneNumber,
-			};
-		}
-		console.log('getUser: ' + JSON.stringify(user));
+      if (userCredentials) {
+        const newUser: IAppUser = {
+          id: '',
+          email,
+          name: username || '',
+          avatarUrl: userCredentials.user.photoURL || '',
+          phone: userCredentials.user.phoneNumber || '',
+        };
 
-		return user;
-	}
+        await saveUser(db, newUser as IAppUser);
+        setUser(newUser);
+        storeUser();
+      }
+      return true;
+    } catch (err) {
+      throw new Error(`Não foi possível criar o usuário. ERRO: ${err}`);
+    }
+  }
 
-	async function handleSignIn(email: string, password: string) {
-		try {
-			const userCredentials = await signInWithEmailAndPassword(
-				getAuth(),
-				email,
-				password
-			);
+  async function handleLogout() {
+    await signOut(getAuth());
+    setUser(null);
+  }
 
-			if (userCredentials) {
-				setUser(u => getUser());
-			}
-		} catch (err) {
-			throw new Error(
-				`Não foi possível logar. Verifique a combinação email/senha e tente novamente. ERRO: ${err}`
-			);
-		}
-	}
+  function retrieveUser() {
+    storage.getItem((err, data) => {
+      if (!data) return;
 
-	async function handleSignUp(
-		username: string,
-		email: string,
-		password: string
-	) {
-		// console.log(username, email, password);
-		try {
-			const userCredentials = await createUserWithEmailAndPassword(
-				getAuth(),
-				email,
-				password
-			);
+      const userData = JSON.parse(data as string) as IAppUser;
+      setUser(userData);
+      //   console.log('retrieved from storage: ', { userData });
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
 
-			if (userCredentials) {
-				const newUser: IAppUser = {
-					id: '',
-					email,
-					name: username || '',
-					avatarUrl: userCredentials.user.photoURL || '',
-					phone: userCredentials.user.phoneNumber || '',
-				};
-				setUser(newUser);
+  function storeUser() {
+    const strUser = JSON.stringify(user);
+    storage.setItem(strUser, err => {
+      console.log('user added to localstorage :', { strUser: JSON.parse(strUser) });
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
 
-				await saveUser(getFirestore(), newUser as IAppUser);
-			}
-			return true;
-		} catch (err) {
-			throw new Error(`Não foi possível criar o usuário. ERRO: ${err}`);
-		}
-	}
+  useEffect(() => retrieveUser(), []);
 
-	async function handleLogout() {
-		console.log(getFirestoreUsers(getFirestore(app)));
+  const context: IUserContext = {
+    user,
+    signIn: handleSignIn,
+    signUp: handleSignUp,
+    logOut: handleLogout,
+  };
 
-		await signOut(getAuth());
-		console.log(getUser());
-	}
-
-	// useEffect(() => {
-	// 	getUser();
-	// }, []);
-
-	const context: IUserContext = {
-		user,
-		signIn: handleSignIn,
-		signUp: handleSignUp,
-		logOut: handleLogout,
-	};
-
-	return (
-		<UserContext.Provider value={context}>{children}</UserContext.Provider>
-	);
+  return <UserContext.Provider value={context}>{children}</UserContext.Provider>;
 }
 
-async function getFirestoreUsers(db: Firestore) {
-	const usersCollection = collection(db, 'users');
-	const usersSnapshot = await getDocs(usersCollection);
-	const usersList = usersSnapshot.docs.map(doc => doc.data());
-	console.log(usersList);
-}
+// async function getFirestoreUsers(db: Firestore) {
+// 	const usersCollection = collection(db, 'users');
+// 	const usersSnapshot = await getDocs(usersCollection);
+// 	const usersList = usersSnapshot.docs.map(doc => doc.data());
+// 	console.log(usersList);
+// }
 
-async function getFirestoreUser(db: Firestore, id: string) {
-	const usersCollection = collection(db, 'users');
-	const usersSnapshot = await getDocs(usersCollection);
-	const user = usersSnapshot.docs.find(doc => doc.data().id === id);
+async function getFirestoreUser(db: Firestore, email: string) {
+  try {
+    const q = query(collection(db, 'users'), where('email', '==', email));
 
-	console.log(user);
+    const usersSnapshot = await getDocs(q);
+
+    const user = usersSnapshot.docs.map(doc => doc.data())[0];
+
+    return user as IAppUser;
+  } catch (err) {
+    throw new Error('usuário não encontrado no banco de dados');
+  }
 }
 
 async function saveUser(db: Firestore, user: IAppUser) {
-	try {
-		const usersCollection = collection(db, 'users');
-		const addedUserDoc = await addDoc(usersCollection, {});
-		const userID = addedUserDoc.id;
-		const updatedUser = { ...user, id: userID };
-		await updateDoc(addedUserDoc, updatedUser);
+  try {
+    const addedUserDoc = await addDoc(collection(db, 'users'), {});
 
-		console.log('created user: ', JSON.stringify(updatedUser));
-	} catch (err) {
-		throw new Error('Erro ao gurardar usuário no Banco de dados');
-	}
+    const updatedUser = { ...user, id: addedUserDoc.id };
+    await updateDoc(addedUserDoc, updatedUser);
+
+    console.log('created user: ', JSON.stringify(updatedUser));
+  } catch (err) {
+    throw new Error('Erro ao gurardar usuário no Banco de dados');
+  }
 }

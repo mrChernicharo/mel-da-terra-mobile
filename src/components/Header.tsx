@@ -8,10 +8,14 @@ import styles from '../styles/header';
 import ThemeSwitch from './ThemeSwitch';
 import LogoutButton from './LogoutButton';
 import { UserContext } from '../store/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import { IntroNavigationProp } from '../routes';
 
 export default function Header() {
 	const { theme } = useContext(ThemeContext);
 	const { logOut } = useContext(UserContext);
+
+	const navigation = useNavigation<IntroNavigationProp>();
 
 	const s = styles(theme);
 
@@ -26,6 +30,8 @@ export default function Header() {
 
 	function handleLogOut() {
 		logOut();
+		// TODO: snackbar de despedida
+		navigation.push('Intro');
 	}
 
 	return (

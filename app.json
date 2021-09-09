@@ -15,16 +15,31 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
+			"bundleIdentifier": "com.meloDev.melDaTerraiOS",
+			"googleServicesFile": "./private/GoogleService-Info.plist",
 			"supportsTablet": true
 		},
 		"android": {
+			"package": "com.meloDev.melDaTerra",
+			"googleServicesFile": "./private/google-services.json",
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
 			}
 		},
 		"web": {
-			"favicon": "./assets/favicon.png"
+			"favicon": "./assets/favicon.png",
+			"config": {
+				"firebase": {
+					"apiKey": "AIzaSyBqRb8ifLB5qfKgFNr4H0iMIIRXS_I16U8",
+					"authDomain": "mel-da-terra.firebaseapp.com",
+					"projectId": "mel-da-terra",
+					"storageBucket": "mel-da-terra.appspot.com",
+					"messagingSenderId": "461825274725",
+					"appId": "1:461825274725:web:7e9c92730ec4b352dc678c",
+					"measurementId": "G-TBWSMVHQ27"
+				}
+			}
 		}
 	}
 }

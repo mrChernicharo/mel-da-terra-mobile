@@ -1,13 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { StackParams } from '../routes/index';
+import { MyOrdersNavigationProp, StackParams } from '../routes/index';
 import React from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
 import splash from '../assets/splash2.jpg';
 import { Button } from 'react-native-elements';
 import { styles } from '../styles/myOrders';
 
-type MyOrdersNavigationProp = StackNavigationProp<StackParams, 'MyOrders'>;
 interface IMyOrdersProps {
 	theme: string;
 }

@@ -29,11 +29,6 @@ const styles = (theme: IAppTheme) => {
 			height: 200,
 		},
 		text: { fontSize: 18 },
-		bottomLinkBox: {
-			flexDirection: 'row',
-			paddingTop: 6,
-		},
-		linkText: { fontSize: 18, fontWeight: '600', color: colors.accent },
 		button: {
 			marginTop: 20,
 			width: 240,
@@ -43,6 +38,16 @@ const styles = (theme: IAppTheme) => {
 			paddingVertical: 4,
 			fontSize: 24,
 			fontWeight: '600',
+		},
+		bottomLinkBox: {
+			marginTop: 24,
+		},
+		linkText: {
+			textAlign: 'center',
+			fontSize: 18,
+			fontWeight: '600',
+			color: colors.accent,
+			marginTop: 8,
 		},
 	});
 };

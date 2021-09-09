@@ -63,7 +63,7 @@ export default function IdentificationForm({
 	}
 	function handleEmailInputChange(val: string) {
 		setIsEmailFilled(!!val.trim());
-		setEmail(val);
+		setEmail(val.trim().toLowerCase());
 	}
 
 	function handlePasswordInputBlur() {
@@ -83,6 +83,7 @@ export default function IdentificationForm({
 			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/gm
 		);
 
+		// TODO: snackbars
 		if (!emailMatch?.length) throw new Error('endereço de email inválido.');
 		if (password.length < 6) throw new Error('senha menor q 6 caracteres.');
 
@@ -103,7 +104,7 @@ export default function IdentificationForm({
 							borderBottomWidth: 3,
 						}
 					}
-					placeholder={'como devemos te chamar?'}
+					placeholder="como devemos te chamar?"
 					leftIcon={
 						<Feather
 							name="user"
@@ -133,7 +134,7 @@ export default function IdentificationForm({
 						borderBottomWidth: 3,
 					}
 				}
-				placeholder={'seu@email.com'}
+				placeholder="seu@email.com"
 				leftIcon={
 					<Fontisto
 						name="email"

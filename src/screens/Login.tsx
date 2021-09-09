@@ -29,7 +29,8 @@ export default function Login() {
 	const s = styles(theme);
 
 	async function handleSubmit(email: string, password: string) {
-		signIn(email, password);
+		await signIn(email, password);
+		navigation.push('NewOrder');
 	}
 
 	return (
