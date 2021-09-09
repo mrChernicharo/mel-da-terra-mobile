@@ -25,7 +25,7 @@ export default function Header() {
 		);
 
 	function handleLogOut() {
-		console.log('logout');
+		logOut();
 	}
 
 	return (

@@ -3,7 +3,7 @@ import { IAppTheme } from '../store/ThemeContext';
 import { AppColors } from './colors';
 
 const styles = (theme: IAppTheme) => {
-	const colors = AppColors(theme);
+	// const colors = AppColors(theme);
 
 	return StyleSheet.create({
 		container: {
