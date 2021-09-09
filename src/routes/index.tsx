@@ -40,8 +40,6 @@ export default function Routes() {
 	const Stack = createStackNavigator<StackParams>();
 	return (
 		<NavigationContainer>
-			<Header />
-
 			<Stack.Navigator
 				initialRouteName="Intro"
 				screenOptions={{
@@ -54,7 +52,7 @@ export default function Routes() {
 						theme === 'dark' ? colors.primary : colors.bg,
 					headerBackTitleVisible: false,
 					headerTitle: '',
-					headerRight: () => <ThemeSwitch />,
+					headerRight: () => <Header />,
 				}}
 			>
 				<Stack.Screen name="Intro" component={Intro} />

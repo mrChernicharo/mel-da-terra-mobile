@@ -13,7 +13,7 @@ import { AppColors } from '../styles/colors';
 import styles from '../styles/identificationForm';
 
 export interface IIDFormProps {
-	onSubmit: (email: string, password: string) => void;
+	onSubmit: (email: string, password: string, username?: string) => void;
 	showNameInput?: boolean;
 }
 
@@ -86,7 +86,9 @@ export default function IdentificationForm({
 		if (!emailMatch?.length) throw new Error('endereço de email inválido.');
 		if (password.length < 6) throw new Error('senha menor q 6 caracteres.');
 
-		onSubmit(email, password);
+		if (username) return onSubmit(email, password, username);
+
+		return onSubmit(email, password);
 	}
 
 	return (

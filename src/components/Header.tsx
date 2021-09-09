@@ -6,17 +6,16 @@ import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { ThemeContext } from '../store/ThemeContext';
 import styles from '../styles/header';
 import ThemeSwitch from './ThemeSwitch';
+import LogoutButton from './LogoutButton';
+import { UserContext } from '../store/UserContext';
 
 export default function Header() {
-	const { theme, toggleTheme } = useContext(ThemeContext);
+	const { theme } = useContext(ThemeContext);
+	const { logOut } = useContext(UserContext);
 
 	const s = styles(theme);
 
 	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
-
-	function handleChange() {
-		toggleTheme();
-	}
 
 	const themeIcon =
 		theme === 'light' ? (
@@ -25,9 +24,15 @@ export default function Header() {
 			<Fontisto name="day-sunny" size={32} color="orange" />
 		);
 
+	function handleLogOut() {
+		console.log('logout');
+	}
+
 	return (
 		<View style={s.container}>
 			<StatusBar style={statusBarTheme} />
+			<ThemeSwitch />
+			<LogoutButton onPress={handleLogOut} />
 		</View>
 	);
 }

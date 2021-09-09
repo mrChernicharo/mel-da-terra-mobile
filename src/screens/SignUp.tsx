@@ -11,13 +11,15 @@ import { AppColors } from '../styles/colors';
 import IdentificationForm from '../components/IdentificationForm';
 import styles from '../styles/signUp';
 import { Input } from 'react-native-elements/dist/input/Input';
+import { UserContext } from '../store/UserContext';
 
 export default function SignUp() {
+	const { signUp } = useContext(UserContext);
 	const { theme } = useContext(ThemeContext);
 	const s = styles(theme);
 
-	function handleSubmit(email: string, password: string) {
-		console.log(email, password);
+	function handleSubmit(email: string, password: string, username?: string) {
+		signUp(username || '', email, password);
 	}
 
 	return (
