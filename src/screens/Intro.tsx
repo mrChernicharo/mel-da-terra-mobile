@@ -25,7 +25,7 @@ export default function Intro() {
   }
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
 
     if (user) navigation.push('NewOrder');
   }, [user]);

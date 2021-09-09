@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Switch } from 'react-native-elements';
@@ -12,35 +12,39 @@ import { useNavigation } from '@react-navigation/native';
 import { IntroNavigationProp } from '../routes';
 
 export default function Header() {
-	const { theme } = useContext(ThemeContext);
-	const { logOut } = useContext(UserContext);
+  const { theme } = useContext(ThemeContext);
+  const { user, logOut } = useContext(UserContext);
 
-	const navigation = useNavigation<IntroNavigationProp>();
+  const navigation = useNavigation<IntroNavigationProp>();
 
-	const s = styles(theme);
+  const s = styles(theme);
 
-	const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
+  const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
 
-	const themeIcon =
-		theme === 'light' ? (
-			<Ionicons name="moon-outline" size={32} color="lightblue" />
-		) : (
-			<Fontisto name="day-sunny" size={32} color="orange" />
-		);
+  const themeIcon =
+    theme === 'light' ? (
+      <Ionicons name="moon-outline" size={32} color="lightblue" />
+    ) : (
+      <Fontisto name="day-sunny" size={32} color="orange" />
+    );
 
-	function handleLogOut() {
-		logOut();
-		// TODO: snackbar de despedida
-		navigation.push('Intro');
-	}
+  function handleLogOut() {
+    if (user) navigation.navigate('Intro');
+    logOut();
+    // TODO: snackbar de despedida
+  }
 
-	return (
-		<View style={s.container}>
-			<StatusBar style={statusBarTheme} />
-			<View style={s.widgetsContainer}>
-				<ThemeSwitch />
-				<LogoutButton onPress={handleLogOut} />
-			</View>
-		</View>
-	);
+  //   useEffect(() => {
+  //     console.log('header says: ', user);
+  //   }, [user]);
+
+  return (
+    <View style={s.container}>
+      <StatusBar style={statusBarTheme} />
+      <View style={s.widgetsContainer}>
+        <ThemeSwitch />
+        <LogoutButton onPress={handleLogOut} />
+      </View>
+    </View>
+  );
 }

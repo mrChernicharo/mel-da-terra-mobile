@@ -51,7 +51,7 @@ export const UserContext = createContext<IUserContext>({
 export function UserContextProvider({ app, children }: IUserContextProviderProps) {
   const [user, setUser] = useState<IAppUser | null>(null);
   const db = getFirestore();
-  const storage = useAsyncStorage('user');
+  const userStorage = useAsyncStorage('user');
 
   async function handleSignIn(email: string, password: string) {
     try {
@@ -60,7 +60,7 @@ export function UserContextProvider({ app, children }: IUserContextProviderProps
       if (userCredentials) {
         const user = await getFirestoreUser(db, email);
         setUser(u => user);
-        storeUser();
+        storeUser(user);
       }
       return true;
     } catch (err) {
@@ -85,7 +85,7 @@ export function UserContextProvider({ app, children }: IUserContextProviderProps
 
         await saveUser(db, newUser as IAppUser);
         setUser(newUser);
-        storeUser();
+        storeUser(newUser);
       }
       return true;
     } catch (err) {
@@ -96,32 +96,39 @@ export function UserContextProvider({ app, children }: IUserContextProviderProps
   async function handleLogout() {
     await signOut(getAuth());
     setUser(null);
+    clearStorage();
   }
 
   function retrieveUser() {
-    storage.getItem((err, data) => {
+    userStorage.getItem((err, data) => {
       if (!data) return;
 
       const userData = JSON.parse(data as string) as IAppUser;
       setUser(userData);
-      //   console.log('retrieved from storage: ', { userData });
+
       if (err) {
         console.log(err);
       }
     });
   }
 
-  function storeUser() {
+  async function storeUser(user: IAppUser) {
     const strUser = JSON.stringify(user);
-    storage.setItem(strUser, err => {
-      console.log('user added to localstorage :', { strUser: JSON.parse(strUser) });
-      if (err) {
-        console.log(err);
-      }
-    });
+    await userStorage.setItem(strUser, err => console.log(err));
+
+    const savedUser = await userStorage.getItem();
+    console.log('user added to localstorage :', savedUser);
+  }
+
+  async function clearStorage() {
+    await userStorage.removeItem();
   }
 
   useEffect(() => retrieveUser(), []);
+
+  useEffect(() => {
+    console.log('UserContext says: ', user);
+  }, [user]);
 
   const context: IUserContext = {
     user,

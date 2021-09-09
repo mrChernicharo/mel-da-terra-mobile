@@ -1,22 +1,22 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack";
+import React, { useContext, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
-import Intro from "../screens/Intro";
-import Address from "../screens/Address";
-import Login from "../screens/Login";
-import Settings from "../screens/Settings";
-import MyOrders from "../screens/MyOrders";
-import NewOrder from "../screens/NewOrder";
-import { useContext } from "react";
-import { ThemeContext } from "../store/ThemeContext";
-import Header from "../components/Header";
-import { AppColors } from "../styles/colors";
-import { IProduct } from "../utils/interfaces";
-import OrderDetails from "../screens/OrderDetails";
-import Checkout from "../screens/Checkout";
-import ThemeSwitch from "../components/ThemeSwitch";
-import SignUp from "../screens/SignUp";
+import { IProduct } from '../utils/interfaces';
+import { ThemeContext } from '../store/ThemeContext';
+import { AppColors } from '../styles/colors';
+
+import Intro from '../screens/Intro';
+import Address from '../screens/Address';
+import Login from '../screens/Login';
+import Settings from '../screens/Settings';
+import MyOrders from '../screens/MyOrders';
+import NewOrder from '../screens/NewOrder';
+import Header from '../components/Header';
+import OrderDetails from '../screens/OrderDetails';
+import Checkout from '../screens/Checkout';
+import SignUp from '../screens/SignUp';
+import { View } from 'react-native';
 
 export type StackParams = {
   Intro: undefined;
@@ -31,10 +31,21 @@ export type StackParams = {
   Checkout: undefined;
 };
 
-export default function Routes() {
+export type SettingsNavigationProp = StackNavigationProp<StackParams, 'Settings'>;
+export type IntroNavigationProp = StackNavigationProp<StackParams, 'Intro'>;
+export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
+export type SignUpNavigationProp = StackNavigationProp<StackParams, 'SignUp'>;
+export type AddressNavigationProp = StackNavigationProp<StackParams, 'Address'>;
+export type NewOrderNavigationProp = StackNavigationProp<StackParams, 'NewOrder'>;
+export type OrderDetailsNavigationProp = StackNavigationProp<StackParams, 'OrderDetails'>;
+export type MyOrdersNavigationProp = StackNavigationProp<StackParams, 'MyOrders'>;
+export type CheckoutNavigationProp = StackNavigationProp<StackParams, 'Checkout'>;
+
+export default function Routes(props: any) {
   const { theme } = useContext(ThemeContext);
   const colors = AppColors(theme);
   const Stack = createStackNavigator<StackParams>();
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -42,11 +53,11 @@ export default function Routes() {
         screenOptions={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: theme === "dark" ? colors.bg : colors.primary,
+            backgroundColor: theme === 'dark' ? colors.bg : colors.primary,
           },
-          headerTintColor: theme === "dark" ? colors.primary : colors.bg,
+          headerTintColor: theme === 'dark' ? colors.primary : colors.bg,
           headerBackTitleVisible: false,
-          headerTitle: "",
+          headerTitle: '',
           headerRight: () => <Header />,
         }}
       >
@@ -57,19 +68,15 @@ export default function Routes() {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen name="MyOrders" component={MyOrders} />
-        <Stack.Screen name="NewOrder" component={NewOrder} />
+        <Stack.Screen
+          name="NewOrder"
+          component={NewOrder}
+          options={({ navigation, route }) => ({
+            headerLeft: () => null,
+          })}
+        />
         <Stack.Screen name="OrderDetails" component={OrderDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export type SettingsNavigationProp = StackNavigationProp<StackParams, "Settings">;
-export type IntroNavigationProp = StackNavigationProp<StackParams, "Intro">;
-export type LoginNavigationProp = StackNavigationProp<StackParams, "Login">;
-export type SignUpNavigationProp = StackNavigationProp<StackParams, "SignUp">;
-export type AddressNavigationProp = StackNavigationProp<StackParams, "Address">;
-export type NewOrderNavigationProp = StackNavigationProp<StackParams, "NewOrder">;
-export type OrderDetailsNavigationProp = StackNavigationProp<StackParams, "OrderDetails">;
-export type MyOrdersNavigationProp = StackNavigationProp<StackParams, "MyOrders">;
-export type CheckoutNavigationProp = StackNavigationProp<StackParams, "Checkout">;

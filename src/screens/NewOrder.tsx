@@ -37,7 +37,7 @@ export default function NewOrder() {
   const { height, width } = useWindowDimensions();
 
   function handleProductSelected(product: IProduct) {
-    console.log(product);
+    // console.log(product);
     navigation.push('OrderDetails', { product });
   }
   function handleButtonPressed() {
