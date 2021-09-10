@@ -70,7 +70,7 @@ export default function NewOrder() {
                         { top: height - (Platform.OS === 'android' ? 165 : 210) },
                     ]}
                 >
-                    <BigBottomButton title="Fechar Pedido" buttonPressed={handleButtonPressed} />
+                    <BigBottomButton title="Ver Pedido" buttonPressed={handleButtonPressed} />
                 </View>
             )}
         </SafeAreaView>

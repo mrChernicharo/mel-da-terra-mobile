@@ -14,7 +14,6 @@ export interface IProductCardProps {
 
 export default function ProductCard({ data, onCardSelected }: IProductCardProps) {
     const { img, title, description, price } = data;
-    const imgPath = String(img) as string;
     const parsedPrice = getBRPrice(price);
 
     const { theme } = useTheme();
@@ -32,7 +31,7 @@ export default function ProductCard({ data, onCardSelected }: IProductCardProps)
         >
             <Card containerStyle={s.container} wrapperStyle={s.wrapper}>
                 <View style={s.imgContainer}>
-                    <Image style={s.img} source={imgPath as ImageSourcePropType} />
+                    <Image style={s.img} source={img} />
                 </View>
                 <View style={s.infoContainer}>
                     <Text style={s.headingText}>{title}</Text>

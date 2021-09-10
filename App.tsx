@@ -1,5 +1,6 @@
 import React from 'react';
 import Routes from './src/routes';
+import { registerRootComponent } from 'expo';
 // import { NativeModules } from 'react-native';
 
 import { OrdersContextProvider } from './src/store/OrdersContext';
@@ -10,16 +11,17 @@ import { FirebaseApp, initializeApp } from 'firebase/app';
 import { firebaseConfig } from './private/firebaseConfig';
 
 export default function App() {
-  const app: FirebaseApp = initializeApp(firebaseConfig);
-  //   if (__DEV__) { NativeModules.DevSettings.setIsDebuggingRemotely(true) }
+    const app: FirebaseApp = initializeApp(firebaseConfig);
+    //   if (__DEV__) { NativeModules.DevSettings.setIsDebuggingRemotely(true) }
 
-  return (
-    <ThemeContextProvider>
-      <UserContextProvider app={app}>
-        <OrdersContextProvider>
-          <Routes />
-        </OrdersContextProvider>
-      </UserContextProvider>
-    </ThemeContextProvider>
-  );
+    return (
+        <ThemeContextProvider>
+            <UserContextProvider app={app}>
+                <OrdersContextProvider>
+                    <Routes />
+                </OrdersContextProvider>
+            </UserContextProvider>
+        </ThemeContextProvider>
+    );
 }
+registerRootComponent(App);
