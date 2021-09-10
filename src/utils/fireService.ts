@@ -24,6 +24,17 @@ import { firebaseConfig } from '../../private/firebaseConfig';
 const app: FirebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore();
+const auth = getAuth();
+
+export const getFirestoreUsers = () => getAllUsers(db);
+export const getFirestoreUser = (email: string) => getUser(db, email);
+export const firebaseSaveUser = (user: IAppUser) => saveUser(db, user);
+
+export const firebaseSignOut = () => logout();
+export const firebaseEmailAndPasswordSignIn = (email: string, password: string) =>
+    emailAndPasswordSignIn(email, password);
+export const firebaseEmailPasswordCreateUser = (email: string, password: string) =>
+    emailAndPasswordSignUp(email, password);
 
 async function getAllUsers(db: Firestore) {
     const usersCollection = collection(db, 'users');
@@ -31,7 +42,6 @@ async function getAllUsers(db: Firestore) {
     const usersList = usersSnapshot.docs.map(doc => doc.data());
     return usersList;
 }
-
 async function getUser(db: Firestore, email: string) {
     try {
         const q = query(collection(db, 'users'), where('email', '==', email));
@@ -45,7 +55,6 @@ async function getUser(db: Firestore, email: string) {
         throw new Error('usuário não encontrado no banco de dados');
     }
 }
-
 async function saveUser(db: Firestore, user: IAppUser) {
     try {
         const addedUserDoc = await addDoc(collection(db, 'users'), {});
@@ -58,7 +67,22 @@ async function saveUser(db: Firestore, user: IAppUser) {
         throw new Error('Erro ao gurardar usuário no Banco de dados');
     }
 }
-
-export const getFirestoreUsers = () => getAllUsers(db);
-export const getFirestoreUser = (email: string) => getUser(db, email);
-export const firebaseSaveUser = (user: IAppUser) => saveUser(db, user);
+async function logout() {
+    await signOut(auth);
+}
+async function emailAndPasswordSignIn(email: string, password: string) {
+    try {
+        const credentials = signInWithEmailAndPassword(auth, email, password);
+        return credentials;
+    } catch (err) {
+        throw new Error('Erro do firebase na autenticação');
+    }
+}
+async function emailAndPasswordSignUp(email: string, password: string) {
+    try {
+        const credentials = createUserWithEmailAndPassword(auth, email, password);
+        return credentials;
+    } catch (err) {
+        throw new Error('Erro do firebase na criação do usuário');
+    }
+}

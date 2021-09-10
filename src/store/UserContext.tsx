@@ -1,37 +1,25 @@
 import React, { createContext, useState, useEffect } from 'react';
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signOut,
-} from 'firebase/auth';
-import {
-    getFirestore,
-    Firestore,
-    collection,
-    getDocs,
-    getDoc,
-    addDoc,
-    updateDoc,
-    documentId,
-    where,
-    query,
-} from 'firebase/firestore/lite';
-import { FirebaseApp } from '@firebase/app';
+
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+
+import {
+    getFirestoreUser,
+    firebaseSaveUser,
+    firebaseEmailAndPasswordSignIn,
+    firebaseEmailPasswordCreateUser,
+    firebaseSignOut,
+} from '../utils/fireService';
 import { IAppUser } from '../utils/interfaces';
-import { getFirestoreUser, firebaseSaveUser } from '../utils/firestore';
 
 export interface IUserContextProviderProps {
     children: JSX.Element[] | JSX.Element;
 }
 
-// prettier-ignore
 export interface IUserContext {
-	user: IAppUser | null;
-	signIn: (email: string, password: string) => Promise<boolean>;
-	signUp: (username: string, email: string, password: string) => Promise<boolean>;
-	logOut: () => void;
+    user: IAppUser | null;
+    signIn: (email: string, password: string) => Promise<boolean>;
+    signUp: (username: string, email: string, password: string) => Promise<boolean>;
+    logOut: () => void;
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -47,7 +35,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     async function handleSignIn(email: string, password: string) {
         try {
-            const userCredentials = await signInWithEmailAndPassword(getAuth(), email, password);
+            const userCredentials = await firebaseEmailAndPasswordSignIn(email, password);
 
             if (userCredentials) {
                 const user = await getFirestoreUser(email);
@@ -64,11 +52,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     async function handleSignUp(username: string, email: string, password: string) {
         try {
-            const userCredentials = await createUserWithEmailAndPassword(
-                getAuth(),
-                email,
-                password
-            );
+            const userCredentials = await firebaseEmailPasswordCreateUser(email, password);
 
             if (userCredentials) {
                 const newUser: IAppUser = {
@@ -90,7 +74,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
     }
 
     async function handleLogout() {
-        await signOut(getAuth());
+        await firebaseSignOut();
         setUser(null);
         clearStorage();
     }
