@@ -5,15 +5,15 @@ import { IntroNavigationProp } from '../../routes/index';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 
 import bgImg from '../../assets/min-lower.png';
 import logoImg from '../../assets/logo-trans.png';
-import { UserContext } from '../../store/UserContext';
+import { useUserContext } from '../../store/UserContext';
 
 export default function Intro() {
-    const { user } = useContext(UserContext);
-    const { theme } = useTheme();
+    const { user } = useUserContext();
+    const { theme } = useThemeContext();
     const s = styles();
     const navigation = useNavigation<IntroNavigationProp>();
 

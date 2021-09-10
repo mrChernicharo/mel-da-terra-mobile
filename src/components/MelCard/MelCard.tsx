@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { View, Text, Image, TouchableNativeFeedback } from 'react-native';
 import { Card, ImageProps } from 'react-native-elements';
-import { ThemeContext, useTheme } from '../../store/ThemeContext';
+import { ThemeContext, useThemeContext } from '../../store/ThemeContext';
 import { IMel } from '../../utils/interfaces';
 import styles from './styles';
 
@@ -14,7 +14,7 @@ export interface IMelCardProps {
 export default function MelCard({ mel, onCardSelected }: IMelCardProps) {
     const { hue, name, description, isAvailable } = mel;
 
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const s = styles();
 
     function handleCardPress() {

@@ -12,7 +12,7 @@ import { AddressNavigationProp } from '../../routes/index';
 import { Button, Input } from 'react-native-elements';
 
 import styles from './styles';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppColors } from '../../styles/colors';
 
@@ -22,7 +22,7 @@ interface IAddressProps {
 
 export default function Address() {
     const navigation = useNavigation<AddressNavigationProp>();
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const { accent } = AppColors(theme);
 
     const [isFocused, setIsFocused] = useState(false);

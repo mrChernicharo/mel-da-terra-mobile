@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import { productPluralTitle } from '../../utils/helpers';
 import { IOrderProduct } from '../../utils/interfaces';
 import styles from '../CartItems/styles';
@@ -11,7 +11,7 @@ interface ICartItemProps {
 }
 
 export default function CartItem({ item }: ICartItemProps) {
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const s = styles();
 
     return (

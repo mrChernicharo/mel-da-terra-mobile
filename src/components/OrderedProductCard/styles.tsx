@@ -1,8 +1,8 @@
 import { Platform, StyleSheet } from 'react-native';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 
 const styles = () => {
-    const { colors } = useTheme();
+    const { colors } = useThemeContext();
 
     return StyleSheet.create({
         container: {

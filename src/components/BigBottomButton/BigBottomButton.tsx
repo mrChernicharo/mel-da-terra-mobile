@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import { Button } from 'react-native-elements';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import styles from './styles';
 
 export interface IBigButtonProps {
@@ -10,7 +10,7 @@ export interface IBigButtonProps {
 }
 export default function BigBottomButton({ title, buttonPressed }: IBigButtonProps) {
     const { width, height } = useWindowDimensions();
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const s = styles();
 
     return (

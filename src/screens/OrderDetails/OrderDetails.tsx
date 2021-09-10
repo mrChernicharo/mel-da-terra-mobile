@@ -8,7 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 
 import { OrdersContext } from '../../store/OrdersContext';
 import { StackParams } from '../../routes/index';
@@ -26,7 +26,7 @@ export default function OrderDetails() {
     const [mel, setMel] = useState<IMel | null>(null);
     const [amount, setAmount] = useState(0);
 
-    const { theme, colors } = useTheme();
+    const { theme, colors } = useThemeContext();
     const s = styles();
 
     const navigation = useNavigation<OrderDetailsNavigationProp>();

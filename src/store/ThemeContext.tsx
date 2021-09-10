@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
+import { ReactNode } from 'react-native-vector-icons/node_modules/@types/react';
 import { AppColors } from '../styles/colors';
 
 export type IAppTheme = 'light' | 'dark';
@@ -9,7 +10,7 @@ export interface IThemeContext {
 }
 
 export interface IThemeContextProviderProps {
-    children: JSX.Element[] | JSX.Element;
+    children: ReactNode;
 }
 
 export const ThemeContext = createContext<IThemeContext>({
@@ -33,7 +34,7 @@ export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
     return <ThemeContext.Provider value={context}>{children}</ThemeContext.Provider>;
 }
 
-export function useTheme() {
+export function useThemeContext() {
     const { theme, toggleTheme } = useContext(ThemeContext);
     const colors = AppColors(theme);
     return { theme, colors, toggleTheme };

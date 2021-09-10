@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 
 import { IProduct } from '../utils/interfaces';
-import { useTheme } from '../store/ThemeContext';
+import { useThemeContext } from '../store/ThemeContext';
 import { AppColors } from '../styles/colors';
 
 import Intro from '../screens/Intro/Intro';
@@ -40,7 +40,7 @@ export type MyOrdersNavigationProp = StackNavigationProp<StackParams, 'MyOrders'
 export type CheckoutNavigationProp = StackNavigationProp<StackParams, 'Checkout'>;
 
 export default function Routes(props: any) {
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const colors = AppColors(theme);
     const Stack = createStackNavigator<StackParams>();
 

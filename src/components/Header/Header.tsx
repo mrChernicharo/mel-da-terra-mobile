@@ -1,28 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, Modal, Pressable, Platform, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { Ionicons, Fontisto, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
-import { ThemeContext, useTheme } from '../../store/ThemeContext';
-import { UserContext } from '../../store/UserContext';
+import { ThemeContext, useThemeContext } from '../../store/ThemeContext';
+import { useUserContext } from '../../store/UserContext';
 import { useNavigation } from '@react-navigation/native';
 import { IntroNavigationProp } from '../../routes';
 
-import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
-import LogoutButton from '../LogoutButton/LogoutButton';
 import styles from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { AppColors } from '../../styles/colors';
-
-import favicon from '../../assets/favicon.png';
 import SettingsModal from '../SettingsModal/SettingsModal';
+// import favicon from '../../assets/favicon.png';
 
 export default function Header() {
     const [modalVisible, setModalVisible] = useState(false);
-    const { user, logOut } = useContext(UserContext);
-    const { theme, colors } = useTheme();
-    const s = styles();
+
     const navigation = useNavigation<IntroNavigationProp>();
+    const { user, logOut } = useUserContext();
+    const { theme, colors } = useThemeContext();
+
+    const s = styles();
 
     const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
 

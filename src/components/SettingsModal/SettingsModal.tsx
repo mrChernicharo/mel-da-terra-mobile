@@ -3,10 +3,7 @@ import { Text, View, Modal, Pressable, Platform, Image, ScrollView } from 'react
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, Fontisto, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons';
 
-import { useTheme } from '../../store/ThemeContext';
-import { IAppUser, UserContext } from '../../store/UserContext';
-import { useNavigation } from '@react-navigation/native';
-import { IntroNavigationProp } from '../../routes';
+import { useThemeContext } from '../../store/ThemeContext';
 
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import LogoutButton from '../LogoutButton/LogoutButton';
@@ -15,6 +12,7 @@ import { AppColors } from '../../styles/colors';
 import styles from './styles';
 
 import favicon from '../../assets/favicon.png';
+import { IAppUser } from '../../utils/interfaces';
 
 interface ISettingsModalProps {
     user: IAppUser | null;
@@ -29,7 +27,7 @@ export default function SettingsModal({
     toggleModal,
     logout,
 }: ISettingsModalProps) {
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
 
     const s = styles();
     const colors = AppColors(theme);

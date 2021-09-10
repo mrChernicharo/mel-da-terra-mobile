@@ -3,12 +3,12 @@ import { Platform, Text, View } from 'react-native';
 import { Switch } from 'react-native-elements';
 
 import { Ionicons, Fontisto, MaterialIcons } from '@expo/vector-icons';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import styles from './styles';
 import { AppColors } from '../../styles/colors';
 
 export default function ThemeSwitch() {
-    const { theme, toggleTheme, colors } = useTheme();
+    const { theme, toggleTheme, colors } = useThemeContext();
     const s = styles();
 
     function handleChange() {

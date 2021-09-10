@@ -1,8 +1,8 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 
 const styles = () => {
-    const { theme, colors } = useTheme();
+    const { theme, colors } = useThemeContext();
 
     const { width, height } = Dimensions.get('window');
     const modalPadding = 24;

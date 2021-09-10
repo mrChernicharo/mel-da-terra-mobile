@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 
 const styles = () => {
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     return StyleSheet.create({
         container: {
             flex: 1,

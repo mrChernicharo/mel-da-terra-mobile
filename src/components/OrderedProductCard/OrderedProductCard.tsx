@@ -3,7 +3,7 @@ import { View, Text, Image, ImageSourcePropType } from 'react-native';
 import { Card } from 'react-native-elements';
 import { IMel, IProduct } from '../../utils/interfaces';
 import styles from './styles';
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import { getBRPrice } from '../../utils/helpers';
 
 interface IOrderedProductCardProps {
@@ -16,7 +16,7 @@ export default function OrderedProductCard({ product, mel, amount }: IOrderedPro
 
     const parsedPrice = getBRPrice(price * amount);
 
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const s = styles();
 
     return (

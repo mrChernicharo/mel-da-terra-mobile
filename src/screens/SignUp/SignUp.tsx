@@ -3,15 +3,15 @@ import { View, Text, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-
 
 import { SignUpNavigationProp } from '../../routes';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../../store/ThemeContext';
-import { UserContext } from '../../store/UserContext';
+import { useThemeContext } from '../../store/ThemeContext';
+import { useUserContext } from '../../store/UserContext';
 
 import IdentificationForm from '../../components/IdentificationForm/IdentificationForm';
 import styles from './styles';
 
 export default function SignUp() {
-    const { signUp } = useContext(UserContext);
-    const { theme } = useTheme();
+    const { signUp } = useUserContext();
+    const { theme } = useThemeContext();
     const s = styles();
 
     const navigation = useNavigation<SignUpNavigationProp>();

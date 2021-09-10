@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
-import { useTheme } from '../../store/ThemeContext';
+import { useThemeContext } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 import styles from './styles';
 
@@ -13,7 +13,7 @@ export interface IIDFormProps {
 }
 
 export default function IdentificationForm({ onSubmit, showNameInput }: IIDFormProps) {
-    const { theme } = useTheme();
+    const { theme } = useThemeContext();
     const { accent } = AppColors(theme);
 
     const s = styles();

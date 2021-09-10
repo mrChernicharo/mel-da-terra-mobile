@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
@@ -119,3 +119,8 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     return <UserContext.Provider value={context}>{children}</UserContext.Provider>;
 }
+
+export const useUserContext = () => {
+    const context = useContext(UserContext);
+    return context;
+};

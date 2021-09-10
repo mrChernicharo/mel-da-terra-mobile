@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { IAppTheme, useTheme } from '../../store/ThemeContext';
+import { IAppTheme, useThemeContext } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
 const styles = () => {
-    const { colors } = useTheme();
+    const { colors } = useThemeContext();
 
     return StyleSheet.create({
         container: {

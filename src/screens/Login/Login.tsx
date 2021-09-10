@@ -14,13 +14,13 @@ import { Button, Divider } from 'react-native-elements';
 
 import { Fontisto } from '@expo/vector-icons';
 
-import { UserContext } from '../../store/UserContext';
+import { useUserContext } from '../../store/UserContext';
 import IdentificationForm from '../../components/IdentificationForm/IdentificationForm';
 
 import styles from './styles';
 
 export default function Login() {
-    const { signIn } = useContext(UserContext);
+    const { signIn } = useUserContext();
     const navigation = useNavigation<LoginNavigationProp>();
 
     const s = styles();
@@ -29,6 +29,8 @@ export default function Login() {
         await signIn(email, password);
         navigation.push('NewOrder');
     }
+
+    async function handleGoogleSignIn() {}
 
     return (
         // <ScrollView contentContainerStyle={s.container}>
@@ -49,7 +51,7 @@ export default function Login() {
                             title="Google"
                             buttonStyle={[s.socialButton, { marginBottom: 20 }]}
                             titleStyle={s.socialButtonText}
-                            onPress={() => {}}
+                            onPress={handleGoogleSignIn}
                             icon={<Fontisto name="google" style={s.buttonIcon} />}
                         />
 
