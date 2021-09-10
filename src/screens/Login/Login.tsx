@@ -6,6 +6,7 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LoginNavigationProp } from '../../routes/index';
@@ -18,6 +19,7 @@ import IdentificationForm from '../../components/IdentificationForm/Identificati
 
 import { AppColors } from '../../styles/colors';
 import styles from './styles';
+// import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login() {
     const { signIn } = useContext(UserContext);
@@ -34,6 +36,7 @@ export default function Login() {
     }
 
     return (
+        // <ScrollView contentContainerStyle={s.container}>
         <SafeAreaView style={s.container}>
             <View style={s.section}>
                 <Text style={s.loginHeaderText}>Login</Text>
@@ -75,5 +78,6 @@ export default function Login() {
                 </KeyboardAvoidingView>
             </View>
         </SafeAreaView>
+        // </ScrollView>
     );
 }

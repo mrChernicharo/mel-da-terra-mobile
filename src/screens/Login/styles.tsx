@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { IAppTheme } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
@@ -11,8 +11,18 @@ const styles = (theme: IAppTheme) => {
             alignItems: 'center',
             justifyContent: 'flex-start',
             backgroundColor: colors.bg,
+
+            // gambiarras pra caber tudo na tela pequena do android
+            minHeight: Platform.OS === 'android' ? 740 : '100%',
+            width: Platform.OS === 'android' ? 500 : '100%',
+            borderRadius: Platform.OS === 'android' ? 6 : 0,
+            transform: [
+                { scale: Platform.OS === 'android' ? 0.88 : 1 },
+                { translateX: Platform.OS === 'android' ? -50 : 0 },
+                { translateY: Platform.OS === 'android' ? -70 : 0 },
+            ],
         },
-        loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32 },
+        loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32, color: colors.text },
         section: {
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -64,7 +74,7 @@ const styles = (theme: IAppTheme) => {
         buttonIcon: {
             marginRight: 10,
             fontSize: 24,
-            color: colors.bgText,
+            color: colors.text,
         },
     });
 };

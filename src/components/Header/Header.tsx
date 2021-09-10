@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, Modal, Pressable, Platform } from 'react-native';
+import { Text, View, Modal, Pressable, Platform, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, Fontisto, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons';
 
@@ -14,6 +14,9 @@ import styles from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppColors } from '../../styles/colors';
 
+import favicon from '../../assets/favicon.png';
+import SettingsModal from '../SettingsModal/SettingsModal';
+
 export default function Header() {
     const [modalVisible, setModalVisible] = useState(false);
     const { user, logOut } = useContext(UserContext);
@@ -23,19 +26,6 @@ export default function Header() {
     const navigation = useNavigation<IntroNavigationProp>();
 
     const statusBarTheme = theme === 'dark' ? 'light' : 'dark';
-
-    const closeButton =
-        Platform.OS === 'android' ? (
-            <Pressable onPress={toggleModal} style={s.closeBtn}>
-                <AntDesign name="close" size={32} color={colors.text} />
-            </Pressable>
-        ) : (
-            <View style={s.closeBtn}>
-                <TouchableOpacity onPress={toggleModal}>
-                    <MaterialIcons name="close" size={32} color={colors.text} />
-                </TouchableOpacity>
-            </View>
-        );
 
     function handleLogOut() {
         if (user) navigation.navigate('Intro');
@@ -58,24 +48,13 @@ export default function Header() {
                     style={s.threeDots}
                 />
             </TouchableOpacity>
-            <Modal
-                animationType="slide"
-                visible={modalVisible}
-                transparent={true}
-                onRequestClose={toggleModal}
-                statusBarTranslucent={false}
-            >
-                <View style={s.modalView}>
-                    {closeButton}
 
-                    <Text style={s.text}>Modal</Text>
-
-                    <View style={s.widgetsContainer}>
-                        <ThemeSwitch />
-                        <LogoutButton onPress={handleLogOut} />
-                    </View>
-                </View>
-            </Modal>
+            <SettingsModal
+                user={user}
+                showModal={modalVisible}
+                toggleModal={toggleModal}
+                logout={handleLogOut}
+            />
         </View>
     );
 }

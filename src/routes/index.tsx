@@ -9,7 +9,6 @@ import { AppColors } from '../styles/colors';
 import Intro from '../screens/Intro/Intro';
 import Address from '../screens/Address/Address';
 import Login from '../screens/Login/Login';
-import Settings from '../components/Settings/Settings';
 import MyOrders from '../screens/MyOrders/MyOrders';
 import NewOrder from '../screens/NewOrder/NewOrder';
 import Header from '../components/Header/Header';
@@ -31,7 +30,6 @@ export type StackParams = {
     Checkout: undefined;
 };
 
-export type SettingsNavigationProp = StackNavigationProp<StackParams, 'Settings'>;
 export type IntroNavigationProp = StackNavigationProp<StackParams, 'Intro'>;
 export type LoginNavigationProp = StackNavigationProp<StackParams, 'Login'>;
 export type SignUpNavigationProp = StackNavigationProp<StackParams, 'SignUp'>;
@@ -72,7 +70,6 @@ export default function Routes(props: any) {
                 <Stack.Screen name="Address" component={Address} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="MyOrders" component={MyOrders} />
                 <Stack.Screen name="OrderDetails" component={OrderDetails} />
                 <Stack.Screen name="Checkout" component={Checkout} />

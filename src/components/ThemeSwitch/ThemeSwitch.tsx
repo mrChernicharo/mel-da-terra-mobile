@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 import { Switch } from 'react-native-elements';
 
 import { Ionicons, Fontisto, MaterialIcons } from '@expo/vector-icons';
 import { ThemeContext } from '../../store/ThemeContext';
-import styles from '../Header/styles';
+import styles from './styles';
 import { AppColors } from '../../styles/colors';
 
 export default function ThemeSwitch() {
@@ -23,25 +23,20 @@ export default function ThemeSwitch() {
             <MaterialIcons name="wb-sunny" size={32} color={colors.primary} />
         );
     return (
-        <View
-            style={{
-                flexDirection: 'row',
-                width: 90,
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                position: 'absolute',
-                right: 4,
-                zIndex: 100,
-            }}
-        >
-            {theme === 'dark' && themeIcon}
-            <Switch
-                color={colors.primary}
-                trackColor={{ true: colors.primary, false: colors.trans }}
-                value={theme === 'dark'}
-                onChange={handleChange}
-            />
-            {theme === 'light' && themeIcon}
+        <View style={s.container}>
+            <Text style={s.text}>Tema {theme === 'light' ? 'escuro' : 'claro'}</Text>
+            <View style={s.switchContainer}>
+                {theme === 'dark' && themeIcon}
+                <Switch
+                    style={s.switch}
+                    shouldRasterizeIOS
+                    value={theme === 'dark'}
+                    color={colors.primary}
+                    trackColor={{ true: colors.primary, false: colors.trans }}
+                    onChange={handleChange}
+                />
+                {theme === 'light' && themeIcon}
+            </View>
         </View>
     );
 }

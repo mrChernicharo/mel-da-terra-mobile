@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { IAppTheme } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
@@ -22,7 +22,7 @@ const styles = (theme: IAppTheme) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             height: 420,
-            marginBottom: 200,
+            marginBottom: Platform.OS === 'ios' ? 200 : 100,
         },
         logo: {
             width: 200,

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { IAppTheme } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
@@ -35,16 +35,17 @@ const styles = (theme: IAppTheme) => {
             bottom: 5,
             right: 14,
         },
-        img: {
-            maxWidth: 60,
-            maxHeight: 80,
-            overflow: 'visible',
-        },
-
         imgContainer: {
+            // borderWidth: 2,
             // minHeight: 100,
             // width: 60,
             justifyContent: 'center',
+        },
+        img: {
+            maxWidth: Platform.OS === 'ios' ? 56 : 54,
+            maxHeight: Platform.OS === 'ios' ? 80 : 82,
+            overflow: 'visible',
+            // backgroundColor: 'red',
         },
         infoContainer: {
             width: 260,
