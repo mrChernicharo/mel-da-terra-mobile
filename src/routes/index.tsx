@@ -6,16 +6,16 @@ import { IProduct } from '../utils/interfaces';
 import { ThemeContext } from '../store/ThemeContext';
 import { AppColors } from '../styles/colors';
 
-import Intro from '../screens/Intro';
-import Address from '../screens/Address';
-import Login from '../screens/Login';
-import Settings from '../screens/Settings';
-import MyOrders from '../screens/MyOrders';
-import NewOrder from '../screens/NewOrder';
-import Header from '../components/Header';
-import OrderDetails from '../screens/OrderDetails';
-import Checkout from '../screens/Checkout';
-import SignUp from '../screens/SignUp';
+import Intro from '../screens/Intro/Intro';
+import Address from '../screens/Address/Address';
+import Login from '../screens/Login/Login';
+import Settings from '../components/Settings/Settings';
+import MyOrders from '../screens/MyOrders/MyOrders';
+import NewOrder from '../screens/NewOrder/NewOrder';
+import Header from '../components/Header/Header';
+import OrderDetails from '../screens/OrderDetails/OrderDetails';
+import Checkout from '../screens/Checkout/Checkout';
+import SignUp from '../screens/SignUp/SignUp';
 import { Platform, View } from 'react-native';
 
 export type StackParams = {
@@ -62,13 +62,20 @@ export default function Routes(props: any) {
                     headerRight: () => <Header />,
                 }}
             >
-                <Stack.Screen name="Intro" component={Intro} />
+                <Stack.Screen
+                    name="Intro"
+                    component={Intro}
+                    options={({ navigation, route }) => ({
+                        headerRight: () => null,
+                    })}
+                />
                 <Stack.Screen name="Address" component={Address} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="Settings" component={Settings} />
-                <Stack.Screen name="Checkout" component={Checkout} />
                 <Stack.Screen name="MyOrders" component={MyOrders} />
+                <Stack.Screen name="OrderDetails" component={OrderDetails} />
+                <Stack.Screen name="Checkout" component={Checkout} />
                 <Stack.Screen
                     name="NewOrder"
                     component={NewOrder}
@@ -76,7 +83,6 @@ export default function Routes(props: any) {
                         headerLeft: () => null,
                     })}
                 />
-                <Stack.Screen name="OrderDetails" component={OrderDetails} />
             </Stack.Navigator>
         </NavigationContainer>
     );
