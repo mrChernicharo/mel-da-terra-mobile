@@ -3,6 +3,8 @@ import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -16,10 +18,15 @@ import {
     where,
     query,
 } from 'firebase/firestore/lite';
+import * as AuthSession from 'expo-auth-session';
 import { IAppUser } from './interfaces';
 
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../private/firebaseConfig';
+import {
+    firebaseConfig,
+    GOOGLE_CLIENT_ID,
+    GOOGLE_REDIRECT_URI,
+} from '../../private/firebaseConfig';
 
 //=========//
 
@@ -41,6 +48,8 @@ export const firebaseEmailAndPasswordSignIn = (email: string, password: string) 
 export const firebaseEmailPasswordCreateUser = (email: string, password: string) => {
     return emailAndPasswordSignUp(email, password);
 };
+
+export const firebaseGoogleSignIn = () => googleSignIn();
 
 //=========//
 
@@ -92,5 +101,20 @@ async function emailAndPasswordSignUp(email: string, password: string) {
         return credentials;
     } catch (err) {
         throw new Error('Erro do firebase na criação do usuário');
+    }
+}
+async function googleSignIn() {
+    try {
+        const CLIENT_ID = GOOGLE_CLIENT_ID;
+        const REDIRECT_URI = GOOGLE_REDIRECT_URI;
+        const RESPONSE_TYPE = 'token';
+        const SCOPE = encodeURI('profile email');
+        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+
+        const response = await AuthSession.startAsync({ authUrl });
+
+        console.log(response);
+    } catch (err) {
+        throw new Error(`erro no google signin. ERRO: ${err}`);
     }
 }

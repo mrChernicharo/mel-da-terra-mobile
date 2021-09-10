@@ -20,7 +20,7 @@ import IdentificationForm from '../../components/IdentificationForm/Identificati
 import styles from './styles';
 
 export default function Login() {
-    const { signIn } = useUserContext();
+    const { signIn, googleSignIn, facebookSignIn } = useUserContext();
     const navigation = useNavigation<LoginNavigationProp>();
 
     const s = styles();
@@ -30,7 +30,13 @@ export default function Login() {
         navigation.push('NewOrder');
     }
 
-    async function handleGoogleSignIn() {}
+    async function handleGoogleSignIn() {
+        console.log('handle Google sign in!');
+        await googleSignIn();
+    }
+    async function handleFacebookSignIn() {
+        console.log('handle Facebook sign in!');
+    }
 
     return (
         // <ScrollView contentContainerStyle={s.container}>
@@ -59,7 +65,7 @@ export default function Login() {
                             title="Facebook"
                             buttonStyle={s.socialButton}
                             titleStyle={s.socialButtonText}
-                            onPress={() => {}}
+                            onPress={handleFacebookSignIn}
                             icon={<Fontisto name="facebook" style={s.buttonIcon} />}
                         />
                     </View>

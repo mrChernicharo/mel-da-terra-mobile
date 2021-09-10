@@ -1,45 +1,46 @@
 {
-	"expo": {
-		"name": "mel-da-terra-verde",
-		"slug": "mel-da-terra-verde",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"splash": {
-			"image": "./assets/app-splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#f7de01"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"bundleIdentifier": "com.meloDev.melDaTerraiOS",
-			"googleServicesFile": "./private/GoogleService-Info.plist",
-			"supportsTablet": true
-		},
-		"android": {
-			"package": "com.meloDev.melDaTerra",
-			"googleServicesFile": "./private/google-services.json",
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
-			}
-		},
-		"web": {
-			"favicon": "./assets/favicon.png",
-			"config": {
-				"firebase": {
-					"apiKey": "AIzaSyBqRb8ifLB5qfKgFNr4H0iMIIRXS_I16U8",
-					"authDomain": "mel-da-terra.firebaseapp.com",
-					"projectId": "mel-da-terra",
-					"storageBucket": "mel-da-terra.appspot.com",
-					"messagingSenderId": "461825274725",
-					"appId": "1:461825274725:web:7e9c92730ec4b352dc678c",
-					"measurementId": "G-TBWSMVHQ27"
-				}
-			}
-		}
-	}
+    "expo": {
+        "name": "mel-da-terra-verde",
+        "slug": "mel-da-terra-verde",
+        "scheme": "mel-da-terra-verde",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "splash": {
+            "image": "./assets/app-splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#f7de01"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "bundleIdentifier": "com.meloDev.melDaTerraiOS",
+            "googleServicesFile": "./private/GoogleService-Info.plist",
+            "supportsTablet": true
+        },
+        "android": {
+            "package": "com.meloDev.melDaTerra",
+            "googleServicesFile": "./private/google-services.json",
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#FFFFFF"
+            }
+        },
+        "web": {
+            "favicon": "./assets/favicon.png",
+            "config": {
+                "firebase": {
+                    "apiKey": "AIzaSyBqRb8ifLB5qfKgFNr4H0iMIIRXS_I16U8",
+                    "authDomain": "mel-da-terra.firebaseapp.com",
+                    "projectId": "mel-da-terra",
+                    "storageBucket": "mel-da-terra.appspot.com",
+                    "messagingSenderId": "461825274725",
+                    "appId": "1:461825274725:web:7e9c92730ec4b352dc678c",
+                    "measurementId": "G-TBWSMVHQ27"
+                }
+            }
+        }
+    }
 }

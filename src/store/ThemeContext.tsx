@@ -1,5 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
-import { ReactNode } from 'react-native-vector-icons/node_modules/@types/react';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { AppColors } from '../styles/colors';
 
 export type IAppTheme = 'light' | 'dark';

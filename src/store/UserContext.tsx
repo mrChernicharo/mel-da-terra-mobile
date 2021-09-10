@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
@@ -8,25 +8,30 @@ import {
     firebaseEmailAndPasswordSignIn,
     firebaseEmailPasswordCreateUser,
     firebaseSignOut,
+    firebaseGoogleSignIn,
 } from '../utils/fireService';
 import { IAppUser } from '../utils/interfaces';
 
 export interface IUserContextProviderProps {
-    children: JSX.Element[] | JSX.Element;
+    children: ReactNode;
 }
 
 export interface IUserContext {
     user: IAppUser | null;
     signIn: (email: string, password: string) => Promise<boolean>;
     signUp: (username: string, email: string, password: string) => Promise<boolean>;
-    logOut: () => void;
+    googleSignIn: () => Promise<void>;
+    facebookSignIn: () => Promise<void>;
+    logOut: () => Promise<void>;
 }
 
 export const UserContext = createContext<IUserContext>({
     user: null,
     signIn: (email: string, password: string) => new Promise(Boolean),
     signUp: (username: string, email: string, password: string) => new Promise(Boolean),
-    logOut: () => {},
+    googleSignIn: () => new Promise((resolve, reject) => {}),
+    facebookSignIn: () => new Promise((resolve, reject) => {}),
+    logOut: () => new Promise((resolve, reject) => {}),
 });
 
 export function UserContextProvider({ children }: IUserContextProviderProps) {
@@ -73,11 +78,25 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
         }
     }
 
+    async function handleGoogleSignIn() {
+        // await new Promise(() => {});
+        const cred = await firebaseGoogleSignIn();
+        console.log(cred);
+    }
+    async function handleFacebookSignIn() {
+        await new Promise(() => {});
+        // return new Promise((resolve, reject) => {
+        //     resolve(true);
+        // });
+    }
+
     async function handleLogout() {
         await firebaseSignOut();
         setUser(null);
         clearStorage();
     }
+
+    // AsyncStorage
 
     function retrieveUser() {
         userStorage.getItem((err, data) => {
@@ -114,6 +133,8 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
         user,
         signIn: handleSignIn,
         signUp: handleSignUp,
+        googleSignIn: handleGoogleSignIn,
+        facebookSignIn: handleFacebookSignIn,
         logOut: handleLogout,
     };
 

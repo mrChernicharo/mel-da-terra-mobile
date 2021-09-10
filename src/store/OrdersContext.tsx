@@ -1,7 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 import { IMel, IOrder, IOrderProduct, IProduct } from '../utils/interfaces';
 import { generateUUID } from '../utils/helpers';
-import { ReactNode } from 'react-native-vector-icons/node_modules/@types/react';
 
 export interface IOrdersContextProps {
     children: ReactNode;
