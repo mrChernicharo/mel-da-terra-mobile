@@ -1,11 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { MyOrdersNavigationProp, StackParams } from '../../routes/index';
 import React from 'react';
 import { SafeAreaView, View, Text, Image, ImageBackground } from 'react-native';
-import splash from '../../assets/splash2.jpg';
 import { Button } from 'react-native-elements';
-import { styles } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { MyOrdersNavigationProp } from '../../routes/index';
+
+import styles from './styles';
+import splash from '../../assets/splash2.jpg';
 
 interface IMyOrdersProps {
     theme: string;
@@ -14,7 +14,7 @@ interface IMyOrdersProps {
 export default function MyOrders({ theme }: IMyOrdersProps) {
     const navigation = useNavigation<MyOrdersNavigationProp>();
 
-    const s = styles(theme);
+    const s = styles();
 
     function handleBtnPressed() {
         navigation.push('Intro');

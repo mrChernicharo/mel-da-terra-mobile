@@ -3,7 +3,7 @@ import { View, Text, Image, ImageSourcePropType } from 'react-native';
 import { Card } from 'react-native-elements';
 import { IMel, IProduct } from '../../utils/interfaces';
 import styles from './styles';
-import { ThemeContext } from '../../store/ThemeContext';
+import { ThemeContext, useTheme } from '../../store/ThemeContext';
 import { getBRPrice } from '../../utils/helpers';
 
 interface IOrderedProductCardProps {
@@ -17,8 +17,8 @@ export default function OrderedProductCard({ product, mel, amount }: IOrderedPro
     const imgPath = String(img) as any;
     const parsedPrice = getBRPrice(price * amount);
 
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
 
     return (
         <Card containerStyle={s.container} wrapperStyle={s.wrapper}>

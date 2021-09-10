@@ -1,9 +1,10 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
-import { AppColors } from '../../styles/colors';
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import { useTheme } from '../../store/ThemeContext';
 
-const styles = (theme: string) => {
-    const colors = AppColors(theme);
-    const { width } = Dimensions.get('window');
+const styles = () => {
+    const { theme, colors } = useTheme();
+
+    const { width, height } = Dimensions.get('window');
     const modalPadding = 24;
 
     return StyleSheet.create({
@@ -18,12 +19,13 @@ const styles = (theme: string) => {
         },
         modalView: {
             // borderWidth: 2,
-            backgroundColor: colors.bg,
+            backgroundColor: theme === 'dark' ? colors.bg2 : colors.bg,
             flex: 1,
             marginVertical: 20,
             marginHorizontal: 24,
             padding: modalPadding,
-            maxHeight: Platform.OS === 'ios' ? 720 : 620,
+            // maxHeight: Platform.OS === 'ios' ? 720 : 620,
+            maxHeight: height * 0.9,
             top: Platform.OS === 'ios' ? 60 : 10,
             // justifyContent: 'space-between',
             alignItems: 'center',

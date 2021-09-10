@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, Image, TouchableNativeFeedback, ImageSourcePropType } from 'react-native';
 import { Card, ImageProps } from 'react-native-elements';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import { IProduct } from '../../utils/interfaces';
 import { getBRPrice } from '../../utils/helpers';
 import styles from './styles';
@@ -17,8 +17,8 @@ export default function ProductCard({ data, onCardSelected }: IProductCardProps)
     const imgPath = String(img) as string;
     const parsedPrice = getBRPrice(price);
 
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
 
     // console.log({ img, imgPath });
     function handleCardPress() {

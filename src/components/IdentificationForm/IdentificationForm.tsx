@@ -1,9 +1,9 @@
 import { Feather, FontAwesome, Fontisto, SimpleLineIcons } from '@expo/vector-icons';
-import React, { useContext, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 import styles from './styles';
 
@@ -13,10 +13,10 @@ export interface IIDFormProps {
 }
 
 export default function IdentificationForm({ onSubmit, showNameInput }: IIDFormProps) {
-    const { theme } = useContext(ThemeContext);
+    const { theme } = useTheme();
     const { accent } = AppColors(theme);
 
-    const s = styles(theme);
+    const s = styles();
 
     const [isUsernameFocused, setIsUsernameFocused] = useState(false);
     const [isUsernameFilled, setIsUsernameFilled] = useState(false);

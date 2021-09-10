@@ -3,7 +3,7 @@ import { Text, View, Modal, Pressable, Platform, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, Fontisto, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { ThemeContext, useTheme } from '../../store/ThemeContext';
 import { UserContext } from '../../store/UserContext';
 import { useNavigation } from '@react-navigation/native';
 import { IntroNavigationProp } from '../../routes';
@@ -20,9 +20,8 @@ import SettingsModal from '../SettingsModal/SettingsModal';
 export default function Header() {
     const [modalVisible, setModalVisible] = useState(false);
     const { user, logOut } = useContext(UserContext);
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
-    const colors = AppColors(theme);
+    const { theme, colors } = useTheme();
+    const s = styles();
     const navigation = useNavigation<IntroNavigationProp>();
 
     const statusBarTheme = theme === 'dark' ? 'light' : 'dark';

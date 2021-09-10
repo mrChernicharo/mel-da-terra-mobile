@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { OrdersContext } from '../../store/OrdersContext';
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import styles from '../CartItem/styles';
 import { generateUUID } from '../../utils/helpers';
 import { IOrderProduct } from '../../utils/interfaces';
@@ -12,8 +12,8 @@ export default function CartItems() {
     const { currentOrder } = useContext(OrdersContext);
     const orderProducts = currentOrder?.products as IOrderProduct[];
 
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
 
     return (
         <View style={s.container}>

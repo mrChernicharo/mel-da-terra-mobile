@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { StackParams } from '../../routes/index';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import { OrdersContext } from '../../store/OrdersContext';
 import { products } from '../../utils/constants';
 import ProductCard from '../../components/ProductCard/ProductCard';
@@ -19,8 +19,8 @@ type NewOrderNavigationProp = StackNavigationProp<StackParams, 'NewOrder'>;
 export default function NewOrder() {
     const navigation = useNavigation<NewOrderNavigationProp>();
 
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
 
     const { currentOrder } = useContext(OrdersContext);
     const orderProducts = currentOrder?.products as IOrderProduct[];

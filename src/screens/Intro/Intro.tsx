@@ -5,7 +5,7 @@ import { IntroNavigationProp } from '../../routes/index';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 
 import bgImg from '../../assets/min-lower.png';
 import logoImg from '../../assets/logo-trans.png';
@@ -13,8 +13,8 @@ import { UserContext } from '../../store/UserContext';
 
 export default function Intro() {
     const { user } = useContext(UserContext);
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
     const navigation = useNavigation<IntroNavigationProp>();
 
     function handleBtnPressed() {

@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { IAppTheme } from '../../store/ThemeContext';
+import { IAppTheme, useTheme } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
-const styles = (theme: IAppTheme) => {
-    const colors = AppColors(theme);
+const styles = () => {
+    const { colors } = useTheme();
 
     return StyleSheet.create({
         container: {
@@ -49,4 +49,4 @@ const styles = (theme: IAppTheme) => {
         },
     });
 };
-export { styles };
+export default styles;

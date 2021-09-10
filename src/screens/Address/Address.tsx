@@ -11,8 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { AddressNavigationProp } from '../../routes/index';
 import { Button, Input } from 'react-native-elements';
 
-import { styles } from './styles';
-import { ThemeContext } from '../../store/ThemeContext';
+import styles from './styles';
+import { useTheme } from '../../store/ThemeContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AppColors } from '../../styles/colors';
 
@@ -22,14 +22,14 @@ interface IAddressProps {
 
 export default function Address() {
     const navigation = useNavigation<AddressNavigationProp>();
-    const { theme } = useContext(ThemeContext);
+    const { theme } = useTheme();
     const { accent } = AppColors(theme);
 
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
     const [address, setAddress] = useState<string>('');
 
-    const s = styles(theme);
+    const s = styles();
 
     function goToNewOrderScreen() {
         navigation.push('NewOrder');

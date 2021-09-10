@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { ThemeContext } from '../../store/ThemeContext';
-import { getBRPrice, productPluralTitle } from '../../utils/helpers';
+import { useTheme } from '../../store/ThemeContext';
+import { productPluralTitle } from '../../utils/helpers';
 import { IOrderProduct } from '../../utils/interfaces';
 import styles from '../CartItems/styles';
 import { Card } from 'react-native-elements';
@@ -12,8 +11,8 @@ interface ICartItemProps {
 }
 
 export default function CartItem({ item }: ICartItemProps) {
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
 
     return (
         <Card containerStyle={s.container}>

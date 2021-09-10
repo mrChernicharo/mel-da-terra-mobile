@@ -11,24 +11,19 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { LoginNavigationProp } from '../../routes/index';
 import { Button, Divider } from 'react-native-elements';
+
 import { Fontisto } from '@expo/vector-icons';
 
-import { ThemeContext } from '../../store/ThemeContext';
 import { UserContext } from '../../store/UserContext';
 import IdentificationForm from '../../components/IdentificationForm/IdentificationForm';
 
-import { AppColors } from '../../styles/colors';
 import styles from './styles';
-// import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login() {
     const { signIn } = useContext(UserContext);
     const navigation = useNavigation<LoginNavigationProp>();
 
-    const { theme } = useContext(ThemeContext);
-    const { accent } = AppColors(theme);
-
-    const s = styles(theme);
+    const s = styles();
 
     async function handleSubmit(email: string, password: string) {
         await signIn(email, password);

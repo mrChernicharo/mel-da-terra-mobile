@@ -4,14 +4,14 @@ import BigBottomButton from '../../components/BigBottomButton/BigBottomButton';
 import OrderedProductCard from '../../components/OrderedProductCard/OrderedProductCard';
 
 import { OrdersContext } from '../../store/OrdersContext';
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import styles from './styles';
 import { generateUUID, getBRPrice } from '../../utils/helpers';
 import { IOrderProduct } from '../../utils/interfaces';
 
 export default function Checkout() {
-    const { theme } = useContext(ThemeContext);
-    const s = styles(theme);
+    const { theme } = useTheme();
+    const s = styles();
     const { width, height } = useWindowDimensions();
 
     const { currentOrder } = useContext(OrdersContext);

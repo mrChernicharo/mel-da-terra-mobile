@@ -3,7 +3,7 @@ import { Text, View, Modal, Pressable, Platform, Image, ScrollView } from 'react
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons, Fontisto, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useTheme } from '../../store/ThemeContext';
 import { IAppUser, UserContext } from '../../store/UserContext';
 import { useNavigation } from '@react-navigation/native';
 import { IntroNavigationProp } from '../../routes';
@@ -29,9 +29,9 @@ export default function SettingsModal({
     toggleModal,
     logout,
 }: ISettingsModalProps) {
-    const { theme } = useContext(ThemeContext);
+    const { theme } = useTheme();
 
-    const s = styles(theme);
+    const s = styles();
     const colors = AppColors(theme);
     const closeButton =
         Platform.OS === 'android' ? (

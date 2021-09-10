@@ -4,19 +4,17 @@ import { Button } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import NumericInput from 'react-native-numeric-input';
 
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { FontAwesome } from '@expo/vector-icons';
 
-import { ThemeContext } from '../../store/ThemeContext';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useTheme } from '../../store/ThemeContext';
+
 import { OrdersContext } from '../../store/OrdersContext';
 import { StackParams } from '../../routes/index';
 import { IMel, IProduct } from '../../utils/interfaces';
 import { meles, products } from '../../utils/constants';
 import { getBRPrice } from '../../utils/helpers';
-
-import { AppColors } from '../../styles/colors';
 
 import OrderedProductCard from '../../components/OrderedProductCard/OrderedProductCard';
 import MelCard from '../../components/MelCard/MelCard';
@@ -28,9 +26,8 @@ export default function OrderDetails() {
     const [mel, setMel] = useState<IMel | null>(null);
     const [amount, setAmount] = useState(0);
 
-    const { theme } = useContext(ThemeContext);
-    const colors = AppColors(theme);
-    const s = styles(theme);
+    const { theme, colors } = useTheme();
+    const s = styles();
 
     const navigation = useNavigation<OrderDetailsNavigationProp>();
     const { routes } = navigation.getState();
@@ -48,7 +45,7 @@ export default function OrderDetails() {
     function handleButtonPress() {
         addOrderProduct(product, amount, mel);
         // TODO: show snack
-        navigation.goBack();
+        navigation.navigate('NewOrder');
     }
 
     return (
