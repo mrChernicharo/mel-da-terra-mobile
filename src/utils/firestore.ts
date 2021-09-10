@@ -16,8 +16,12 @@ import {
     where,
     query,
 } from 'firebase/firestore/lite';
-import { FirebaseApp } from '@firebase/app';
 import { IAppUser } from './interfaces';
+
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../private/firebaseConfig';
+
+const app: FirebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 

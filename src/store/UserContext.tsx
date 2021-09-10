@@ -23,7 +23,6 @@ import { IAppUser } from '../utils/interfaces';
 import { getFirestoreUser, firebaseSaveUser } from '../utils/firestore';
 
 export interface IUserContextProviderProps {
-    app: FirebaseApp;
     children: JSX.Element[] | JSX.Element;
 }
 
@@ -42,7 +41,7 @@ export const UserContext = createContext<IUserContext>({
     logOut: () => {},
 });
 
-export function UserContextProvider({ app, children }: IUserContextProviderProps) {
+export function UserContextProvider({ children }: IUserContextProviderProps) {
     const [user, setUser] = useState<IAppUser | null>(null);
     const userStorage = useAsyncStorage('user');
 
