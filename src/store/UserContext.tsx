@@ -8,7 +8,7 @@ import {
     firebaseEmailAndPasswordSignIn,
     firebaseEmailPasswordCreateUser,
     firebaseSignOut,
-    firebaseGoogleSignIn,
+    googleSignIn,
 } from '../utils/fireService';
 import { IAppUser } from '../utils/interfaces';
 
@@ -20,7 +20,7 @@ export interface IUserContext {
     user: IAppUser | null;
     signIn: (email: string, password: string) => Promise<boolean>;
     signUp: (username: string, email: string, password: string) => Promise<boolean>;
-    googleSignIn: () => Promise<void>;
+    googleSignIn: () => Promise<boolean>;
     facebookSignIn: () => Promise<void>;
     logOut: () => Promise<void>;
 }
@@ -29,7 +29,7 @@ export const UserContext = createContext<IUserContext>({
     user: null,
     signIn: (email: string, password: string) => new Promise(Boolean),
     signUp: (username: string, email: string, password: string) => new Promise(Boolean),
-    googleSignIn: () => new Promise((resolve, reject) => {}),
+    googleSignIn: () => new Promise(Boolean),
     facebookSignIn: () => new Promise((resolve, reject) => {}),
     logOut: () => new Promise((resolve, reject) => {}),
 });
@@ -79,10 +79,34 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
     }
 
     async function handleGoogleSignIn() {
-        // await new Promise(() => {});
-        const cred = await firebaseGoogleSignIn();
-        console.log(cred);
+        try {
+            const userCredentials = await googleSignIn();
+            console.log(userCredentials);
+            if (userCredentials) {
+                const { email, name, picture } = userCredentials;
+                const newUser: IAppUser = {
+                    id: '',
+                    email,
+                    name: name || '',
+                    avatarUrl: picture || '',
+                };
+
+                const userExists = await getFirestoreUser(email);
+                console.log(userExists);
+
+                if (!userExists) {
+                    await firebaseSaveUser(newUser as IAppUser);
+                }
+
+                setUser(newUser);
+                storeUser(newUser);
+            }
+            return true;
+        } catch (err) {
+            throw new Error(`Deu ruim no OAuth. ERRO: ${err}`);
+        }
     }
+
     async function handleFacebookSignIn() {
         await new Promise(() => {});
         // return new Promise((resolve, reject) => {
