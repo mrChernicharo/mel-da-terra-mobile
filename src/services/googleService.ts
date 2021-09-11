@@ -1,4 +1,5 @@
 import * as AuthSession from 'expo-auth-session';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 interface IGoogleAuthResponse {
     params: { access_token: string };
@@ -36,6 +37,9 @@ async function googleOAuthSignIn() {
                 `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`
             );
             const userInfo = await response.json();
+
+            const provider = new GoogleAuthProvider();
+            console.log(provider);
 
             return userInfo as IGoogleUserInfo;
         }

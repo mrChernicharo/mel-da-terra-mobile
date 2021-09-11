@@ -3,8 +3,7 @@ import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
-    GoogleAuthProvider,
-    signInWithPopup,
+    signInAnonymously,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -50,13 +49,14 @@ export const getFirestoreUsers = () => getAllUsers(db);
 export const getFirestoreUser = (email: string) => getUser(db, email);
 export const firebaseSaveUser = (user: IAppUser) => saveUser(db, user);
 
-export const firebaseSignOut = () => logout();
 export const firebaseEmailAndPasswordSignIn = (email: string, password: string) => {
     return emailAndPasswordSignIn(email, password);
 };
 export const firebaseEmailPasswordCreateUser = (email: string, password: string) => {
     return emailAndPasswordSignUp(email, password);
 };
+export const firebaseSignOut = () => logout();
+export const firebaseAnonimousSignIn = () => createAnonimousUser();
 
 //=========//
 
@@ -91,9 +91,7 @@ async function saveUser(db: Firestore, user: IAppUser) {
         throw new Error('Erro ao gurardar usuário no Banco de dados');
     }
 }
-async function logout() {
-    await signOut(auth);
-}
+
 async function emailAndPasswordSignIn(email: string, password: string) {
     try {
         const credentials = signInWithEmailAndPassword(auth, email, password);
@@ -111,28 +109,11 @@ async function emailAndPasswordSignUp(email: string, password: string) {
     }
 }
 
-// async function googleOAuthSignIn() {
-//     try {
-//         const CLIENT_ID = GOOGLE_CLIENT_ID;
-//         const REDIRECT_URI = GOOGLE_REDIRECT_URI;
-//         const RESPONSE_TYPE = 'token';
-//         const SCOPE = encodeURI('profile email');
-//         const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-
-//         const OAuthResponse = await AuthSession.startAsync({ authUrl });
-
-//         const { params, type } = OAuthResponse as IGoogleAuthResponse;
-//         const { access_token } = params;
-
-//         if (type === 'success') {
-//             const response = await fetch(
-//                 `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`
-//             );
-//             const userInfo = await response.json();
-
-//             return userInfo as IGoogleUserInfo;
-//         }
-//     } catch (err) {
-//         throw new Error(`erro no google signin. ERRO: ${err}`);
-//     }
-// }
+async function createAnonimousUser() {
+    const cred = await signInAnonymously(auth);
+    console.log(cred);
+    return cred;
+}
+async function logout() {
+    await signOut(auth);
+}

@@ -8,10 +8,12 @@ import {
     firebaseEmailAndPasswordSignIn,
     firebaseEmailPasswordCreateUser,
     firebaseSignOut,
+    firebaseAnonimousSignIn,
 } from '../services/firebaseService';
 
 import { googleSignIn } from '../services/googleService';
 import { IAppUser } from '../utils/interfaces';
+import { generateUUID } from '../utils/helpers';
 
 export interface IUserContextProviderProps {
     children: ReactNode;
@@ -93,10 +95,11 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
                 };
 
                 const userExists = await getFirestoreUser(email);
-                console.log(userExists);
+                console.log('user exists: ' + !!userExists, userExists);
 
                 if (!userExists) {
                     await firebaseSaveUser(newUser as IAppUser);
+                    await firebaseAnonimousSignIn();
                 }
 
                 setUser(newUser);
