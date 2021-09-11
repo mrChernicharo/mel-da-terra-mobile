@@ -8,8 +8,9 @@ import {
     firebaseEmailAndPasswordSignIn,
     firebaseEmailPasswordCreateUser,
     firebaseSignOut,
-    googleSignIn,
-} from '../utils/fireService';
+} from '../services/firebaseService';
+
+import { googleSignIn } from '../services/googleService';
 import { IAppUser } from '../utils/interfaces';
 
 export interface IUserContextProviderProps {
