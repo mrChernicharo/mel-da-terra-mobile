@@ -17,9 +17,7 @@ interface IGoogleUserInfo {
 const { GOOGLE_CLIENT_ID } = process.env;
 const { GOOGLE_REDIRECT_URI } = process.env;
 
-export const googleSignIn = () => googleOAuthSignIn();
-
-async function googleOAuthSignIn() {
+export async function googleSignIn() {
     try {
         const CLIENT_ID = GOOGLE_CLIENT_ID;
         const REDIRECT_URI = GOOGLE_REDIRECT_URI;

@@ -1,8 +1,8 @@
 export const AppColors = (colorScheme: string) => ({
     primary: '#eecd3e',
     accent: '#8521ff',
-    bg: colorScheme === 'dark' ? '#232323' : '#fff',
-    bg2: colorScheme === 'dark' ? '#232323' : '#eee',
+    bg: colorScheme === 'dark' ? '#212121' : '#fff',
+    bg2: colorScheme === 'dark' ? '#333' : '#eee',
     text: colorScheme === 'dark' ? '#fff' : '#000',
     bgText: colorScheme === 'dark' ? '#555' : '#aaa',
     green: '#01fe56',

@@ -43,30 +43,14 @@ const app: FirebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 
-//=========//
-
-export const getFirestoreUsers = () => getAllUsers(db);
-export const getFirestoreUser = (email: string) => getUser(db, email);
-export const firebaseSaveUser = (user: IAppUser) => saveUser(db, user);
-
-export const firebaseEmailAndPasswordSignIn = (email: string, password: string) => {
-    return emailAndPasswordSignIn(email, password);
-};
-export const firebaseEmailPasswordCreateUser = (email: string, password: string) => {
-    return emailAndPasswordSignUp(email, password);
-};
-export const firebaseSignOut = () => logout();
-export const firebaseAnonimousSignIn = () => createAnonimousUser();
-
-//=========//
-
-async function getAllUsers(db: Firestore) {
+export async function firestoreGetUsers() {
     const usersCollection = collection(db, 'users');
     const usersSnapshot = await getDocs(usersCollection);
     const usersList = usersSnapshot.docs.map(doc => doc.data());
     return usersList;
 }
-async function getUser(db: Firestore, email: string) {
+
+export async function firestoreGetUser(email: string) {
     try {
         const q = query(collection(db, 'users'), where('email', '==', email));
 
@@ -79,7 +63,8 @@ async function getUser(db: Firestore, email: string) {
         throw new Error('usuário não encontrado no banco de dados');
     }
 }
-async function saveUser(db: Firestore, user: IAppUser) {
+
+export async function firebaseSaveUser(user: IAppUser) {
     try {
         const addedUserDoc = await addDoc(collection(db, 'users'), {});
 
@@ -92,7 +77,7 @@ async function saveUser(db: Firestore, user: IAppUser) {
     }
 }
 
-async function emailAndPasswordSignIn(email: string, password: string) {
+export async function firebaseEmailAndPasswordSignIn(email: string, password: string) {
     try {
         const credentials = signInWithEmailAndPassword(auth, email, password);
         return credentials;
@@ -100,7 +85,8 @@ async function emailAndPasswordSignIn(email: string, password: string) {
         throw new Error('Erro do firebase na autenticação');
     }
 }
-async function emailAndPasswordSignUp(email: string, password: string) {
+
+export async function firebaseEmailPasswordCreateUser(email: string, password: string) {
     try {
         const credentials = createUserWithEmailAndPassword(auth, email, password);
         return credentials;
@@ -109,11 +95,12 @@ async function emailAndPasswordSignUp(email: string, password: string) {
     }
 }
 
-async function createAnonimousUser() {
+export async function firebaseCreateAnonimousUser() {
     const cred = await signInAnonymously(auth);
     console.log(cred);
     return cred;
 }
-async function logout() {
+
+export async function firebaseSignOut() {
     await signOut(auth);
 }

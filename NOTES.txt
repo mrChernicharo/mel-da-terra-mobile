@@ -1,0 +1,63 @@
+GOOGLE OAUTH
+
+
+yarn add...
+"expo-auth-session": "~3.3.1",
+"expo-random": "~11.2.0",
+
+
+Expo account
+https://expo.dev/accounts/chernicharo/projects/mel-da-terra-verde
+
+GCP account
+https://console.cloud.google.com/apis/credentials?project=mel-da-terra-mobile
+
+
+Authorized JavaScript origins:
+https://auth.expo.io
+
+REDIRECT_URI (Authorized redirect URIs in GCP) 
+    https://auth.expo.io/<username (see Expo.dev)>/<project-slug(see app.json)>
+EX: https://auth.expo.io/@chernicharo/mel-da-terra-verde
+
+CLIENT_ID (see credentials in GCP)
+
+
+
+
+export async function googleSignIn() {
+    try {
+        const CLIENT_ID = GOOGLE_CLIENT_ID;
+        const REDIRECT_URI = GOOGLE_REDIRECT_URI;
+        const RESPONSE_TYPE = 'token';
+        const SCOPE = encodeURI('profile email');  // <-- scopes defined in GCP
+        const authUrl = 
+            `https://accounts.google.com/o/oauth2/v2/auth?
+            client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&
+            response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
+        // ...
+
+
+app.json
+{
+    "expo": {
+        "name": "mel-da-terra-verde",
+        "slug": "mel-da-terra-verde",   // <-- We find these in Expo
+        "scheme": "mel-da-terra-verde",   // <--
+
+    // ...    
+
+
+-------------------------------------
+
+TESTS
+yarn add jest-expo --dev
+yarn add --dev @testing-library/react-native
+yarn add --dev @testing-library/jest-native
+
+Add this to the package.json:
+
+"jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": ["@testing-library/jest-native/extend-expect"]
+},

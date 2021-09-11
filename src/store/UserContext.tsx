@@ -3,12 +3,12 @@ import React, { createContext, useState, useEffect, useContext, ReactNode } from
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 import {
-    getFirestoreUser,
+    firestoreGetUser,
     firebaseSaveUser,
     firebaseEmailAndPasswordSignIn,
     firebaseEmailPasswordCreateUser,
     firebaseSignOut,
-    firebaseAnonimousSignIn,
+    firebaseCreateAnonimousUser,
 } from '../services/firebaseService';
 
 import { googleSignIn } from '../services/googleService';
@@ -46,7 +46,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
             const userCredentials = await firebaseEmailAndPasswordSignIn(email, password);
 
             if (userCredentials) {
-                const user = await getFirestoreUser(email);
+                const user = await firestoreGetUser(email);
                 setUser(u => user);
                 storeUser(user);
             }
@@ -94,12 +94,12 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
                     avatarUrl: picture || '',
                 };
 
-                const userExists = await getFirestoreUser(email);
+                const userExists = await firestoreGetUser(email);
                 console.log('user exists: ' + !!userExists, userExists);
 
                 if (!userExists) {
                     await firebaseSaveUser(newUser as IAppUser);
-                    await firebaseAnonimousSignIn();
+                    await firebaseCreateAnonimousUser();
                 }
 
                 setUser(newUser);
@@ -113,9 +113,6 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     async function handleFacebookSignIn() {
         await new Promise(() => {});
-        // return new Promise((resolve, reject) => {
-        //     resolve(true);
-        // });
     }
 
     async function handleLogout() {
@@ -125,6 +122,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
     }
 
     // AsyncStorage
+    // TODO: Abstract AsyncStorage Logics to a separate service
 
     function retrieveUser() {
         userStorage.getItem((err, data) => {
@@ -151,11 +149,13 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
         await userStorage.removeItem();
     }
 
-    useEffect(() => retrieveUser(), []);
+    // useEffect(() => {
+    //     console.log('UserContext says: ', user);
+    // }, [user]);
 
     useEffect(() => {
-        console.log('UserContext says: ', user);
-    }, [user]);
+        retrieveUser();
+    }, []);
 
     const context: IUserContext = {
         user,

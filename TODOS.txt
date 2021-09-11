@@ -1,0 +1,9 @@
+[] Abstract AsyncStorage logic into it's own Service
+[] Debug Modal AvatarImgs 
+[] Alerts/Snacks
+[] Add Jest and test Services
+[] Loading spinner
+[] Store orders at Firestore 
+[] Security rules 
+[] Facebook Login ???
+[] Apple Login ???
