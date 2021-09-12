@@ -25,6 +25,7 @@ export async function googleSignIn() {
         const SCOPE = encodeURI('profile email');
         const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
+        console.log({ CLIENT_ID, REDIRECT_URI, RESPONSE_TYPE, SCOPE, authUrl });
         const OAuthResponse = await AuthSession.startAsync({ authUrl }); // mock
 
         const { params, type } = OAuthResponse as IGoogleAuthResponse;
@@ -39,6 +40,6 @@ export async function googleSignIn() {
             return userInfo as IGoogleUserInfo;
         }
     } catch (err) {
-        throw new Error(`erro no google signin. ERRO: ${err}`);
+        throw new Error(`erro no google signin no GoogleService. ERRO: ${err}`);
     }
 }

@@ -14,13 +14,13 @@ import { Button, Divider } from 'react-native-elements';
 
 import { Fontisto } from '@expo/vector-icons';
 
-import { useUserContext } from '../../store/UserContext';
+import { useAuthContext } from '../../store/AuthContext';
 import IdentificationForm from '../../components/IdentificationForm/IdentificationForm';
 
 import styles from './styles';
 
 export default function Login() {
-    const { signIn, googleSignIn, facebookSignIn } = useUserContext();
+    const { signIn, googleSignIn, facebookSignIn } = useAuthContext();
     const navigation = useNavigation<LoginNavigationProp>();
 
     const s = styles();
@@ -31,7 +31,7 @@ export default function Login() {
     }
 
     async function handleGoogleSignIn() {
-        console.log('handle Google sign in!');
+        // console.log('handle Google sign in!');
         await googleSignIn();
     }
     async function handleFacebookSignIn() {

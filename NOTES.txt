@@ -67,3 +67,7 @@ Add this to the package.json:
 or
 
 create a jest.config.js file
+
+
+tests inside a __tests__ dir will run without .spec or .test extensitons
+files with .spec or .test will be run regardless of their position

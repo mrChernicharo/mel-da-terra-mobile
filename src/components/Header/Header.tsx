@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Entypo } from '@expo/vector-icons';
 
 import { ThemeContext, useThemeContext } from '../../store/ThemeContext';
-import { useUserContext } from '../../store/UserContext';
+import { useAuthContext } from '../../store/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { IntroNavigationProp } from '../../routes';
 
@@ -17,7 +17,7 @@ export default function Header() {
     const [modalVisible, setModalVisible] = useState(false);
 
     const navigation = useNavigation<IntroNavigationProp>();
-    const { user, logOut } = useUserContext();
+    const { user, logOut } = useAuthContext();
     const { theme, colors } = useThemeContext();
 
     const s = styles();

@@ -15,29 +15,30 @@ import { googleSignIn } from '../services/googleService';
 import { IAppUser } from '../utils/interfaces';
 import { generateUUID } from '../utils/helpers';
 
-export interface IUserContextProviderProps {
+export interface IAuthContextProviderProps {
     children: ReactNode;
 }
 
-export interface IUserContext {
+export interface IAuthContext {
     user: IAppUser | null;
-    signIn: (email: string, password: string) => Promise<boolean>;
-    signUp: (username: string, email: string, password: string) => Promise<boolean>;
+    signIn: (email: string, password: string) => Promise<void>;
+    signUp: (username: string, email: string, password: string) => Promise<void>;
     googleSignIn: () => Promise<boolean>;
     facebookSignIn: () => Promise<void>;
     logOut: () => Promise<void>;
 }
 
-export const UserContext = createContext<IUserContext>({
+export const AuthContext = createContext<IAuthContext>({
     user: null,
-    signIn: (email: string, password: string) => new Promise(Boolean),
-    signUp: (username: string, email: string, password: string) => new Promise(Boolean),
+    signIn: (email: string, password: string) => new Promise((resolve, reject) => {}),
+    signUp: (username: string, email: string, password: string) =>
+        new Promise((resolve, reject) => {}),
     googleSignIn: () => new Promise(Boolean),
     facebookSignIn: () => new Promise((resolve, reject) => {}),
     logOut: () => new Promise((resolve, reject) => {}),
 });
 
-export function UserContextProvider({ children }: IUserContextProviderProps) {
+export function AuthContextProvider({ children }: IAuthContextProviderProps) {
     const [user, setUser] = useState<IAppUser | null>(null);
     const userStorage = useAsyncStorage('user');
 
@@ -50,7 +51,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
                 setUser(u => user);
                 storeUser(user);
             }
-            return true;
+            // return true;
         } catch (err) {
             throw new Error(
                 `Não foi possível logar. Verifique a combinação email/senha e tente novamente. ERRO: ${err}`
@@ -75,7 +76,6 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
                 setUser(newUser);
                 storeUser(newUser);
             }
-            return true;
         } catch (err) {
             throw new Error(`Não foi possível criar o usuário. ERRO: ${err}`);
         }
@@ -107,7 +107,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
             }
             return true;
         } catch (err) {
-            throw new Error(`Deu ruim no OAuth. ERRO: ${err}`);
+            throw new Error(`Erro no GoogleSignin em AuthContext. ERRO: ${err}`);
         }
     }
 
@@ -139,10 +139,10 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     async function storeUser(user: IAppUser) {
         const strUser = JSON.stringify(user);
-        await userStorage.setItem(strUser, err => console.log(err));
+        await userStorage.setItem(strUser, err => console.log('ERROR: ' + err));
 
-        const savedUser = await userStorage.getItem();
-        console.log('user added to localstorage :', savedUser);
+        // const savedUser = await userStorage.getItem();
+        // console.log('user added to localstorage :', savedUser);
     }
 
     async function clearStorage() {
@@ -153,7 +153,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
         retrieveUser();
     }, []);
 
-    const context: IUserContext = {
+    const context: IAuthContext = {
         user,
         signIn: handleSignIn,
         signUp: handleSignUp,
@@ -162,10 +162,9 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
         logOut: handleLogout,
     };
 
-    return <UserContext.Provider value={context}>{children}</UserContext.Provider>;
+    return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
 }
 
-export const useUserContext = () => {
-    const context = useContext(UserContext);
-    return context;
+export const useAuthContext = () => {
+    return useContext(AuthContext);
 };

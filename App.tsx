@@ -6,16 +6,16 @@ import { registerRootComponent } from 'expo';
 
 import { OrdersContextProvider } from './src/store/OrdersContext';
 import { ThemeContextProvider } from './src/store/ThemeContext';
-import { UserContextProvider } from './src/store/UserContext';
+import { AuthContextProvider } from './src/store/AuthContext';
 
 export default function App() {
     return (
         <ThemeContextProvider>
-            <UserContextProvider>
+            <AuthContextProvider>
                 <OrdersContextProvider>
                     <Routes />
                 </OrdersContextProvider>
-            </UserContextProvider>
+            </AuthContextProvider>
         </ThemeContextProvider>
     );
 }

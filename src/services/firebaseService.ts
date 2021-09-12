@@ -14,6 +14,7 @@ import {
     addDoc,
     updateDoc,
     documentId,
+    deleteDoc,
     where,
     query,
 } from 'firebase/firestore/lite';
@@ -71,7 +72,7 @@ export async function firebaseSaveUser(user: IAppUser) {
         const updatedUser = { ...user, id: addedUserDoc.id };
         await updateDoc(addedUserDoc, updatedUser);
 
-        console.log('created user: ', JSON.stringify(updatedUser));
+        // console.log('created user: ', JSON.stringify(updatedUser));
     } catch (err) {
         throw new Error('Erro ao gurardar usuário no Banco de dados');
     }
@@ -103,4 +104,20 @@ export async function firebaseCreateAnonimousUser() {
 
 export async function firebaseSignOut() {
     await signOut(auth);
+}
+
+export async function _firebaseDeleteAccount(email: string) {
+    const q = query(collection(db, 'users'), where('email', '==', email));
+
+    const querySnap = getDocs(q);
+    const docs = (await querySnap).docs;
+
+    console.log('FIRESTORE DELETE. docs a deletar: ', docs);
+
+    docs.forEach(doc => {
+        deleteDoc(doc.ref);
+    });
+
+    console.log('FIREBASE DELETE ACCOUNT', auth.currentUser?.providerData);
+    await auth.currentUser?.delete();
 }

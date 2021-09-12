@@ -9,10 +9,10 @@ import { useThemeContext } from '../../store/ThemeContext';
 
 import bgImg from '../../assets/min-lower.png';
 import logoImg from '../../assets/logo-trans.png';
-import { useUserContext } from '../../store/UserContext';
+import { useAuthContext } from '../../store/AuthContext';
 
 export default function Intro() {
-    const { user } = useUserContext();
+    const { user } = useAuthContext();
     const { theme } = useThemeContext();
     const s = styles();
     const navigation = useNavigation<IntroNavigationProp>();
