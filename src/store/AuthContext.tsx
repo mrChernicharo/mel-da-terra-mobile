@@ -23,7 +23,7 @@ export interface IAuthContext {
     user: IAppUser | null;
     signIn: (email: string, password: string) => Promise<void>;
     signUp: (username: string, email: string, password: string) => Promise<void>;
-    googleSignIn: () => Promise<boolean>;
+    googleSignIn: () => Promise<void>;
     facebookSignIn: () => Promise<void>;
     logOut: () => Promise<void>;
 }
@@ -33,7 +33,7 @@ export const AuthContext = createContext<IAuthContext>({
     signIn: (email: string, password: string) => new Promise((resolve, reject) => {}),
     signUp: (username: string, email: string, password: string) =>
         new Promise((resolve, reject) => {}),
-    googleSignIn: () => new Promise(Boolean),
+    googleSignIn: () => new Promise((resolve, reject) => {}),
     facebookSignIn: () => new Promise((resolve, reject) => {}),
     logOut: () => new Promise((resolve, reject) => {}),
 });
@@ -105,7 +105,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
                 setUser(newUser);
                 storeUser(newUser);
             }
-            return true;
         } catch (err) {
             throw new Error(`Erro no GoogleSignin em AuthContext. ERRO: ${err}`);
         }

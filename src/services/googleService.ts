@@ -1,11 +1,11 @@
 import * as AuthSession from 'expo-auth-session';
 
-interface IGoogleAuthResponse {
+export interface IGoogleAuthResponse {
     params: { access_token: string };
     type: string;
 }
 
-interface IGoogleUserInfo {
+export interface IGoogleUserInfo {
     email: string;
     family_name: string;
     given_name: string;
