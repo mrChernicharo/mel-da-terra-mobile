@@ -50,10 +50,12 @@ app.json
 
 -------------------------------------
 
-TESTS
+***   TESTS   ***
+
 yarn add jest-expo --dev
 yarn add --dev @testing-library/react-native
 yarn add --dev @testing-library/jest-native
+ yarn add @testing-library/react-hooks -D           
 
 Add this to the package.json:
 
@@ -61,3 +63,7 @@ Add this to the package.json:
     "preset": "jest-expo",
     "setupFilesAfterEnv": ["@testing-library/jest-native/extend-expect"]
 },
+
+or
+
+create a jest.config.js file

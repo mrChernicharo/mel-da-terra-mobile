@@ -83,7 +83,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
 
     async function handleGoogleSignIn() {
         try {
-            const userCredentials = await googleSignIn();
+            const userCredentials = await googleSignIn(); // mock
             console.log(userCredentials);
             if (userCredentials) {
                 const { email, name, picture } = userCredentials;
@@ -94,7 +94,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
                     avatarUrl: picture || '',
                 };
 
-                const userExists = await firestoreGetUser(email);
+                const userExists = await firestoreGetUser(email); // mock
                 console.log('user exists: ' + !!userExists, userExists);
 
                 if (!userExists) {
@@ -148,10 +148,6 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
     async function clearStorage() {
         await userStorage.removeItem();
     }
-
-    // useEffect(() => {
-    //     console.log('UserContext says: ', user);
-    // }, [user]);
 
     useEffect(() => {
         retrieveUser();

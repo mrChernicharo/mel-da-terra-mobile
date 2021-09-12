@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 // import {} from '@testing-library/jest-native';
 
-import Profile from '../../screens/Profile/Profile';
+import Profile from './Profile';
 
 test('Verify if nameInput placeholder is correctly shown', () => {
     const { debug, getByPlaceholderText } = render(<Profile />);
