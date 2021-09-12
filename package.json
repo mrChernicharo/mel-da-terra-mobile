@@ -4,6 +4,7 @@
     "scripts": {
         "start": "expo start",
         "android": "expo start --android",
+        "test": "jest",
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eject": "expo eject"
@@ -34,7 +35,9 @@
     "devDependencies": {
         "@babel/core": "^7.9.0",
         "@testing-library/jest-native": "^4.0.2",
+        "@testing-library/react-hooks": "^7.0.2",
         "@testing-library/react-native": "^7.2.0",
+        "@types/jest": "^27.0.1",
         "@types/react": "~16.9.35",
         "@types/react-native": "~0.63.2",
         "jest-expo": "^42.1.0",
