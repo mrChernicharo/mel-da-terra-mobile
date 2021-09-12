@@ -18,14 +18,12 @@ export default function SignUp() {
 
     async function handleSubmit(email: string, password: string, username?: string) {
         const result = await signUp(username || '', email, password);
+        console.log(result);
 
-        if (result === true) {
-            // TODO: show success snack
-            navigation.push('NewOrder');
-        }
+        // TODO: show success snack
+        navigation.push('NewOrder');
 
         // TODO: show error snack
-        // console.log(result);
     }
 
     return (

@@ -19,7 +19,6 @@ export default function ProductCard({ data, onCardSelected }: IProductCardProps)
     const { theme } = useThemeContext();
     const s = styles();
 
-    // console.log({ img, imgPath });
     function handleCardPress() {
         onCardSelected(data);
     }

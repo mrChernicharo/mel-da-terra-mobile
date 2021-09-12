@@ -16,8 +16,15 @@ export interface IGoogleUserInfo {
 const { GOOGLE_CLIENT_ID } = process.env;
 const { GOOGLE_REDIRECT_URI } = process.env;
 
+const mockUser = {
+    email: 'string7dev@gmail.com',
+    family_name: 'Chernicharo',
+    given_name: 'Felipe',
+    name: 'Felipe Chernicharo',
+    picture: 'any_pic.jpg',
+};
+
 export async function googleSignIn() {
-    console.log('GoogleSignIn called!');
     try {
         const CLIENT_ID = GOOGLE_CLIENT_ID;
         const REDIRECT_URI = GOOGLE_REDIRECT_URI;
@@ -25,11 +32,13 @@ export async function googleSignIn() {
         const SCOPE = encodeURI('profile email');
         const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
-        console.log({ CLIENT_ID, REDIRECT_URI, RESPONSE_TYPE, SCOPE, authUrl });
+        // console.log({ CLIENT_ID, REDIRECT_URI, RESPONSE_TYPE, SCOPE, authUrl });
         const OAuthResponse = await AuthSession.startAsync({ authUrl }); // mock
 
         const { params, type } = OAuthResponse as IGoogleAuthResponse;
         const { access_token } = params;
+
+        if (type === 'testing') return mockUser as IGoogleUserInfo;
 
         if (type === 'success') {
             const response = await fetch(

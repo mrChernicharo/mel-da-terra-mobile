@@ -31,7 +31,6 @@ export default function Login() {
     }
 
     async function handleGoogleSignIn() {
-        // console.log('handle Google sign in!');
         await googleSignIn();
     }
     async function handleFacebookSignIn() {

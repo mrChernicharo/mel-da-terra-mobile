@@ -98,7 +98,6 @@ export async function firebaseEmailPasswordCreateUser(email: string, password: s
 
 export async function firebaseCreateAnonimousUser() {
     const cred = await signInAnonymously(auth);
-    console.log(cred);
     return cred;
 }
 
@@ -112,12 +111,9 @@ export async function _firebaseDeleteAccount(email: string) {
     const querySnap = getDocs(q);
     const docs = (await querySnap).docs;
 
-    console.log('FIRESTORE DELETE. docs a deletar: ', docs);
-
     docs.forEach(doc => {
         deleteDoc(doc.ref);
     });
 
-    console.log('FIREBASE DELETE ACCOUNT', auth.currentUser?.providerData);
     await auth.currentUser?.delete();
 }

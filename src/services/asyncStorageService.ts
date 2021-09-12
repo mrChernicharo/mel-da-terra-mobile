@@ -22,7 +22,9 @@ export async function storeUser(user: IAppUser) {
     const userStorage = useAsyncStorage('user');
 
     const strUser = JSON.stringify(user);
-    await userStorage.setItem(strUser, err => console.log('ERROR: ' + err));
+    await userStorage.setItem(strUser, err => {
+        if (err) console.log('ERROR: ' + err);
+    });
 
     const savedUser = await userStorage.getItem();
     console.log('user added to localstorage :', savedUser);

@@ -53,7 +53,5 @@ export function OrdersContextProvider({ children }: IOrdersContextProps) {
         removeOrderProduct: handleRemoveOrderProduct,
     };
 
-    // useEffect(() => console.log(context), [context]);
-
     return <OrdersContext.Provider value={context}>{children}</OrdersContext.Provider>;
 }

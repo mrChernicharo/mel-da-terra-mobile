@@ -1,23 +1,21 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { startAsync } from 'expo-auth-session';
+import * as authSession from 'expo-auth-session';
 import { _firebaseDeleteAccount } from '../services/firebaseService';
 import { IGoogleAuthResponse, IGoogleUserInfo } from '../services/googleService';
 
 import { AuthContextProvider, useAuthContext } from './AuthContext';
 
-// overwriting external lib behaviors
+// overwriting external lib behavior
 jest.mock('expo-auth-session', () => {
+    const { TEST_GOOGLE_ACCESS_TOKEN } = process.env;
     return {
-        googleSignIn: () => ({
-            type: 'success',
-            user: {
-                email: 'string7dev@gmail',
-                family_name: 'Felipe',
-                given_name: 'Chernicharo',
-                name: 'Felipe Chernicharo',
-                picture: 'any_picture.jpg',
-            } as IGoogleUserInfo,
-        }),
+        startAsync: () =>
+            ({
+                type: 'testing',
+                params: {
+                    access_token: TEST_GOOGLE_ACCESS_TOKEN,
+                },
+            } as IGoogleAuthResponse),
     };
 });
 
@@ -85,19 +83,20 @@ describe('AuthContext', () => {
         expect(result.current.user).toHaveProperty('name');
         expect(result.current.user).toHaveProperty('email', 'teste@teste.com');
 
-        await act(() => result.current.logOut());
         await _firebaseDeleteAccount('teste@teste.com');
+        await act(() => result.current.logOut());
 
         expect(result.current.user).toBeNull();
     });
 
-    // it('should be able to signin with google', async () => {
-    //     const { result } = renderHook(() => useAuthContext(), {
-    //         wrapper: AuthContextProvider,
-    //     });
+    it('should be able to signin with google', async () => {
+        const { result } = renderHook(() => useAuthContext(), {
+            wrapper: AuthContextProvider,
+        });
 
-    //     await act(() => result.current.googleSignIn());
+        await act(() => result.current.googleSignIn());
 
-    //     expect(result.current.user?.email).toEqual('string7dev@gmail');
-    // });
+        expect(result.current.user?.email).toEqual('string7dev@gmail.com');
+        expect(result.current.user?.name).toEqual('Felipe Chernicharo');
+    });
 });

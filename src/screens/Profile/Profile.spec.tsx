@@ -10,7 +10,6 @@ test('Verify if nameInput placeholder is correctly shown', () => {
     // debug(); // exibe todos os elementos da interface em detalhes no terminal, sem precisar abrir o emulador
 
     const nameInput = getByPlaceholderText('Nome');
-    // console.log(nameInput);
 
     expect(nameInput.props.placeholder).toBeTruthy();
     expect(nameInput.props.placeholder).toEqual('Nome');

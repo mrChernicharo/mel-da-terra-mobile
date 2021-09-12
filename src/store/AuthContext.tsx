@@ -84,7 +84,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
     async function handleGoogleSignIn() {
         try {
             const userCredentials = await googleSignIn(); // mock
-            console.log(userCredentials);
             if (userCredentials) {
                 const { email, name, picture } = userCredentials;
                 const newUser: IAppUser = {
@@ -95,7 +94,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
                 };
 
                 const userExists = await firestoreGetUser(email); // mock
-                console.log('user exists: ' + !!userExists, userExists);
 
                 if (!userExists) {
                     await firebaseSaveUser(newUser as IAppUser);
@@ -138,10 +136,9 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
 
     async function storeUser(user: IAppUser) {
         const strUser = JSON.stringify(user);
-        await userStorage.setItem(strUser, err => console.log('ERROR: ' + err));
-
-        // const savedUser = await userStorage.getItem();
-        // console.log('user added to localstorage :', savedUser);
+        await userStorage.setItem(strUser, err => {
+            if (err) console.log('ERROR: ' + err);
+        });
     }
 
     async function clearStorage() {
