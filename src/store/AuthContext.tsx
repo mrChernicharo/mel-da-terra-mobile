@@ -15,7 +15,7 @@ import { generateUUID } from '../utils/helpers';
 import {
     asyncStorageAddUser,
     asyncStorageRetrieveUser,
-    clearAsyncStorage,
+    asyncStorageClearUser,
 } from '../services/asyncStorageService';
 
 export interface IAuthContextProviderProps {
@@ -129,7 +129,7 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
     }
 
     async function clearStorage() {
-        await clearAsyncStorage();
+        await asyncStorageClearUser();
         // await userStorage.removeItem();
     }
 
