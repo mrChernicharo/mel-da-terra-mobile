@@ -15,20 +15,15 @@ export default function LogoutButton({ onPress }: ILogoutBtnProps) {
     const s = styles();
     return (
         <View style={s.container}>
-            <Text style={s.text}>Logout</Text>
+            {/* <Text style={s.text}>Logout</Text> */}
 
             <Button
                 style={s.button}
-                titleStyle={s.button}
+                titleStyle={s.text}
+                title="Logout"
                 type="clear"
-                icon={
-                    <MaterialIcons
-                        name="logout"
-                        size={32}
-                        color={theme === 'light' ? colors.text : colors.primary}
-                        // color={theme === 'light' ? colors.bg : colors.primary}
-                    />
-                }
+                iconRight
+                icon={<MaterialIcons name="logout" size={32} style={s.icon} />}
                 onPress={onPress}
             />
         </View>

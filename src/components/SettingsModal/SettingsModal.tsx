@@ -13,6 +13,7 @@ import styles from './styles';
 
 import favicon from '../../assets/favicon.png';
 import { IAppUser } from '../../utils/interfaces';
+import { Divider } from 'react-native-elements/dist/divider/Divider';
 
 interface ISettingsModalProps {
     user: IAppUser | null;
@@ -56,15 +57,29 @@ export default function SettingsModal({
                 <View style={s.closeContainer}>{closeButton}</View>
 
                 <View style={s.avatarContainer}>
-                    <Image style={s.img} source={user?.avatarUrl || favicon} />
+                    <Image
+                        style={s.img}
+                        source={user?.avatarUrl ? { uri: user?.avatarUrl } : favicon}
+                    />
                     <Text style={s.text}>{user?.name || 'Terra Verde'}</Text>
                 </View>
 
-                <ScrollView style={s.modalContent}>
-                    <ThemeSwitch />
-                    <LogoutButton onPress={logout} />
+                <ScrollView style={s.modalContentWrapper} contentContainerStyle={s.modalContent}>
+                    <View style={s.modalItem}>
+                        <ThemeSwitch />
+                    </View>
+
+                    <Divider />
+
+                    <View style={s.modalItem}>
+                        <LogoutButton onPress={logout} />
+                    </View>
                 </ScrollView>
             </View>
         </Modal>
     );
 }
+
+// async function fetchImgSource() {
+
+// }

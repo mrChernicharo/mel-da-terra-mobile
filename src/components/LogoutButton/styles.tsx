@@ -2,22 +2,26 @@ import { Platform, StyleSheet } from 'react-native';
 import { useThemeContext } from '../../store/ThemeContext';
 
 const styles = () => {
-    const { colors } = useThemeContext();
+    const { colors, theme } = useThemeContext();
 
     return StyleSheet.create({
         container: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: 'flex-end',
             // borderWidth: 1,
         },
         text: {
-            color: colors.text,
             fontSize: 16,
+            color: theme === 'light' ? colors.accent : colors.primary,
         },
         button: {
             height: 48,
-            width: 48,
+            width: 120,
+            alignItems: 'flex-end',
+            transform: [{ translateX: 6 }],
+        },
+        icon: {
+            color: theme === 'light' ? colors.accent : colors.primary,
+            paddingLeft: 3,
         },
     });
 };
