@@ -29,6 +29,7 @@ const styles = () => {
         },
         bgText: { fontSize: 18, color: colors.bgText },
         button: {
+            marginTop: 10,
             minWidth: 300,
             backgroundColor: colors.accent,
         },

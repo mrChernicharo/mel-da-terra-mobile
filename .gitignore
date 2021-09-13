@@ -3,7 +3,7 @@ private.env
 node_modules/
 .expo/
 private/
-coverage/
+coverage
 
 npm-debug.*
 *.jks

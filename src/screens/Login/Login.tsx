@@ -54,7 +54,7 @@ export default function Login() {
                     <View style={s.socialSection}>
                         <Button
                             title="Google"
-                            buttonStyle={[s.socialButton, { marginBottom: 20 }]}
+                            buttonStyle={[s.socialButton]}
                             titleStyle={s.socialButtonText}
                             onPress={handleGoogleSignIn}
                             icon={<Fontisto name="google" style={s.buttonIcon} />}

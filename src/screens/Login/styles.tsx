@@ -25,50 +25,29 @@ const styles = () => {
                 { translateY: Platform.OS === 'android' ? -40 : 0 },
             ],
         },
-        loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32, color: colors.text },
         section: {
             alignItems: 'center',
             justifyContent: 'space-between',
         },
-        sectionTop: {
-            justifyContent: 'space-between',
-        },
-        socialSection: {
-            // flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-        },
-        button: {
-            width: 300,
-            backgroundColor: colors.accent,
-        },
+        loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32, color: colors.text },
+        text: { fontSize: 18, color: colors.text, textAlign: 'center' },
         divider: {
             padding: 10,
             marginTop: 10,
             opacity: 0.5,
         },
-        socialButton: {
-            width: 300,
-            backgroundColor: colors.accent,
-        },
-        text: { fontSize: 18, color: colors.text, textAlign: 'center' },
         separatorText: {
             fontSize: 18,
             color: colors.text,
             marginVertical: 20,
             textAlign: 'center',
         },
-        bgText: { fontSize: 18, color: colors.bgText },
-        linkText: {
-            fontSize: 18,
-            fontWeight: '600',
-            color: colors.accent,
-            textAlign: 'center',
+        socialSection: {
+            // borderWidth: 1,
         },
-        buttonText: {
-            paddingVertical: 4,
-            fontSize: 24,
-            fontWeight: '600',
+        socialButton: {
+            width: 300,
+            backgroundColor: colors.accent,
         },
         socialButtonText: {
             paddingVertical: 7,
@@ -79,6 +58,12 @@ const styles = () => {
             marginRight: 10,
             fontSize: 24,
             color: colors.text,
+        },
+        linkText: {
+            fontSize: 18,
+            fontWeight: '600',
+            color: colors.accent,
+            textAlign: 'center',
         },
     });
 };
