@@ -1,6 +1,9 @@
+private.env
+
 node_modules/
 .expo/
 private/
+
 npm-debug.*
 *.jks
 *.p8
