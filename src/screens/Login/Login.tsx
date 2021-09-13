@@ -20,7 +20,7 @@ import IdentificationForm from '../../components/IdentificationForm/Identificati
 import styles from './styles';
 
 export default function Login() {
-    const { signIn, googleSignIn, facebookSignIn } = useAuthContext();
+    const { signIn, googleSignIn } = useAuthContext();
     const navigation = useNavigation<LoginNavigationProp>();
 
     const s = styles();
@@ -43,11 +43,11 @@ export default function Login() {
             <View style={s.section}>
                 <Text style={s.loginHeaderText}>Login</Text>
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                    <Text style={s.text}>Entre com o seu email</Text>
+                    <Text style={[s.text, { marginBottom: 10 }]}>Entre com o seu email</Text>
 
                     <IdentificationForm onSubmit={handleSubmit} />
 
-                    <Divider width={0.5} style={s.divider} />
+                    <Divider width={0.2} style={s.divider} />
 
                     <Text style={s.separatorText}>Ou entre com</Text>
 
@@ -60,16 +60,16 @@ export default function Login() {
                             icon={<Fontisto name="google" style={s.buttonIcon} />}
                         />
 
-                        <Button
+                        {/* <Button
                             title="Facebook"
                             buttonStyle={s.socialButton}
                             titleStyle={s.socialButtonText}
                             onPress={handleFacebookSignIn}
                             icon={<Fontisto name="facebook" style={s.buttonIcon} />}
-                        />
+                        /> */}
                     </View>
 
-                    <Divider width={0.5} style={s.divider} />
+                    <Divider width={0.2} style={s.divider} />
 
                     <Text style={[s.text, { marginTop: 20, marginBottom: 6 }]}>
                         Primeira vez por aqui?

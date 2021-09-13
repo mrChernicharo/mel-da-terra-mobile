@@ -1,9 +1,12 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, useWindowDimensions } from 'react-native';
 import { IAppTheme, useThemeContext } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
 const styles = () => {
     const { colors } = useThemeContext();
+
+    // const { height } = useWindowDimensions();
+    // console.log('login height: ', height);
 
     return StyleSheet.create({
         container: {
@@ -17,9 +20,9 @@ const styles = () => {
             width: Platform.OS === 'android' ? 500 : '100%',
             borderRadius: Platform.OS === 'android' ? 6 : 0,
             transform: [
-                { scale: Platform.OS === 'android' ? 0.88 : 1 },
+                { scale: Platform.OS === 'android' ? 0.92 : 1 },
                 { translateX: Platform.OS === 'android' ? -50 : 0 },
-                { translateY: Platform.OS === 'android' ? -70 : 0 },
+                { translateY: Platform.OS === 'android' ? -40 : 0 },
             ],
         },
         loginHeaderText: { fontSize: 24, marginBottom: 20, marginTop: 32, color: colors.text },
@@ -42,6 +45,7 @@ const styles = () => {
         divider: {
             padding: 10,
             marginTop: 10,
+            opacity: 0.5,
         },
         socialButton: {
             width: 300,

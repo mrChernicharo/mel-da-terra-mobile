@@ -1,9 +1,10 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, useWindowDimensions } from 'react-native';
 import { IAppTheme, useThemeContext } from '../../store/ThemeContext';
 import { AppColors } from '../../styles/colors';
 
 const styles = () => {
     const { colors } = useThemeContext();
+    const { width, height } = useWindowDimensions();
 
     return StyleSheet.create({
         container: {
@@ -52,6 +53,7 @@ const styles = () => {
         buttonContainer: {
             backgroundColor: colors.bg,
             width: '100%',
+            height: Platform.OS === 'ios' ? 180 : 160,
             position: 'absolute',
             bottom: 0,
             left: 0,
