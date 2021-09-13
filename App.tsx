@@ -9,6 +9,14 @@ import { ThemeContextProvider } from './src/store/ThemeContext';
 import { AuthContextProvider } from './src/store/AuthContext';
 
 export default function App() {
+    async function callFunction() {
+        const res = await fetch('https://us-central1-mel-da-terra.cloudfunctions.net/helloWorld');
+        const data = await res.json();
+
+        console.log(data);
+    }
+
+    callFunction();
     return (
         <ThemeContextProvider>
             <AuthContextProvider>
