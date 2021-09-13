@@ -1,23 +1,16 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import * as authSession from 'expo-auth-session';
+import { mocked } from 'ts-jest/utils';
+import fetchMock from 'jest-fetch-mock';
+
 import { _firebaseDeleteAccount } from '../services/firebaseService';
 import { IGoogleAuthResponse, IGoogleUserInfo } from '../services/googleService';
-
 import { AuthContextProvider, useAuthContext } from './AuthContext';
+import { startAsync } from 'expo-auth-session';
 
-// overwriting external lib behavior
-jest.mock('expo-auth-session', () => {
-    const { TEST_GOOGLE_ACCESS_TOKEN } = process.env;
-    return {
-        startAsync: () =>
-            ({
-                type: 'testing',
-                params: {
-                    access_token: TEST_GOOGLE_ACCESS_TOKEN,
-                },
-            } as IGoogleAuthResponse),
-    };
-});
+// mock lib behavior. Works together with { mocked }
+jest.mock('expo-auth-session');
+
+fetchMock.enableMocks();
 
 describe('AuthContext', () => {
     it('should be able to signin with password and email', async () => {
@@ -90,6 +83,26 @@ describe('AuthContext', () => {
     });
 
     it('should be able to signin with google', async () => {
+        const { TEST_GOOGLE_ACCESS_TOKEN } = process.env;
+
+        const googleMock = mocked(startAsync as any);
+
+        googleMock.mockReturnValueOnce({
+            type: 'success',
+            params: {
+                access_token: TEST_GOOGLE_ACCESS_TOKEN,
+            },
+        });
+
+        fetchMock.mockResponseOnce(
+            JSON.stringify({
+                id: 'any_id',
+                email: 'string7dev@gmail.com',
+                name: 'Felipe Chernicharo',
+                photo: 'any_photo.png',
+            })
+        );
+
         const { result } = renderHook(() => useAuthContext(), {
             wrapper: AuthContextProvider,
         });
@@ -98,5 +111,23 @@ describe('AuthContext', () => {
 
         expect(result.current.user?.email).toEqual('string7dev@gmail.com');
         expect(result.current.user?.name).toEqual('Felipe Chernicharo');
+    });
+
+    it('should not connect with google when login process is canceled', async () => {
+        const googleMock = mocked(startAsync as any);
+
+        googleMock.mockReturnValueOnce({
+            type: 'cancel',
+        });
+
+        const { result } = renderHook(() => useAuthContext(), {
+            wrapper: AuthContextProvider,
+        });
+
+        await act(() => result.current.googleSignIn());
+
+        console.log(result.current.user);
+
+        expect(result.current.user).toBeNull();
     });
 });
