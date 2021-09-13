@@ -1,5 +1,8 @@
 module.exports = {
     preset: 'jest-expo',
-    verbose: true,
     setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+    verbose: true,
+    collectCoverage: true,
+    collectCoverageFrom: ['src/**/store/*.tsx', '!src/**/*.spec.tsx'],
+    collectReporters: ['json', 'lcov'],
 };

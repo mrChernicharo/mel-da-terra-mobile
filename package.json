@@ -5,6 +5,8 @@
         "start": "expo start",
         "android": "expo start --android",
         "test": "jest",
+        "test:w": "jest --watchAll",
+        "test:c": "jest --coverage",
         "ios": "expo start --ios",
         "web": "expo start --web",
         "eject": "expo eject"

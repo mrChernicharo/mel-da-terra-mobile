@@ -2,10 +2,10 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { mocked } from 'ts-jest/utils';
 import fetchMock from 'jest-fetch-mock';
 
-import { _firebaseDeleteAccount } from '../services/firebaseService';
-import { IGoogleAuthResponse, IGoogleUserInfo } from '../services/googleService';
-import { AuthContextProvider, useAuthContext } from './AuthContext';
 import { startAsync } from 'expo-auth-session';
+
+import { _firebaseDeleteAccount } from '../services/firebaseService';
+import { AuthContextProvider, useAuthContext } from './AuthContext';
 
 // mock lib behavior. Works together with { mocked }
 jest.mock('expo-auth-session');
