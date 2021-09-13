@@ -32,11 +32,10 @@ export interface IAuthContext {
 
 export const AuthContext = createContext<IAuthContext>({
     user: null,
-    signIn: (email: string, password: string) => new Promise((resolve, reject) => {}),
-    signUp: (username: string, email: string, password: string) =>
-        new Promise((resolve, reject) => {}),
-    googleSignIn: () => new Promise((resolve, reject) => {}),
-    logOut: () => new Promise((resolve, reject) => {}),
+    signIn: (email: string, password: string) => new Promise(() => {}),
+    signUp: (username: string, email: string, password: string) => new Promise(() => {}),
+    googleSignIn: () => new Promise(() => {}),
+    logOut: () => new Promise(() => {}),
 });
 
 export function AuthContextProvider({ children }: IAuthContextProviderProps) {

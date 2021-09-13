@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act, WaitFor } from '@testing-library/react-hooks';
 import { mocked } from 'ts-jest/utils';
 import fetchMock from 'jest-fetch-mock';
 
@@ -25,7 +25,7 @@ describe('AuthContext', () => {
         expect(result.current.user).toBeTruthy();
     });
 
-    it('should be able to login and logout', async () => {
+    it('should be able to login and to logout', async () => {
         const { result } = renderHook(() => useAuthContext(), {
             wrapper: AuthContextProvider,
         });
@@ -37,11 +37,27 @@ describe('AuthContext', () => {
         expect(result.current.user).toBeTruthy();
         expect(result.current.user).toHaveProperty('id');
         expect(result.current.user).toHaveProperty('name');
-        expect(result.current.user).toHaveProperty('email');
+        expect(result.current.user).toHaveProperty('email', 'mari@weiss.com');
 
         await act(() => result.current.logOut());
 
         expect(result.current.user).toBeNull();
+    });
+
+    it('should throw error when login attempt is made with invalid password/email', async () => {
+        const { result } = renderHook(() => useAuthContext(), {
+            wrapper: AuthContextProvider,
+        });
+
+        expect(result.current.user).toBeNull();
+
+        try {
+            await act(() => result.current.signIn('invalid@email.com', 'invalid_pass'));
+        } catch (err) {
+            expect(
+                '[Error: Não foi possível logar. Verifique a combinação email/senha e tente novamente. ERRO: FirebaseError: Firebase: Error (auth/user-not-found).]'
+            ).toContain(err);
+        }
     });
 
     it('should be able to create a new account with password and email', async () => {
