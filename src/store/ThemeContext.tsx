@@ -1,4 +1,9 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import {
+    asyncStorageGetFavoriteTheme,
+    asyncStorageSetFavoriteTheme,
+} from '../services/asyncStorageService';
+
 import { AppColors } from '../styles/colors';
 
 export type IAppTheme = 'light' | 'dark';
@@ -18,12 +23,23 @@ export const ThemeContext = createContext<IThemeContext>({
 });
 
 export function ThemeContextProvider({ children }: IThemeContextProviderProps) {
-    const [theme, setTheme] = useState<IAppTheme>('light');
+    const [theme, setTheme] = useState<IAppTheme>('dark');
 
     function handleToggleTheme() {
         const t = theme === 'dark' ? 'light' : 'dark';
         setTheme(t);
+        asyncStorageSetFavoriteTheme(t);
     }
+
+    async function retrieveTheme() {
+        const favorite = await asyncStorageGetFavoriteTheme();
+        console.log('retrieved theme: ', favorite);
+        setTheme(favorite);
+    }
+
+    useEffect(() => {
+        retrieveTheme();
+    }, []);
 
     const context: IThemeContext = {
         theme,

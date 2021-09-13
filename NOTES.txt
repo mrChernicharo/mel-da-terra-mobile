@@ -69,5 +69,19 @@ or
 create a jest.config.js file
 
 
+module.exports = {
+    preset: 'jest-expo',
+    setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+    verbose: true,
+    collectCoverage: true,
+    collectCoverageFrom: ['src/**/.tsx', '!src/**/*.spec.tsx'],
+    collectReports: ['json', 'lcov'],
+};
+
+*
 tests inside a __tests__ dir will run without .spec or .test extensitons
 files with .spec or .test will be run regardless of their position
+
+
+
+yarn test --coverage

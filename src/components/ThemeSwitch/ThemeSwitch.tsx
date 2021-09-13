@@ -23,7 +23,7 @@ export default function ThemeSwitch() {
         );
     return (
         <View style={s.container}>
-            <Text style={s.text}>Tema {theme === 'light' ? 'escuro' : 'claro'}</Text>
+            <Text style={s.text}>Usar tema {theme === 'light' ? 'escuro' : 'claro'}</Text>
             <View style={s.switchContainer}>
                 {theme === 'dark' && themeIcon}
                 <Switch

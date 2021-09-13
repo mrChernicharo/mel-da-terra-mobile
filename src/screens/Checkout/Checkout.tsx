@@ -12,7 +12,6 @@ import { IOrderProduct } from '../../utils/interfaces';
 export default function Checkout() {
     const { theme } = useThemeContext();
     const s = styles();
-    const { width, height } = useWindowDimensions();
 
     const { currentOrder } = useContext(OrdersContext);
     const products = currentOrder?.products as IOrderProduct[];
@@ -39,7 +38,7 @@ export default function Checkout() {
                 ))}
             </ScrollView>
 
-            <View style={[s.buttonContainer, { top: height - 280 }]}>
+            <View style={s.buttonContainer}>
                 <Text style={[s.headingText, { marginBottom: 20 }]}>
                     Valor total: {reducedPrice}
                 </Text>

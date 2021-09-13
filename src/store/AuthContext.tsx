@@ -1,7 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-
 import {
     firestoreGetUser,
     firebaseSaveUser,
@@ -14,6 +12,11 @@ import {
 import { googleSignIn } from '../services/googleService';
 import { IAppUser } from '../utils/interfaces';
 import { generateUUID } from '../utils/helpers';
+import {
+    asyncStorageAddUser,
+    asyncStorageRetrieveUser,
+    asyncStorageClearUser,
+} from '../services/asyncStorageService';
 
 export interface IAuthContextProviderProps {
     children: ReactNode;
@@ -24,7 +27,6 @@ export interface IAuthContext {
     signIn: (email: string, password: string) => Promise<void>;
     signUp: (username: string, email: string, password: string) => Promise<void>;
     googleSignIn: () => Promise<void>;
-    facebookSignIn: () => Promise<void>;
     logOut: () => Promise<void>;
 }
 
@@ -34,13 +36,12 @@ export const AuthContext = createContext<IAuthContext>({
     signUp: (username: string, email: string, password: string) =>
         new Promise((resolve, reject) => {}),
     googleSignIn: () => new Promise((resolve, reject) => {}),
-    facebookSignIn: () => new Promise((resolve, reject) => {}),
     logOut: () => new Promise((resolve, reject) => {}),
 });
 
 export function AuthContextProvider({ children }: IAuthContextProviderProps) {
     const [user, setUser] = useState<IAppUser | null>(null);
-    const userStorage = useAsyncStorage('user');
+    // const userStorage = useAsyncStorage('user');
 
     async function handleSignIn(email: string, password: string) {
         try {
@@ -108,10 +109,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
         }
     }
 
-    async function handleFacebookSignIn() {
-        await new Promise(() => {});
-    }
-
     async function handleLogout() {
         await firebaseSignOut();
         setUser(null);
@@ -121,28 +118,19 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
     // AsyncStorage
     // TODO: Abstract AsyncStorage Logics to a separate service
 
-    function retrieveUser() {
-        userStorage.getItem((err, data) => {
-            if (!data) return;
-
-            const userData = JSON.parse(data as string) as IAppUser;
-            setUser(userData);
-
-            if (err) {
-                console.log(err);
-            }
-        });
+    async function retrieveUser() {
+        const userInfo = await asyncStorageRetrieveUser();
+        console.log('retrieved user', userInfo);
+        setUser(u => userInfo);
     }
 
     async function storeUser(user: IAppUser) {
-        const strUser = JSON.stringify(user);
-        await userStorage.setItem(strUser, err => {
-            if (err) console.log('ERROR: ' + err);
-        });
+        await asyncStorageAddUser(user);
     }
 
     async function clearStorage() {
-        await userStorage.removeItem();
+        await asyncStorageClearUser();
+        // await userStorage.removeItem();
     }
 
     useEffect(() => {
@@ -154,7 +142,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
         signIn: handleSignIn,
         signUp: handleSignUp,
         googleSignIn: handleGoogleSignIn,
-        facebookSignIn: handleFacebookSignIn,
         logOut: handleLogout,
     };
 
